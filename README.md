@@ -64,6 +64,3 @@ Detailed documentation for various features can be found in the `docs/` director
    npm run test:e2e
    ```
 
-## Academic Submission
-
-This repository contains the full source code and documentation for the Smart Financial Tracker project. The final report is located in `docs/reports/FYP_Final_Report_SFT (1).md`.
