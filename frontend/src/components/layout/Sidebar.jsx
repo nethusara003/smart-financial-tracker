@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { 
   LayoutDashboard, 
@@ -72,6 +71,7 @@ const SidebarSection = ({ label, collapsed, children }) => (
   </div>
 );
 
+// eslint-disable-next-line no-unused-vars
 const SidebarItem = ({ icon: Icon, label, to, collapsed }) => (
   <NavLink
     to={to}

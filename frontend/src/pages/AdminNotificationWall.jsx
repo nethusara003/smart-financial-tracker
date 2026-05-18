@@ -93,7 +93,6 @@ const RESOLVED_EVENTS = [
 const AdminNotificationWall = () => {
   const toast = useToast();
   const [filter, setFilter] = useState("all");
-  const [expandedId, setExpandedId] = useState(null);
 
   const currentUser = getAuth()?.user || null;
   const isSuperAdmin = currentUser?.role === "super_admin";

@@ -85,6 +85,7 @@ function Login({ setAuth }) {
       }, 100);
       return () => clearInterval(checkInterval);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const completeAuthenticatedLogin = (data) => {
