@@ -28,8 +28,13 @@ function Register() {
       return;
     }
 
-    if (password.length < 6) {
-      setError("Password must be at least 6 characters long");
+    const strongPassword =
+      password.length >= 8 &&
+      /[a-zA-Z]/.test(password) &&
+      /\d/.test(password);
+
+    if (!strongPassword) {
+      setError("Password must be at least 8 characters long, and contain both letters and numbers");
       return;
     }
 
@@ -58,11 +63,19 @@ function Register() {
   const getPasswordStrength = (pwd) => {
     if (!pwd) return { strength: 0, label: '', color: '' };
     let strength = 0;
-    if (pwd.length >= 6) strength++;
-    if (pwd.length >= 10) strength++;
-    if (/[a-z]/.test(pwd) && /[A-Z]/.test(pwd)) strength++;
-    if (/\d/.test(pwd)) strength++;
-    if (/[^a-zA-Z\d]/.test(pwd)) strength++;
+    
+    const hasLetters = /[a-zA-Z]/.test(pwd);
+    const hasNumbers = /\d/.test(pwd);
+    const hasSpecial = /[^a-zA-Z\d]/.test(pwd);
+    
+    if (pwd.length >= 8 && hasLetters && hasNumbers) {
+      strength = 2; // Fair
+      if (pwd.length >= 10) strength++;
+      if (/[a-z]/.test(pwd) && /[A-Z]/.test(pwd)) strength++;
+      if (hasSpecial) strength++;
+    } else {
+      strength = 1; // Weak
+    }
 
     const labels = ['', 'Weak', 'Fair', 'Good', 'Strong', 'Very Strong'];
     const colors = ['', 'bg-danger-500', 'bg-warning-500', 'bg-warning-400', 'bg-success-500', 'bg-success-600'];

@@ -313,6 +313,11 @@ export default function Settings({ auth }) {
       toast.warning("Password must be at least 8 characters!");
       return;
     }
+    
+    if (!/[a-zA-Z]/.test(passwordData.newPassword) || !/\d/.test(passwordData.newPassword)) {
+      toast.warning("Password must contain both letters and numbers!");
+      return;
+    }
 
     try {
       await changePasswordMutation.mutateAsync({
@@ -910,9 +915,7 @@ export default function Settings({ auth }) {
                   </h4>
                   <ul className="text-sm text-blue-700 dark:text-blue-400 space-y-1 ml-7">
                     <li>• At least 8 characters long</li>
-                    <li>• Include uppercase and lowercase letters</li>
-                    <li>• Include at least one number</li>
-                    <li>• Include at least one special character</li>
+                    <li>• Contain both letters and numbers</li>
                   </ul>
                 </div>
 

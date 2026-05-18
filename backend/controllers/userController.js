@@ -257,6 +257,18 @@ export const registerUser = async (req, res) => {
       return res.status(400).json({ message: "User already exists" });
     }
 
+    const strongPassword =
+      password.length >= 8 &&
+      /[a-zA-Z]/.test(password) &&
+      /\d/.test(password);
+
+    if (!strongPassword) {
+      return res.status(400).json({
+        message:
+          "Password must be at least 8 characters long, and contain both letters and numbers",
+      });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await User.create({
@@ -382,13 +394,13 @@ export const resetPassword = async (req, res) => {
     // 🔐 Backend password validation
     const strongPassword =
       newPassword.length >= 8 &&
-      /[A-Z]/.test(newPassword) &&
+      /[a-zA-Z]/.test(newPassword) &&
       /\d/.test(newPassword);
 
     if (!strongPassword) {
       return res.status(400).json({
         message:
-          "Password must be at least 8 characters long, contain one uppercase letter and one number",
+          "Password must be at least 8 characters long, and contain both letters and numbers",
       });
     }
 
@@ -750,8 +762,16 @@ export const changePassword = async (req, res) => {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    if (newPassword.length < 8) {
-      return res.status(400).json({ message: "Password must be at least 8 characters long" });
+    const strongPassword =
+      newPassword.length >= 8 &&
+      /[a-zA-Z]/.test(newPassword) &&
+      /\d/.test(newPassword);
+
+    if (!strongPassword) {
+      return res.status(400).json({
+        message:
+          "Password must be at least 8 characters long, and contain both letters and numbers",
+      });
     }
 
     const user = await User.findById(userId);
