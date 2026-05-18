@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
 const GROQ_REQUEST_TIMEOUT_MS = 20000;
 const GROQ_MODEL = process.env.GROQ_MODEL || "llama-3.1-8b-instant";
@@ -99,21 +101,10 @@ const buildCompactRetryUserPrompt = (userPrompt) => {
 };
 
 const callGroqApi = async ({ apiKey, systemPrompt, userPrompt, maxTokens }) => {
-  let response;
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => {
-    controller.abort();
-  }, GROQ_REQUEST_TIMEOUT_MS);
-
   try {
-    response = await fetch(GROQ_API_URL, {
-      method: "POST",
-      signal: controller.signal,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
+    const response = await axios.post(
+      GROQ_API_URL,
+      {
         model: GROQ_MODEL,
         messages: [
           { role: "system", content: systemPrompt },
@@ -123,10 +114,35 @@ const callGroqApi = async ({ apiKey, systemPrompt, userPrompt, maxTokens }) => {
         top_p: 0.9,
         max_tokens: maxTokens,
         presence_penalty: 0.3,
-      }),
-    });
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+        },
+        timeout: GROQ_REQUEST_TIMEOUT_MS,
+      }
+    );
+
+    const payload = response.data;
+    const aiText = payload?.choices?.[0]?.message?.content;
+
+    if (typeof aiText !== "string" || aiText.trim().length === 0) {
+      return {
+        ok: false,
+        status: 502,
+        message: "Groq API returned an empty response",
+      };
+    }
+
+    return {
+      ok: true,
+      reply: aiText.trim(),
+      usage: normalizeUsage(payload?.usage),
+      model: String(payload?.model || GROQ_MODEL),
+    };
   } catch (error) {
-    if (error?.name === "AbortError") {
+    if (error.code === "ECONNABORTED" || error.message?.includes("timeout")) {
       return {
         ok: false,
         status: 504,
@@ -134,50 +150,15 @@ const callGroqApi = async ({ apiKey, systemPrompt, userPrompt, maxTokens }) => {
       };
     }
 
+    const status = error.response?.status || 502;
+    const message = error.response?.data?.error?.message || error.message || "Failed to reach Groq API";
+
     return {
       ok: false,
-      status: 502,
-      message: "Failed to reach Groq API",
-    };
-  } finally {
-    clearTimeout(timeoutId);
-  }
-
-  let payload = null;
-  try {
-    payload = await response.json();
-  } catch {
-    return {
-      ok: false,
-      status: 502,
-      message: "Invalid response received from Groq API",
+      status,
+      message,
     };
   }
-
-  if (!response.ok) {
-    return {
-      ok: false,
-      status: response.status,
-      message: payload?.error?.message || "Groq API request failed",
-    };
-  }
-
-  const aiText = payload?.choices?.[0]?.message?.content;
-
-  if (typeof aiText !== "string" || aiText.trim().length === 0) {
-    return {
-      ok: false,
-      status: 502,
-      message: "Groq API returned an empty response",
-    };
-  }
-
-  return {
-    ok: true,
-    reply: aiText.trim(),
-    usage: normalizeUsage(payload?.usage),
-    model: String(payload?.model || GROQ_MODEL),
-  };
 };
 
 export const generateGroqReply = async ({ systemPrompt, userPrompt }) => {
