@@ -9,13 +9,23 @@ import {
 
 import requireAuth from "../middleware/requireAuth.js";
 import requireAdmin from "../middleware/requireAdmin.js";
+import requireSuperAdmin from "../middleware/requireSuperAdmin.js";
 import { acceptAdminInvite } from "../controllers/adminAcceptController.js";
 
 import {
   getUserTransactions,
   getAllTransactions,
-  getAdminAnalytics, // ✅ ADDED
 } from "../controllers/adminTransactionController.js";
+import { getAdminAnalyticsOverview } from "../controllers/adminAnalyticsController.js";
+
+import {
+  requestPromotion,
+  reviewPromotion,
+  userRespondToPromotion,
+  getPromotionRequests,
+  getAdminWallNotifications,
+  markAdminWallNotificationRead,
+} from "../controllers/promotionWorkflowController.js";
 
 const router = express.Router();
 
@@ -42,6 +52,20 @@ router.patch(
 );
 
 /* =========================
+   PROMOTION WORKFLOW
+========================= */
+router.post("/promotions/request", requireAuth, requireAdmin, requestPromotion);
+router.patch("/promotions/:requestId/review", requireAuth, requireSuperAdmin, reviewPromotion);
+router.patch("/promotions/:requestId/respond", requireAuth, userRespondToPromotion);
+router.get("/promotions", requireAuth, requireAdmin, getPromotionRequests);
+
+/* =========================
+   ADMIN NOTIFICATION WALL
+========================= */
+router.get("/wall-notifications", requireAuth, requireAdmin, getAdminWallNotifications);
+router.patch("/wall-notifications/:id/read", requireAuth, requireAdmin, markAdminWallNotificationRead);
+
+/* =========================
    TRANSACTIONS
 ========================= */
 router.get(
@@ -65,7 +89,7 @@ router.get(
   "/analytics/overview",
   requireAuth,
   requireAdmin,
-  getAdminAnalytics
+  getAdminAnalyticsOverview
 );
 
 /* =========================

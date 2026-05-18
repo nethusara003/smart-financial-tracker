@@ -4,7 +4,15 @@ const adminAuditSchema = new mongoose.Schema(
   {
     action: {
       type: String,
-      enum: ["PROMOTE", "DEMOTE"],
+      enum: [
+        "PROMOTE",
+        "DEMOTE",
+        "PROMOTION_REQUESTED",
+        "PROMOTION_APPROVED",
+        "PROMOTION_REJECTED",
+        "PROMOTION_ACCEPTED_BY_USER",
+        "PROMOTION_DECLINED_BY_USER",
+      ],
       required: true,
     },
 
@@ -22,7 +30,7 @@ const adminAuditSchema = new mongoose.Schema(
 
     performedByRole: {
       type: String,
-      enum: ["admin", "super_admin"],
+      enum: ["admin", "super_admin", "user"],
       required: true,
     },
   },

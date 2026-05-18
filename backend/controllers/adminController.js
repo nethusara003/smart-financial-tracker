@@ -91,51 +91,14 @@ export const inviteAdmin = async (req, res) => {
 };
 
 /* =========================
-   PROMOTE USER → ADMIN
+   PROMOTE USER → ADMIN (DEPRECATED)
+   Use POST /admin/promotions/request instead.
 ========================= */
 export const promoteToAdmin = async (req, res) => {
-  try {
-    if (!["admin", "super_admin"].includes(req.user.role)) {
-      return res.status(403).json({
-        message: "You are not allowed to promote users",
-      });
-    }
-
-    const { userId } = req.params;
-
-    if (req.user.id === userId) {
-      return res.status(400).json({
-        message: "You cannot change your own role",
-      });
-    }
-
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    if (user.role !== "user") {
-      return res.status(400).json({
-        message: "Only users can be promoted to admin",
-      });
-    }
-
-    user.role = "admin";
-    await user.save();
-
-    // ✅ AUDIT LOG
-    await AdminAudit.create({
-      action: "PROMOTE",
-      performedBy: req.user.id,
-      targetUser: user._id,
-      performedByRole: req.user.role,
-    });
-
-    res.json({ message: "User promoted to admin" });
-  } catch (error) {
-    console.error("Promote error:", error);
-    res.status(500).json({ message: "Server error" });
-  }
+  return res.status(400).json({
+    message:
+      "Direct promotion is disabled. Use POST /admin/promotions/request to initiate the approval workflow.",
+  });
 };
 
 /* =========================
