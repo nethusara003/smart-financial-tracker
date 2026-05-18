@@ -519,12 +519,6 @@ const Transactions = ({ auth }) => {
               <h3 className="text-base font-semibold text-light-text-primary dark:text-dark-text-primary">
                 Transactions ({sortedTransactions.length}) - {tableScopeLabel}
               </h3>
-              <div className="flex items-center gap-2">
-                <button className="px-3 py-1.5 text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text-primary dark:hover:text-dark-text-primary text-sm transition-colors flex items-center gap-1">
-                  <Download className="w-4 h-4" />
-                  Export
-                </button>
-              </div>
             </div>
           </div>
 
