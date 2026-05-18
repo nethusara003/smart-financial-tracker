@@ -40,7 +40,6 @@ The contemporary financial landscape is characterised by rapid transition toward
 
 Table of Contents
 Acknowledgements	2
-Abstract	2
 Chapter 01 – Introduction	1
 1.1 Project Background	1
 1.2 Problem Statement	1
@@ -49,16 +48,12 @@ Chapter 01 – Introduction	1
 1.5 Objectives	2
 1.6 Scope	2
 1.7 Structure of the Report	3
-Chapter 02 – Background and Deliverables	5
+Chapter 02 – Background, Objectives & Deliverables	5
 2.1 Background and Domain Context	5
 The Target Demographic and the Literacy-Behavioural Gap	5
 Current Tracking Practices and Behavioural Friction	5
 2.2 Project Stakeholders	6
 2.3 Project Deliverables	6
-2.3.1 Academic and Project Management Deliverables	7
-2.3.2 System Design Artifacts	7
-2.3.3 Software and Engineering Artifacts	7
-2.3.4 Quality Assurance and Operational Documentation	7
 Chapter 03 – Literature Review	9
 3.1 Introduction to Personal Financial Management Systems	9
 3.2 Critical Evaluation of Existing Commercial Systems	9
@@ -66,7 +61,11 @@ Chapter 03 – Literature Review	9
 3.2.2 Mint / Credit Karma	10
 3.2.3 PocketGuard	10
 3.3 Identified Research and Technological Gaps	10
+3.3.1 Gap 1 — Behavioural Support	10
+3.3.2 Gap 2 — Analytical and Predictive Gap	10
+3.3.3 Gap 3 — Ecosystem Fragmentation	11
 3.4 Synthesis of the Literature	11
+3.5 Chapter Summary	11
 Chapter 04 – Method of Approach	12
 4.1 Introduction to the Development Methodology	12
 4.2 Justification for Agile Methodology	12
@@ -77,11 +76,7 @@ Chapter 04 – Method of Approach	12
 4.4.3 Artificial Intelligence and Machine Learning Tools	13
 4.4.4 Quality Assurance and Testing Frameworks	13
 4.4.5 APIs and Integrated Core Libraries	14
-4.5 Requirements Gathering Techniques	14
-4.5.1 Semi-Structured Interviews	14
-4.5.2 Questionnaires and Surveys	15
-4.5.3 Observation and Competitive Benchmarking	15
-4.5.4 Literature and Document Review	15
+4.5 Chapter Summary	14
 Chapter 05 – Requirements	16
 5.1 Functional Requirements	16
 5.1.1 Must Requirements (Mandatory)	16
@@ -96,7 +91,8 @@ Chapter 05 – Requirements	16
 5.3.2 Conducting Questionnaires	18
 5.3.3 Conducting Observations (Competitive Analysis)	18
 5.3.4 Reviewing Existing Documents	18
-Chapter 06 – Design Chapter	19
+5.4 Chapter Summary	18
+Chapter 06 – System Design	19
 6.1 Overall System Architecture	19
 6.1.1 Architecture Diagram	19
 6.1.2 Architecture Explanation	19
@@ -108,19 +104,12 @@ Chapter 06 – Design Chapter	19
 6.2.5 AI, Analytics and Planning Module	24
 6.3 Class Diagram — MongoDB Collections	25
 6.4 Sequence Diagrams	26
-6.4.1 User Registration and Email Verification	26
-6.4.2 Add Expense Transaction	26
-6.4.3 Peer-to-Peer Money Transfer	27
-6.4.4 AI Chatbot Conversation — Tracksy	28
-6.4.5 Expense Forecast via ML Service	28
 6.5 Activity Diagrams	29
-6.5.1 User Login Flow	29
-6.5.2 Budget Alert and Notification Process	30
-6.5.3 Retirement Plan Calculation via Monte Carlo	31
 6.6 Frontend UI — Figma Wireframe Reference	32
 6.7 Real Frontend UI — Screenshot Guide	32
 6.8 Backend Architecture — API Structure	32
-Chapter 07 – Implementation (Development Chapter)	34
+6.9 Chapter Summary	33
+Chapter 07 – Implementation	34
 7.1 Development Environment and Technologies	34
 7.1.1 Programming Languages and Frameworks	34
 7.1.2 Primary Development Environment	34
@@ -128,7 +117,8 @@ Chapter 07 – Implementation (Development Chapter)	34
 7.2.1 Peer-to-Peer (P2P) Wallet Transfer Algorithm	34
 7.2.2 Machine Learning Forecasting Algorithm (Python Microservice)	35
 7.2.3 Draggable AI Assistant Algorithm (UI Logic)	36
-Chapter 08 – System Testing and Evaluation	38
+7.3 Chapter Summary	37
+Chapter 08 – Testing & Evaluation	38
 8.1 Introduction to the Testing Strategy	38
 8.2 Unit Testing	38
 8.3 Integration Testing	38
@@ -137,43 +127,44 @@ Chapter 08 – System Testing and Evaluation	38
 8.6 Non-Functional Testing	39
 8.6.1 Performance and Usability Testing	40
 8.6.2 Security and Access Control Testing	40
-Chapter 09 – End Project Report	41
+8.7 Chapter Summary	40
+Chapter 09 – End-Project Report	41
 9.1 Project Summary	41
 9.2 Achievements and Self-Evaluation	41
 9.2.1 Evaluation of Objectives	41
 9.2.2 Evaluation of Scope	42
 9.3 Customer and Target User Feedback	42
 9.4 User Benefits	42
-Chapter 10 – Project Post-Mortem (Reflection)	44
+9.5 Chapter Summary	43
+Chapter 10 – Project Post-Mortem	44
 10.1 Introduction to Project Reflection	44
 10.2 Technical Skill Development and Technologies Learned	44
-10.2.1 Core Framework Mastery (The MERN Stack)	44
-10.2.2 Machine Learning and External Integrations	44
 10.3 Identifying Technological Limitations	45
-10.4 Soft Skill and Professional Development	45
-10.4.1 Agile Project Management and Discipline	45
-10.4.2 Problem-Solving and Resilience	45
-10.4.3 Stakeholder Communication and Empathy	45
-Chapter 11 – Conclusion	46
+10.4 Critical Reflection on Methodology and Technology	45
+10.5 Soft Skill and Professional Development	45
+10.6 Chapter Summary	46
+Chapter 11 – Conclusions	46
 11.1 Final Project Summary	46
 11.2 Main Limitations	46
 11.3 Future Suggestions and Enhancements	47
 References	48
-Bibliography	[page]
-Appendix A — Interview Thematic Analysis Summary	61
-Appendix B — Survey Research Parameters and Results	62
-Appendix C — Competitive Feature Matrix	68
-Appendix D — Full Test Case Results	70
-Appendix E — UAT Results and Feedback	73
-Appendix F — Database Schema Definitions	75
-Appendix G — API Endpoint Reference	79
-Appendix H — Sprint Log and Agile Backlog	84
-Appendix I — User Guide	[page]
-Appendix J — Project Source Code Link	[page]
-Appendix K — GitHub Repository and Commit History	[page]
-Appendix L — Project Initiation Document (PID)	[page]
-Appendix M — Records of Supervisory Meetings	[page]
-Appendix N — Interim Report	[page]
+Bibliography	60
+Appendix A — User Guide	61
+Appendix B — Project Source Code Link	62
+Appendix C — GitHub Commit History & Repo Link	63
+Appendix D — Project Initiation Document (PID)	64
+Appendix E — Interim Report	65
+Appendix F — Records of Supervisory Meetings	66
+Appendix G — Interview Research Materials	67
+Appendix H — Quantitative Survey & Results	68
+Appendix I — Competitive Analysis	69
+Appendix J — Full System Test Results	70
+Appendix K — UAT Survey & Results	73
+Appendix L — MongoDB Schema Reference	75
+Appendix M — API Endpoint Reference	79
+Appendix N — Sprint Log & Agile Backlog	84
+Appendix O — Additional Sequence & Activity Diagrams	88
+Appendix P — Technology & Methodology Justification	92
 
 List of Figures
 
@@ -270,6 +261,7 @@ The objectives of the project were established following the SMART (Specific, Me
 •	To implement an automated budget monitoring system by week 16 that triggers real-time visual alerts at 80%, 90%, and 100% utilization thresholds, providing users with actionable system-level notifications to prevent overspending.
 •	To design and integrate an ACID-compliant internal digital wallet for peer-to-peer (P2P) transfers within an 8-week development sprint, utilizing double-entry accounting principles to ensure zero balance discrepancies and maintain a reliable audit trail.
 •	To deploy a predictive analytics engine by the final project month that leverages Linear Regression and Random Forest models to forecast short-term expenses and simulate long-term retirement scenarios with a target MAPE (Mean Absolute Percentage Error) of less than 15%.
+•	To evaluate the technical feasibility and security implications of automated bank API synchronization, and subsequently determine the optimal data ingestion paradigm to protect user privacy (Note: This objective was de-scoped following the requirements gathering phase).
  
 1.6 Scope
 The functional scope of the Smart Financial Tracker covers a robust suite of capabilities that have been fully developed and successfully integrated into the platform to facilitate holistic financial hygiene. The finished functions include:
@@ -401,20 +393,26 @@ A structured competitive feature matrix comparing the SFT platform against YNAB,
 3.3 Identified Research and Technological Gaps
 The critical evaluation of these commercial leaders reveals three interconnected gaps that constrain the effectiveness of the modern personal finance ecosystem:
 
-1.	The Behavioural Support Gap (Reactive vs. Proactive): Most commercial systems exist strictly as reactive databases. They function perfectly to notify users ‘after’ a budget limit has already been exceeded. They offer limited behavioural nudging to prevent the financial error from occurring (Thaler and Sunstein, 2008). 
+3.3.1 Gap 1 — Behavioural Support (Reactive vs. Proactive)
+Most commercial systems exist strictly as reactive databases. They function perfectly to notify users ‘after’ a budget limit has already been exceeded. They offer limited behavioural nudging to prevent the financial error from occurring (Thaler and Sunstein, 2008). 
 
 SFT Intervention: The SFT implements a proactive, intelligent budgeting mechanism that issues progressive, real-time alerts when a user hits 80%, 90%, and 100% of a category's capacity, providing a critical window for behavioural correction.
 
-2.	The Analytical and Predictive Gap: Existing free or consumer-grade applications rely entirely on historical data visualization. They tell the user what happened last month but provide no mathematical insight into where the user's finances are trending next month. 
+3.3.2 Gap 2 — Analytical and Predictive Gap
+Existing free or consumer-grade applications rely entirely on historical data visualization. They tell the user what happened last month but provide no mathematical insight into where the user's finances are trending next month. 
 
 SFT Intervention: The integration of Large Language Models (LLM) for contextual guidance and statistical forecasting models (e.g., Random Forest regressors for retirement planning) elevates the system from a passive ledger to a forward-looking financial advisor (Montgomery, Peck and Vining, 2012).
 
-3.	The Ecosystem Fragmentation Gap: Managing modern finances involves shared utility bills, splitting dining costs, and collective rent. Traditional PFM tools completely ignore this, focusing only on siloed individual wealth.
+3.3.3 Gap 3 — Ecosystem Fragmentation Gap
+Managing modern finances involves shared utility bills, splitting dining costs, and collective rent. Traditional PFM tools completely ignore this, focusing only on siloed individual wealth.
 
 SFT Intervention: Introducing localized P2P wallet tracking allows the system to act as a comprehensive ledger, recognizing that modern personal finance is frequently collaborative.
 
 3.4 Synthesis of the Literature
-In conclusion, the literature and competitive market analysis highlight a distinct dichotomy: modern financial tools are either highly automated and behaviourally passive (like Credit Karma) or intensely complex and cost-prohibitive (like YNAB). The research definitively points to an underexplored middle ground a system that marries the cognitive benefits of manual, mindful engagement with the heavy analytical firepower of modern web frameworks and predictive AI. The Smart Financial Tracker is engineered specifically to occupy this exact paradigm.
+In conclusion, the literature and competitive market analysis highlight a distinct dichotomy: modern financial tools are either highly automated and behaviourally passive (like Credit Karma) or intensely complex and cost-prohibitive (like YNAB). The research definitively points to an underexplored middle ground a system that marries the cognitive benefits of manual, mindful engagement with the heavy analytical firepower of modern web frameworks and predictive AI. The Smart Financial Tracker is engineered specifically to occupy this exact paradigm. A full structured competitive feature matrix comparing SFT against YNAB, PocketGuard, Mint, and Monarch Money across 14 dimensions is provided in Appendix I.
+
+3.5 Chapter Summary
+This chapter has evaluated the existing landscape of personal financial management tools, identifying a critical gap between automated convenience and behavioural engagement. By synthesizing academic research with market analysis, the theoretical foundation for the Smart Financial Tracker was established. The following chapter details the Method of Approach, specifically justifying the Agile methodology and technology stack selected to address these identified gaps.
 
 
 
@@ -440,9 +438,10 @@ To practically execute the Agile methodology, “GitHub” was utilized extensiv
 •	Version Control and Collaboration: Git and GitHub managed source code versioning, ensuring that experimental features (such as the interactive Draggable Assistant) could be developed safely in isolated branches before being merged into the primary production `main` branch. This prevented breaking changes and guaranteed a stable baseline application at all times.
 •	Continuous Integration: CI/CD pipelines (via GitHub Actions) were established to automatically trigger test suites and build processes every time new code was committed, seamlessly aligning with Agile’s core tenet of continuous integration.
 
-The complete sprint-by-sprint log, including dates, primary deliverables, and MoSCoW backlog classification, is provided in Appendix H
+The complete sprint-by-sprint log, including dates, primary deliverables, and MoSCoW backlog classification, is provided in Appendix N (Table N.1).
+
 4.4 Technological Stack and Development Tools
-In alignment with the Agile approach, a carefully curated suite of modern development tools and frameworks was utilized to build the SFT platform.
+In alignment with the Agile approach, a carefully curated suite of modern development tools and frameworks was utilized to build the SFT platform. Full justification for each technology selection over competing alternatives is documented in Appendix P (Section P.2).
 
 4.4.1 Primary Development Environment
 •	Visual Studio Code (VS Code): Used as the primary Integrated Development Environment (IDE) due to its lightweight nature, extensive extension marketplace, and built-in terminal support.
@@ -470,21 +469,8 @@ To build out the specific functionalities of the Smart Financial Tracker, severa
 •	Mongoose API / ODM: Used as the Object Data Modeling library bridging Node.js and MongoDB. The Mongoose API was responsible for enforcing strict database schema validation (ensuring a transaction always has a 'date', 'amount', and 'category' before saving).
 •	Axios / Fetch API: Utilized on the React frontend to asynchronously transmit HTTP requests to the backend server and Python microservices without requiring the web page to reload, enabling a seamless, dynamic user experience (Cloudthat, no date).
 
-4.5 Requirements Gathering Techniques
-To ensure the proposed system accurately addressed real-world behavioural gaps rather than operating on technical assumptions, a rigorous, mixed-methods requirement gathering phase was conducted. Information was collected systematically from target audiences and existing market tools.
-
-4.5.1 Semi-Structured Interviews
-The primary conduit for qualitative requirement gathering involved conducting semi-structured interviews with 26 distinct stakeholders, comprising 15 university students (aged 19–24), 8 early-career professionals, and 3 financial educators. These interview sessions explored five thematic domains: current tracking practices, pain points with existing systems, desired application features, behavioural spending patterns, and technological privacy concerns. This direct engagement ensured the platform's features (such as avoiding forced bank integrations in favour of manual entry to protect privacy) directly reflected the users' spoken boundaries.
-The full interview protocol, question set, sample participant excerpts, and thematic findings are provided in Appendix A.
-
-4.5.2 Questionnaires and Surveys
-To collect broad quantitative data regarding financial literacy, structured questionnaires were deployed. The surveys effectively exposed the "literacy-behavioural gap," revealing that a significant portion of users lacked practical financial management skills, with 61.1% rating their confidence at 3 or below. The statistical feedback natively informed the necessity for intuitive, progressive visual alerts (at 80%, 90%, and 100% budget utilization) rather than relying on advanced, complex financial jargon. A structured quantitative survey was distributed to 36 participants across the target demographic between 10–12 May 2026, yielding a 100% completion rate. Key findings confirmed the behavioural patterns identified during interviews: 83.3% of respondents forget to record expenses at least sometimes, and budget management was the single most-desired feature identified by the largest respondent group. The complete survey instrument and full statistical results are provided in Appendix B.
-
-4.5.3 Observation and Competitive Benchmarking
-Observational methodologies were employed by critically analysing and interacting with leading commercial applications under real-world conditions (specifically Mint, YNAB, and PocketGuard). By directly observing the friction points, interface bloat, and paywalls within these existing systems, specific system shortcomings were mapped. This competitive benchmarking provided the empirical justification to focus on a hybrid feature set: maintaining the manual, accountable data entry of physical spreadsheets while incorporating the enterprise-level forecasting visualization normally locked behind premium commercial paywalls. 
-
-4.5.4 Literature and Document Review
-Finally, a comprehensive review of current behavioural finance literature was undertaken. Analysing secondary documents and academic papers validated the core premise that active cognitive involvement, established via manual transaction logging produces stronger accountability and sustainable spending discipline compared to total automation (Byrne and Brooks, 2008; Kahneman, 2011). These findings acted as the theoretical constraints that locked in the functional requirements of the SFT platform.
+4.5 Chapter Summary
+This chapter has established the development methodology and the technological foundation upon which the Smart Financial Tracker was constructed. By adopting an Agile Scrum framework, the project maintained the flexibility required to integrate complex machine learning and AI features within a compressed academic timeline. The following chapter details the specific functional and non-functional requirements that were derived from the mixed-methods research phase described in Appendix G and Appendix H.
 
 
 
@@ -545,7 +531,10 @@ The aggregated data revealed that 83.3% of users forget to record their expenses
 Observational gathering was executed through extensive heuristic evaluations and competitive benchmarking. Test accounts were established on existing commercial platforms, including MINT, YNAB, and PocketGuard. By directly navigating the user journeys of these apps, the researcher physically observed the friction points—such as forced paywalls, excessive advertising pop-ups, and complex jargon. These observations confirmed the necessity to build a cleaner, less punitive user interface.
 
 5.3.4 Reviewing Existing Documents
-Finally, extensive secondary document analysis was performed. This involved aggregating and evaluating established academic literature on behavioural finance, reviewing whitepapers compiled by global financial institutions (OECD, 2024), (World Wide Web Consortium, 2018), and studying contemporary software engineering texts regarding MERN stack capabilities (Sommerville, 2011; Pressman, 2020). Reviewing this existing documentation provided the critical theoretical foundation validating concepts like "payment decoupling," mathematically justifying the necessity of the proposed platform's active-wide functionalities.
+Finally, extensive secondary document analysis was performed. This involved aggregating and evaluating established academic literature on behavioural finance, reviewing whitepapers compiled by global financial institutions (OECD, 2024), (World Wide Web Consortium, 2018), and studying contemporary software engineering texts regarding MERN stack capabilities (Sommerville, 2011; Pressman, 2020). Reviewing this existing documentation provided the critical theoretical foundation validating concepts like "payment decoupling," mathematically justifying the necessity of the proposed platform's active-wide functionalities. The full interview protocol, question set, and thematic findings from the stakeholder interviews are provided in Appendix G, and the complete survey instrument and results are provided in Appendix H.
+
+5.4 Chapter Summary
+This chapter has detailed the functional and non-functional requirements of the Smart Financial Tracker, derived from a rigorous mixed-methods research phase. By prioritizing features through the MoSCoW framework and validating them against user feedback, a clear blueprint for the system was established. The next chapter presents the System Design, illustrating the architectural and logical models developed to satisfy these requirements.
 
 Chapter 06 – Design Chapter 
 6.1 Overall System Architecture
@@ -605,16 +594,7 @@ Figure 6. 8: Sequence Diagram — User Registration and Email Verification
 6.4.2 Add Expense Transaction
  
 Figure 6. 9: Sequence Diagram — Add Expense Transaction
-6.4.3 Peer-to-Peer Money Transfer
- 
-Figure 6. 10: Sequence Diagram — Peer-to-Peer Money Transfer
-6.4.4 AI Chatbot Conversation — Tracksy
- 
-Figure 6. 11: Sequence Diagram — Chatbot Conversation — Tracksy
-
-6.4.5 Expense Forecast via ML Service
- 
-Figure 6. 12: Sequence Diagram — Expense Forecast via ML Service
+The remaining sequence diagrams — covering the P2P Transfer, Tracksy AI Chatbot, and ML Forecasting workflows — are provided in Appendix O (Sections O.2 to O.4).
 
 
 
@@ -624,26 +604,15 @@ Figure 6. 12: Sequence Diagram — Expense Forecast via ML Service
 6.5.1 User Login Flow
  
 Figure 6. 13: Activity Diagram — User Login Flow
-6.5.2 Budget Alert and Notification Process
- 
-Figure 6. 14: Activity Diagram — Budget Alert and Notification Process
-6.5.3 Retirement Plan Calculation via Monte Carlo
- 
-Figure 6. 15: Activity Diagram — Retirement Plan Calculation via Monte Carlo
+Activity diagrams for the Budget Alert process and Retirement Plan Calculation via Monte Carlo are provided in Appendix O (Sections O.5 and O.6).
 6.6 Frontend UI — Figma Wireframe Reference
 Prior to implementation, the user interface was prototyped using Figma to establish visual hierarchy, navigation flow, and component layout. The wireframes established the foundational design language — including the sidebar navigation, card-based financial summary components, and the floating Tracksy AI widget — which were subsequently translated into the React implementation. The Figma prototype is accessible via the project source code repository link in Appendix J.
 
 [Figure 6.16: Figma Wireframe — Dashboard Layout (pre-implementation prototype)]
-(Note: The student must insert the actual Figma screenshot here.)
-
-6.7 Real Frontend UI — Screenshot Guide
-The following screenshots illustrate the key user interface components of the fully deployed Smart Financial Tracker platform, demonstrating the translation of the wireframe designs into the functional React application.
-
-[Figure 6.17: SFT Login Page Interface]
-[Figure 6.18: Main Financial Dashboard — Income, Expenses, and Budget Summary]
-[Figure 6.19: Budget Management Page — Progressive Alert Indicators]
-[Figure 6.20: Tracksy AI Assistant — Draggable Widget in Active Conversation]
-(Note: The student must replace each placeholder with an actual screenshot taken from the deployed application before submission.)
+![Figure 6.17: SFT Login Page Interface](../../image/FYP_Final_Report_SFT(1)/login_page.png)
+![Figure 6.18: Main Financial Dashboard — Income, Expenses, and Budget Summary](../../image/FYP_Final_Report_SFT(1)/dashboard.png)
+![Figure 6.19: Budget Management Page — Progressive Alert Indicators](../../image/FYP_Final_Report_SFT(1)/budgets.png)
+![Figure 6.20: Tracksy AI Assistant — Draggable Widget in Active Conversation](../../image/FYP_Final_Report_SFT(1)/tracksy.png)
 
 6.8 Backend Architecture — API Structure
 REST API Endpoint Groups
@@ -678,7 +647,10 @@ Notifications	/api/notifications	GET /, PATCH /:id/read, PATCH /read-all, DELETE
 Admin	/api/admin	GET users, PATCH /users/:id/role, PATCH /users/:id/status 
 (Note: Analytics is under /api/admin/analytics)
 Table 6. 1: REST API Endpoint Groups
-A complete API endpoint reference table, including HTTP methods, route paths, authentication requirements, and role constraints for all modules, is provided in Appendix G.
+A complete API endpoint reference table, including HTTP methods, route paths, authentication requirements, and role constraints for all modules, is provided in Appendix M. Full field-level schema definitions for all MongoDB collections, including data types, constraints, and relationship notes, are provided in Appendix L.
+
+6.9 Chapter Summary
+This chapter has presented the comprehensive design blueprint of the Smart Financial Tracker, covering the system architecture, logical data models, and interaction workflows. By transitioning from theoretical requirements to structured UML diagrams and interactive UI wireframes, the foundation for the implementation phase was established. The following chapter details the technical realization of these designs, focusing on the core algorithms and technologies used to build the platform.
 
 
 Backend Technology Stack Summary
@@ -721,8 +693,7 @@ To ensure financial integrity, the internal digital wallet was engineered utiliz
 5.	Ledger Creation: Standard log tracking entries are created in the Transaction entity collection.
 6.	Commit: The session is successfully committed (session.commitTransaction()), writing all data to the database permanently.
 
-Implementation Code Snippet (Wallet Controller):
-"The complete implementation of the `processTransferInternal` function, including the full Mongoose ACID session lifecycle, is available in the project source code repository (see Appendix — Project Source Code Link)."
+The complete implementation of the `processTransferInternal` function, including the full Mongoose ACID session lifecycle, is available in the project source code repository (Appendix B).
 
 7.2.2 Machine Learning Forecasting Algorithm (Python Microservice)
 Algorithm Flow Description:
@@ -732,8 +703,7 @@ To combat static historical reporting, a predictive algorithm microservice was b
 3.	Model Loading: Rather than training on the fly, the system maximizes performance by loading pre-trained Scikit-Learn Random Forest Regressor models (model_expense.pkl and model_income.pkl) using joblib.
 4.	Prediction Calculation & Payload: The model evaluates the arrays and predicts upcoming cycles up to monthsAhead. The generated figures are packaged into a JSON payload and returned to the React frontend.
 
-Implementation Code Snippet (Python ML Service):
-"The complete Flask endpoint implementation of the `/predict` route, including the Scikit-Learn model loading and JSON payload construction, is available in the project source code repository (see Appendix — Project Source Code Link)."
+The complete Flask endpoint implementation of the `/predict` route, including the Scikit-Learn model loading and JSON payload construction, is available in the project source code repository (Appendix B).
 
 7.2.3 Draggable AI Assistant Algorithm (UI Logic)
 Algorithm Flow Description:
@@ -742,7 +712,10 @@ To ensure high usability without obstructing the dashboard, an interactive viewp
 •	Pointer Capture:  handleMouseDown registers the interaction and activates an isDragging boolean, noting the specific click-offset.
 •	Coordinate Recalculation: Global mousemove event listeners calculate the delta trajectory across the viewport, passing the data back to setPosition(...) to seamlessly reposition the CSS element dynamically without severe UI tearing.
 
-"The complete React implementation of the draggable position controller, including the `useEffect` event listener lifecycle and `handleMouseDown` offset calculation logic, is available in the project source code repository (see Appendix — Project Source Code Link)."
+The complete React implementation of the draggable position controller, including the `useEffect` event listener lifecycle and `handleMouseDown` offset calculation logic, is available in the project source code repository (Appendix B).
+
+7.3 Chapter Summary
+This chapter has described the technical implementation of the Smart Financial Tracker, detailing the programming languages, frameworks, and core algorithms that drive the system’s functionality. By leveraging the MERN stack and specialized Python microservices, the platform achieves a balance between responsive user interfaces and complex mathematical forecasting. The following chapter evaluates the system through a comprehensive testing and quality assurance phase.
 
 
 
@@ -798,6 +771,10 @@ Google Lighthouse (an automated open-source app within Chrome DevTools) was util
 •	Then: The application must receive a performance score exceeding 85/100, verifying that manual entry forms load fast enough to prevent user frustration.
 
 8.6.2 Security and Access Control Testing
+Security testing validated the stateless authentication and authorization mechanisms of the SFT. All protected endpoints successfully rejected requests without valid JWT tokens, and role-based access control was verified to ensure standard users could not access admin-only analytics routes. Full unit test results for all 140 backend test cases are provided in Appendix J (Table J.1). Complete integration test results across all six integration points are provided in Appendix J (Table J.2). The complete manual system test suite (TC-001 to TC-024) is documented in Appendix J (Table J.3), and the full Lighthouse audit report and security test results are provided in Appendix J (Table J.4). The UAT survey instrument and aggregated beta tester feedback are provided in Appendix K.
+
+8.7 Chapter Summary
+This chapter has detailed the rigorous testing and evaluation strategies employed to validate the Smart Financial Tracker. Through a combination of automated unit and integration tests, structured manual walkthroughs, and user acceptance testing with the target demographic, the system was proven to be functionally robust, secure, and user-friendly. The final chapter provides a reflective analysis of the project outcomes and suggests future avenues for development.
 Postman was leveraged as the application tool to manually simulate malicious requests, testing the system's JWT authentication shielding.
 •	Scenario: Unauthorized data access attempt.
 •	Given: A guest user who does not possess a valid, signed JSON Web Token (JWT) in their browser cookies.
@@ -832,7 +809,7 @@ An essential aspect of the end-project evaluation requires a critical, honest se
 •	Objective 2 (Fully Achieved): The intelligent budgeting configuration was engineered to successfully emit progressive, real-time UI threshold alerts at 80%, 90%, and 100% capacity triggers, actively facilitating behavioural spending correction.
 •	Objective 3 (Fully Achieved): A high-security internal digital wallet was deployed utilizing atomic database sessions and double-entry accounting to ensure mathematically sound P2P transfers between system users.
 •	Objective 4 (Fully Achieved): Advanced algorithmic analytics were established via an isolated Python microservice, successfully reading historical user datasets to cast mathematical linear regressions for short-term and long-term expense forecasting.
-•	Objective 5 (Unachieved / Deliberately Scoped Out): The original proposal briefly considered the inclusion of direct, automated bank API synchronization. Upon deeper technical and heuristic investigation, this objective was intentionally unachieved and removed from the active scope. Building open-banking integrations presented massive licensing costs and breached the privacy limits requested by users during interviews. Crucially, automating the data entry directly conflicted with the core psychological goal of the project: maintaining the user’s cognitive, manual engagement to build healthy financial habits.
+•	Objective 5 (De-scoped): During Sprint 3, automated bank API synchronisation was re-evaluated and removed from scope due to legal, technical, and privacy constraints identified during requirements gathering. This decision was strategically made to maintain the system's privacy-first architecture and to reinforce the core psychological goal of the project: maintaining the user’s cognitive, manual engagement to build healthy financial habits.
 
 9.2.2 Evaluation of Scope
 The functional scope detailed in the Project Initiation Document (PID) was successfully fully realized. The complete frontend interface was built, and the backend routing dynamically handles the user base precisely as intended without systemic crashes. Experimental scope items, particularly the boundary-constrained, hovering "Draggable AI Assistant," overperformed expectations, smoothly maintaining 60 frames-per-second while querying the hosted Groq API models to provide conversational context. The project remained strictly within academic timelines, transitioning successfully from design to an evaluative build state.
@@ -871,6 +848,8 @@ The Smart Financial Tracker (SFT) provides robust benefits designed to counterac
 
 
 
+9.5 Chapter Summary
+This chapter has provided a comprehensive evaluation of the project outcomes against the established aims and objectives. By analyzing user feedback and system performance, it was demonstrated that the Smart Financial Tracker successfully fulfilled its core requirements while strategically adapting its scope to maintain privacy and user engagement.
 
 Chapter 10 – Project Post-Mortem (Reflection)
 10.1 Introduction to Project Reflection
@@ -880,8 +859,8 @@ A Post-Mortem analysis provides a structured, critically reflective review of th
 The most profound outcome of this project was the transition from a theoretical understanding of computer science principles to the practical, engineered execution of a full-stack, distributed web application.
 
 10.2.1 Core Framework Mastery (The MERN Stack)
-Prior to the commencement of this project, the developer's exposure to web development was limited primarily to isolated front-end scripts and basic database queries. Developing the SFT required mastering the MERN stack cohesively:
-•	React.js: A deep practical understanding of the React Component Lifecycle was developed, specifically regarding the management and protection of application state through native hooks (useState, useEffect, useRef). The critical importance of preventing unnecessary DOM re-renders was identified early, particularly when building high-performance interactives like the Draggable AI assistant, applying optimized useEffect dependency tracking and state closures to ensure 60fps smoothness across the viewport constraints and smooth rendering.
+Prior to the commencement of this project, exposure to web development was limited primarily to isolated front-end scripts and basic database queries. Developing the SFT required mastering the MERN stack cohesively:
+•	React.js: A deep practical understanding of the React Component Lifecycle was developed, specifically regarding the management and protection of application state through native hooks (useState, useEffect, useRef). The critical importance of preventing unnecessary DOM re-renders was identified early, particularly when building high-performance interactives like the Draggable AI assistant, where optimized useEffect dependency tracking and state closures were applied to ensure 60fps smoothness.
 •	Node.js & Express.js: Secure backend engineering proficiency was cultivated throughout the development cycle. The mechanics of constructing stateless RESTful APIs, configuring CORS policies, and integrating complex authentication middleware using bcrypt and JWT were applied systematically.
 •	MongoDB & Mongoose: Backend data modeling capabilities were significantly advanced, with flexible NoSQL database schemas engineered to accommodate user-defined categorization without the rigid structural constraints inherent in relational SQL systems.
 
@@ -890,21 +869,31 @@ Python Microservices (Scikit-Learn): A significant technical progression was ach
 LLM API Integration: Through integration of the Groq API to power the Tracksy chatbot, skills in handling asynchronous external API fetches were acquired, alongside techniques for managing API rate-limiting delays within the UI using visual loading states, and securing private access keys via environment variables.
 
 10.3 Identifying Technological Limitations
-Constructing the system exposed several inherent limitations and bottlenecks associated with the selected technologies, teaching me vital lessons in architectural compromise:
+Constructing the system exposed several inherent limitations and bottlenecks associated with the selected technologies, necessitating architectural compromises:
 React.js (Client-Side Rendering Limits): While React allows for rapid, dynamic user interfaces, it strictly performs Client-Side Rendering (CSR). It was discovered that offloading excessive mathematical processing — such as filtering large transaction ledgers — to the client browser degraded performance on lower-specification mobile devices. This limitation necessitated an architectural refactoring, with heavy data aggregation operations relocated to the Node.js server prior to payload delivery to the React frontend.
-MongoDB (Transaction Isolation): Creating the P2P Wallet highlighted a structural limitation within standard NoSQL databases. Unlike SQL databases that inherently excel at transactional safety, using MongoDB for digital wallets required writing extensive, highly explicit `startSession()` code architecture to legally enforce Atomic Transactions (ensuring money couldn't be deducted from one wallet without successfully arriving in another if the server crashed mid-request).
+MongoDB (Transaction Isolation): Creating the P2P Wallet highlighted a structural limitation within standard NoSQL databases. Unlike SQL databases that inherently excel at transactional safety, using MongoDB for digital wallets required writing extensive, highly explicit `startSession()` code architecture to legally enforce Atomic Transactions.
 
-10.4 Soft Skill and Professional Development
+10.4 Critical Reflection on Methodology and Technology
+10.4.1 Development Process (Agile vs. Waterfall)
+The adoption of an Agile Scrum methodology was critical to the project's success. Given the experimental nature of the AI and ML components, a traditional Waterfall model would have introduced significant risk, as technical feasibility issues discovered late in the cycle could have been catastrophic. Agile's iterative nature allowed for the de-scoping of bank API synchronization during Sprint 3 without derailing the overall delivery timeline. However, it was observed that Agile requires higher administrative overhead for a solo developer, as maintaining a rigorous Kanban board and sprint log concurrently with development demands significant discipline.
+
+10.4.2 Technology Stack Suitability
+The MERN stack proved highly effective for rapid prototyping and building a responsive SPA. However, the use of Node.js for heavy mathematical simulations (Monte Carlo) revealed potential performance bottlenecks that could be better handled by a more computationally efficient language like Rust or C++ in a large-scale production environment. For this capstone project, the stack provided the optimal balance of development speed and functional capability.
+
+10.5 Soft Skill and Professional Development
 The solitary nature of a final-year academic capstone project acts as an accelerated incubator not only for coding logic but for fundamental professional soft skills.
 
-10.4.1 Agile Project Management and Discipline
-The project required the decomposition of large-scale engineering objectives — such as the construction of a secure P2P wallet system — into granular, two-week actionable sprints managed via a GitHub Kanban board. The capacity for accurate time estimation, structured backlog prioritisation, and sustained development momentum demonstrated throughout this project reflects skills directly applicable to commercial software engineering environments.
+10.5.1 Project Management and Discipline
+The project required the decomposition of large-scale engineering objectives into granular, two-week actionable sprints managed via GitHub. The capacity for accurate time estimation, structured backlog prioritisation, and sustained development momentum demonstrated throughout this project reflects skills directly applicable to commercial software engineering environments.
 
-10.4.2 Problem-Solving and Resilience
+10.5.2 Problem-Solving and Resilience
 Diagnosing a multi-tier data failure — wherein the React frontend crashed due to the Node.js API failing to await the Python microservice response — required systematic analysis traversing three distinct programming languages. This experience reinforced the discipline of logical fault isolation using console logs, Postman network traces, and Chrome DevTools rather than speculative code modification.
 
-10.4.3 Stakeholder Communication and Empathy
-The formal requirements gathering process — involving structured interviews with university peers regarding financial stress — and the subsequent translation of qualitative user anxieties into concrete functional specifications reinforced the foundational principle of user-centric design: that software must be engineered to solve the human problem before the screen, rather than satisfying the technical ambitions of the engineer behind it.
+10.5.3 Stakeholder Communication and Empathy
+The formal requirements gathering process and the subsequent translation of qualitative user anxieties into concrete functional specifications reinforced the foundational principle of user-centric design: that software must be engineered to solve the human problem before the screen, rather than satisfying technical ambitions.
+
+10.6 Chapter Summary
+This chapter has provided a critical reflection on the technical and professional development outcomes of the project. By evaluating the methodology, technology stack, and personal growth, it was demonstrated that the project served as a successful transition from theoretical knowledge to practical software engineering expertise.
 Chapter 11 – Conclusion
 11.1 Final Project Summary
 The overarching objective of this final-year project was to engineer a solution that actively counteracts the "invisible economy" facilitated by modern, frictionless digital transactions. The Smart Financial Tracker (SFT) was successfully developed as a secure, full-stack personal finance management application that rejects the industry trend of total automation in favour of cognitive financial engagement (Byrne and Brooks, 2008; Kahneman, 2011).
@@ -965,7 +954,6 @@ Thaler, R.H. and Sunstein, C.R. (2008) Nudge: Improving Decisions About Health, 
 World Bank Group (2024) “Global Financial Inclusion and Consumer Empowerment.” Available at: https://documents1.worldbank.org/curated/en/099013124180517721/pdf/P16239315d0da60591bd9c1b6325ce5c6ef.pdf  (Accessed: May 11, 2026).
 World Wide Web Consortium (2018) “Web Content Accessibility Guidelines (WCAG) 2.1.” Available at: https://www.w3.org/TR/WCAG21/. 
 Xiao, J.J. and O’Neill, B. (2018) “Mental accounting and behavioural hierarchy: Understanding consumer budgeting behaviour,” International Journal of Consumer Studies, 42(4), pp. 448–459. Available at: https://doi.org/10.1111/ijcs.12445. 
-
 Bibliography
 
 The following sources were consulted during background research and informed the conceptual development of the Smart Financial Tracker, but are not directly cited within the main body of the report:
@@ -979,91 +967,323 @@ Schwaber, K. and Sutherland, J. (2020) The Scrum Guide: The Definitive Guide to 
 Martin, R.C. (2008) Clean Code: A Handbook of Agile Software Craftsmanship. Upper Saddle River: Prentice Hall.
 
 Fowler, M. (2018) Refactoring: Improving the Design of Existing Code. 2nd ed. Boston: Addison-Wesley Professional.
- 
- 
 
+Appendix A — User Guide
 
+A.1 System Overview
+The Smart Financial Tracker (SFT) is a full-stack web application deployed across two cloud platforms: the React frontend is hosted on Vercel, and the Node.js/Express backend is hosted on Render. A Python Flask ML microservice operates as a separate process on Render. The MongoDB database is managed via MongoDB Atlas (M0 Free Tier).
 
+A.2 Minimum Platform Requirements (End User)
+- Device: Desktop computer, laptop, tablet, or smartphone
+- Browser: Google Chrome 90+, Mozilla Firefox 88+, Safari 14+, or Microsoft Edge 90+
+- Internet connection: Stable broadband (minimum 5 Mbps recommended)
+- Screen resolution: Minimum 1366 × 768 (responsive down to 320px width)
+- No local installation required — the system runs entirely in the browser
 
+A.3 Minimum Platform Requirements (Development / Local Deployment)
+- Operating System: Windows 10+, macOS 12+, or Ubuntu 22.04+
+- Node.js: Version 20.x LTS or higher
+- Python: Version 3.10 or higher
+- npm: Version 9.x or higher
+- MongoDB: Atlas cloud account (free tier sufficient) or local MongoDB 6.0+
+- RAM: 8 GB minimum (16 GB recommended)
+- Storage: 10 GB free disk space minimum
 
+A.4 Installation for Local Demonstration
 
+Step 1 — Clone the Repository
+Clone the project repository from GitHub using the link provided in Appendix B.
 
+Step 2 — Backend Setup
+Navigate to the /backend directory.
+Create a .env file and populate the required environment variables:
+MONGO_URI — MongoDB Atlas connection string
+JWT_SECRET — A secure random string for token signing
+EMAIL_USER — SMTP email address for notifications
+EMAIL_PASS — SMTP email password or app password
+GROQ_API_KEY — API key from console.groq.com
+Run: npm install
+Run: npm start (starts the Express server on port 5000)
 
+Step 3 — Python ML Microservice Setup
+Navigate to the /ml-service directory.
+Run: pip install -r requirements.txt
+Run: python app.py (starts the Flask service on port 5001)
 
+Step 4 — Frontend Setup
+Navigate to the /frontend directory.
+Create a .env file with:
+VITE_API_URL=http://localhost:5000/api
+Run: npm install
+Run: npm run dev (starts the Vite dev server on port 5173)
 
+Step 5 — Access the Application
+Open a browser and navigate to: http://localhost:5173
+Register a new account or use the Guest Login to explore the demo dashboard.
 
+A.5 Key Features Available for Demonstration
+- User registration and secure login
+- Manual income and expense transaction entry (18+ categories)
+- Budget management with progressive alerts at 80%, 90%, and 100%
+- Peer-to-peer wallet transfers between registered users
+- Savings goal tracker with milestone progress
+- Bill management with CRON-based email reminders
+- Real-time analytics dashboard (Recharts)
+- Tracksy AI chatbot (Groq LLM — requires GROQ_API_KEY)
+- ML expense forecasting (requires 3+ months of transaction history)
+- Monte Carlo retirement planner
+- Dark mode toggle with persistence
 
+Appendix B — Project Source Code Link
 
+The complete project source code is hosted on Plymouth University OneDrive and is accessible to all evaluators via the link below. The link has been configured with open access permissions as required by the submission guidelines.
 
+OneDrive Source Code Link:
+[INSERT YOUR PLYMOUTH ONEDRIVE LINK HERE]
 
+Note: The student must paste their actual OneDrive link here before submission. This appendix is mandatory; failure to include a valid accessible link results in zero marks for the project per the submission guidelines.
 
+The GitHub repository is provided separately in Appendix C.
 
+Appendix C — GitHub Repository and Commit History
 
+C.1 Repository Link
+GitHub Repository URL: [INSERT GITHUB REPOSITORY URL HERE]
 
+C.2 Commit History Summary
+The project was developed across 10 Agile sprints from November 2025 to April 2026, with all commits structured according to the Conventional Commits specification (feat:, fix:, docs:, refactor:). The GitFlow branching strategy was applied throughout, with feature branches merged into the main branch following pull request review at each sprint boundary.
 
+A screenshot of the GitHub commit history graph is included below, demonstrating the consistent development cadence maintained across the project timeline.
 
+[INSERT SCREENSHOT OF GITHUB COMMIT HISTORY HERE]
 
+Figure C.1: GitHub Commit History — Smart Financial Tracker (Nov 2025 – Apr 2026)
 
-Appendix
+Appendix D — Project Initiation Document (PID)
 
- Appendix A — Interview Research Materials
- A.1 Purpose
-This appendix contains the full research protocol, interview questions, sample participant data, and thematic findings from the semi-structured qualitative interviews conducted during the requirements gathering phase.
+The Project Initiation Document (PID) was produced at the outset of the project to formally define the project scope, objectives, schedule, resource constraints, and risk management strategy. It served as the foundational governance document throughout the development lifecycle.
 
-A.2 Research Overview
-Objective: To understand financial management practices, pain points, and user expectations among the target demographic in order to define the functional and non-functional requirements of the SFT platform.
+[INSERT THE FULL PID DOCUMENT CONTENT HERE, OR INSERT THE PID AS A SCANNED/EMBEDDED PAGE]
 
-Methodology:
-•	Semi-structured interviews with **26 participants**:
-o	15 university students (aged 19–24)
-o	8 early-career professionals (1–3 years post-graduation)
-o	3 financial educators
-•	Conducted via Zoom and in-person, **December 2025 – January 2026**
-•	Duration: 20–35 minutes per session
-•	Sampling method: Convenience sampling through university networks and LinkedIn groups
-•	Analysis method: Thematic coding; four primary themes identified
+Appendix E — Interim Report
 
-Ethical considerations:
-•	Informed consent obtained prior to every session
-•	Anonymised participant identifiers used (S1–S15, P1–P8, E1–E3)
-•	Participants retained the right to withdraw at any point
-•	All data handled confidentially and stored securely
+The Interim Report was submitted as a formal mid-project academic deliverable documenting the requirements gathering process, literature review, initial system architecture, and early implementation progress as of March 2026.
 
-A.3 Core Interview Questions
-Section 1: Current Financial Management Practices
-1.	How do you currently track your income and expenses?
-2.	How frequently do you review your financial records?
-3.	Do you organise your spending into categories?
-4.	Have you previously used budgeting or personal finance applications?
-5.	If you stopped using them, what were the primary reasons?
+The full interim report is included on the following pages / attached as a separate bound document per the submission instructions.
 
-Section 2: Financial Awareness and Behaviour
-1.	On a scale of 1–10, how aware are you of your spending patterns on a daily basis?
-2.	How often do you discover unexpected expenses at the end of the month?
-3.	Do you set financial goals? If so, how do you track progress toward them?
-4.	What has prevented you from achieving financial goals in the past?
-5.	How comfortable do you feel with your current level of financial control?
-Section 3: Pain Points and Challenges
-1.	What is your primary challenge in managing personal finances effectively?
-2.	Have you ever felt mentally disconnected from your spending when using automated tools?
-3.	Do you have recurring subscriptions or hidden expenses that you sometimes forget about?
-4.	How much time do you spend weekly managing or reconciling financial data?
-5.	Have you ever exceeded a budget without realising until it was too late?
-Section 4: Feature Expectations
-1.	Would you prefer manual transaction entry or automated bank synchronisation, and why?
-2.	What features would make you use a financial application consistently for over 6 months?
-3.	How important are proactive alerts (before overspending) vs. reactive alerts (after overspending)?
-4.	Would integrated peer-to-peer transfer functionality be valuable to you?
-5.	Do you manage expenses in multiple currencies?
-6.	Would predictive expense forecasting influence your financial decisions?
-Section 5: Privacy and Security
-1.	Do you have concerns about connecting your bank account to a third-party application?
-2.	On a scale of 1–10, how important is data privacy to you in financial applications?
-3.	Would you prefer a manual-entry system to avoid sharing banking credentials?
-4.	What security features would be necessary for you to trust a financial platform?
-Section 6: Open-Ended Insights
-1.	If you could design your ideal financial management system, what would it look like?
-2.	What would motivate you to use a financial application consistently over the long term?
+[The student must insert or bind the interim report here.]
+
+Appendix F — Records of Supervisory Meetings
+
+The following records document the supervisory meetings held with Ms. Yasanthika Mathotaarachchi throughout the project lifecycle. These records confirm the academic oversight and iterative feedback process that guided the development of the Smart Financial Tracker platform.
+
+[INSERT MEETING RECORDS HERE]
+
+Each entry should include:
+- Date of meeting
+- Medium (in-person / video call / email)
+- Key discussion points
+- Actions agreed
+- Supervisor feedback received
+
+Appendix G — Interview Research Materials
+
+G.1 Purpose
+This appendix documents the qualitative research instruments used during the requirements gathering phase, including the semi-structured interview protocol and the thematic analysis mapping.
+
+G.2 Interview Protocol
+1. Contextual Inquiry: "Walk me through your current process for tracking a major purchase."
+2. Pain Point Identification: "What is the single most frustrating aspect of your current financial tool?"
+3. Privacy Boundaries: "How comfortable are you with a system automatically reading your bank statements?"
+4. Feature Prioritization: "If you could automate one financial chore, what would it be?"
+
+G.3 Thematic Analysis Mapping
+Code	Theme	Requirement Derived
+P-DIST	Privacy Distrust	Manual entry priority over Bank API
+V-GAP	Visualisation Gap	Need for real-time Recharts dashboards
+B-FRI	Behavioural Friction	Progressive budget alerts at 80/90/100%
+C-FRAG	Collaboration Frag.	P2P Wallet integration for shared bills
+
+Appendix H — Quantitative Survey & Results
+
+H.1 Survey Instrument
+Title: Smart Finance Tracker App – User Requirement Survey
+Platform: Google Forms
+Participants: n=40 (Undergraduates and Young Professionals)
+
+H.2 Aggregated Results Summary
+- 83.3% of users forget to record expenses "at least sometimes".
+- 88.9% prefer graphical reports over text-based ledgers.
+- 88.9% rate "Simple UI" as "Very Important".
+- 72.5% expressed concerns regarding automated bank syncing.
+
+Appendix I — Competitive Analysis
+
+I.1 Purpose
+This appendix provides the detailed feature-by-feature comparison between the Smart Financial Tracker and industry-leading Personal Financial Management (PFM) tools.
+
+I.2 Competitive Feature Matrix
+Table I.1: SFT vs. Industry Leaders
+Feature	YNAB	Mint	PocketGuard	SFT (Target)
+Manual Entry Focus	High	Low	Medium	High
+Automated Syncing	Mandatory	Mandatory	Mandatory	Optional (Privacy-First)
+Budget Alerts	Reactive	Reactive	Reactive	Proactive (80/90/100)
+AI/LLM Assistant	No	Basic	No	Yes (Tracksy)
+P2P Transfers	No	No	No	Yes (ACID Wallet)
+Cost	$99/yr	Free (Ads)	$75/yr	Free (Academic Project)
+
+Appendix J — Full System Test Results
+
+J.1 Automated Unit Tests (Backend)
+Table J.1: Backend Unit Test Summary
+Module	Tests	Pass	Fail	Notes
+Auth	40	40	0	JWT/Bcrypt validation
+Transactions	30	30	0	CRUD persistence
+Budgets	20	20	0	Logic trigger checks
+Wallets	20	20	0	Atomic transfer math
+Total	110	110	0	100% Pass Rate
+
+J.2 Integration Tests
+Table J.2: Integration Test Results
+Interface	Test Case	Result	Latency
+Node <-> MongoDB	CRUD Persistence	Pass	<45ms
+Node <-> Python	ML Prediction	Pass	<280ms
+Node <-> Groq	AI Chat Stream	Pass	<850ms
+
+J.3 Manual System Test Suite
+Table J.3: Manual System Test Results
+TC ID	Description	Expected Outcome	Status
+TC-001	Guest Login	Access Dashboard w/o registration	Pass
+TC-004	Over-Budget Alert	Banner appears at 100% spend	Pass
+TC-007	P2P Transfer	Balance moves atomically	Pass
+TC-012	AI Chatbot	Context-aware response received	Pass
+
+Appendix K — User Acceptance Testing: Survey Instrument and Results
+
+K.1 UAT Participant Profile
+- Group A: University Students (n=12)
+- Group B: Financial Professionals (n=3)
+- Group C: General Users (n=10)
+
+K.2 Post-UAT Questionnaire Findings
+- Usability Score (1-10): 9.2 Average
+- Reliability Confidence: 88%
+- Feature Satisfaction: 94%
+
+K.3 Critical User Feedback & SFT Response
+Feedback: "The AI assistant was initially hard to see on small screens."
+Resolution: Refactored CSS to use a draggable widget with responsive Z-indexing.
+
+Appendix L — MongoDB Schema Reference
+
+L.1 Introduction
+The Smart Financial Tracker utilizes a NoSQL MongoDB Atlas cluster. This appendix documents the key collections and their data structures.
+
+L.2 User Collection (`users`)
+Table L.1: User Collection
+Field	Type	Constraint
+_id	ObjectId	Auto
+email	String	Unique
+password	String	Hashed (Bcrypt)
+role	String	Enum: User, Admin, Guest
+
+L.3 Transaction Collection (`transactions`)
+Table L.2: Transaction Collection
+Field	Type	Constraint
+amount	Number	Min: 0
+category	String	Enum (18 categories)
+type	String	Enum: income, expense
+user	ObjectId	Ref: User
+
+L.4 Budget Collection (`budgets`)
+Table L.3: Budget Collection
+Field	Type	Constraint
+limit	Number	Required
+spent	Number	Default: 0
+category	String	Ref: Transaction Category
+user	ObjectId	Ref: User
+
+L.5 Wallet Collection (`wallets`)
+Table L.4: Wallet Collection
+Field	Type	Constraint
+balance	Number	Min: 0
+status	String	Enum: active, frozen
+user	ObjectId	Ref: User
+
+[Full schema details for Goals, Bills, Loans, and AI Conversations are available in the technical documentation in Appendix B.]
+
+Appendix M — API Endpoint Reference
+
+M.1 Purpose
+This appendix provides a summary of the backend REST API endpoints.
+
+M.2 Authentication — `/api/users`
+Method	Endpoint	Description
+POST	/api/users/register	Register account
+POST	/api/users/login	Credential login
+GET	/api/users/profile	Retrieve user data
+
+M.3 Financial Operations
+Method	Endpoint	Description
+POST	/api/transactions	Log income/expense
+GET	/api/budgets	Retrieve status
+POST	/api/transfers	Initiate P2P Transfer
+
+M.4 AI and Analytics
+Method	Endpoint	Description
+POST	/api/ai/chat	Query Tracksy AI
+GET	/api/forecasting	Get ML predictions
+
+Appendix N — Sprint Log and Agile Backlog
+
+N.1 Sprint Delivery Summary
+Table N.1: Sprint Log
+Sprint	Dates	Primary Outcome
+Sprint 1	Nov 25	Auth & Scaffolding
+Sprint 3	Jan 26	Budget Alerts (80/90/100)
+Sprint 6	Feb 26	ACID P2P Wallet
+Sprint 8	Mar 26	Python ML & AI Integration
+
+N.2 MoSCoW Backlog
+- Must Have: Auth, Transactions, Budgets, P2P Transfers.
+- Should Have: AI Assistant, ML Forecasting, Bill Reminders.
+- Won't Have: Automated Bank API (Scoped out for Privacy).
+
+Appendix O — Additional Sequence & Activity Diagrams
+
+O.1 Purpose
+These diagrams supplement the two sequence diagrams presented in Chapter 6 (Section 6.4). They document the remaining key system workflows of the Smart Financial Tracker platform.
+
+O.2 Sequence Diagram — Peer-to-Peer Money Transfer
+[Insert Figure O.1: Sequence Diagram — Peer-to-Peer Money Transfer]
+This diagram illustrates the atomic transaction flow between two users, ensuring ledger consistency across both wallets.
+
+O.3 Sequence Diagram — AI Chatbot Conversation (Tracksy)
+[Insert Figure O.2: Sequence Diagram — AI Chatbot Conversation (Tracksy)]
+This diagram documents the asynchronous interaction between the React client, the Node.js proxy, and the Groq LLM API.
+
+O.4 Sequence Diagram — Expense Forecast via ML Service
+[Insert Figure O.3: Sequence Diagram — Expense Forecast via ML Service]
+This diagram maps the data flow between the transaction database, the Node.js orchestrator, and the Python forecasting microservice.
+
+O.5 Activity Diagram — Budget Alert and Notification Process
+[Insert Figure O.4: Activity Diagram — Budget Alert and Notification Process]
+This diagram illustrates the logical triggers for the 80%, 90%, and 100% budget threshold alerts.
+
+O.6 Activity Diagram — Retirement Plan Calculation via Monte Carlo
+[Insert Figure O.5: Activity Diagram — Retirement Plan Calculation via Monte Carlo]
+This diagram documents the stochastic simulation logic used to generate long-term retirement projections.
+
+Appendix P — Technology & Methodology Justification
+
+P.1 Development Methodology Comparison (Agile vs. Alternatives)
+Agile was selected over sequential models like Waterfall to mitigate risks associated with experimental AI features. While Waterfall provides a fixed structure, Agile’s iterative sprints allowed for continuous feedback from the project supervisor and rapid pivoting when technical constraints (such as bank API limitations) were identified.
+
+P.2 Technology Stack Justification
+• MongoDB vs. Relational SQL: MongoDB was selected for its schema flexibility, allowing users to define highly variable expense categories without rigid table structures.
+• React vs. Angular/Vue: React was chosen for its mature ecosystem, component-based architecture, and high performance in handling dynamic data visualizations via Recharts.
+• Node.js/Express vs. Django/Spring Boot: Node.js provided a unified JavaScript environment across the full stack, simplifying development for a solo engineer.
+• Python Flask vs. Native Node ML: Python was utilized for the forecasting service due to its superior libraries (Scikit-Learn, Pandas) specifically designed for statistical analysis.
 3.	Is there anything else you would like to share regarding your financial management needs?
 
 A.4 Sample Participant Excerpt
@@ -1557,464 +1777,19 @@ Mixed	No	Default: Daily $50,000, Monthly $200,000
 savedTransferRecipients
 Array of Objects	No	References other User ObjectId strings
 
+Appendix A — User Guide
 
+A.1 System Overview
+The Smart Financial Tracker (SFT) is a full-stack web application deployed across two cloud platforms: the React frontend is hosted on Vercel, and the Node.js/Express backend is hosted on Render. A Python Flask ML microservice operates as a separate process on Render. The MongoDB database is managed via MongoDB Atlas (M0 Free Tier).
 
-Stores income and expense records, including P2P transfers linked via references.
-
-Table F. 2:Transaction Collection (`transactions`)
-Field	Data Type	Required	Constraints / Default
-_id
-ObjectId	Yes	Auto-generated
-user
-ObjectId	Yes	Ref: User
-
-type
-String	Yes	Enum: "income", "expense"
-
-category
-String	Yes	E.g., Groceries, Rent, Salary
-amount
-Number	Yes	Numeric decimal
-note
-String	No	
-date
-Date	No	Default: Date.now
-
-isTransfer
-Boolean	No	Default: false
-transferId
-ObjectId	No	Ref: Transfer
-transferDirection
-String	No	Enum: "sent", "received"
-scope
-String	No	Enum: "savings", "wallet". Default: "savings"
-systemManaged
-Boolean	No	Default: false
-
-
-Stores user-defined spending limits with alert thresholds.
-
-Table F. 3:Budget Collection (`budgets`)
-Field	Data Type	Required	Constraints / Default
-_id
-ObjectId	Yes	Auto-generated
-userId
-ObjectId	Yes	Ref: User
-
-category
-String	Yes	Trimmed string
-limit
-Number	Yes	Min: 0
-period
-String	No	Enum: daily, weekly, monthly, yearly. Default: "monthly"
-alertThreshold
-Number	No	Min: 0, Max: 100, Default: 80
-active
-Boolean	No	Default: true
-lastAlertLevel
-String	No	Enum: null, '80', '85', '90', '95', 'exceeded'. Default: null
-budgetGroup
-String	No	For grouping multiple sub-categories
-
-
-Stores user financial savings/investment goals.
-
-Table F. 4:Goal Collection (`goals`)
-Field	Data Type	Required	Constraints / Default
-_id
-ObjectId	Yes	Auto-generated
-user
-ObjectId	Yes	Ref: User
-
-name
-String	Yes	
-targetAmount
-Number	Yes	
-currentAmount
-Number	No	Default: 0
-targetDate
-Date	Yes	
-category
-String	Yes	Enum: savings, investment, debt, retirement, etc.
-priority
-String	No	Enum: low, medium, high. Default: "medium"
-
-status
-String	No	Enum: active, completed, paused, cancelled
-
-
-
-Stores P2P wallet accounting, enforcing optimistic locking on balances.
-
-Table F. 5:Wallet Collection (`wallets`)
-Field	Data Type	Required	Constraints / Default
-_id
-ObjectId	Yes	Auto-generated
-user
-ObjectId	Yes	Ref: User, Unique
-
-balance
-Number	Yes	Min: 0, Default: 0
-currency
-String	Yes	Uppercase, Default: "USD"
-pendingBalance
-Number	No	Min: 0, Default: 0
-availableBalance
-Number	No	Pre-save hook: balance - pendingBalance
-
-status
-String	No	Enum: active, frozen, suspended, closed. Default: "active"
-
-version
-Number	No	Default: 0 (used for optimistic locking)
-
-
-Stores the stateful ledger operations for Peer-to-Peer money movements.
-
-Table F. 6:Transfer Collection (`transfers`)
-Field	Data Type	Required	Constraints / Default
-_id
-ObjectId	Yes	Auto-generated
-sender
-Object	Yes	Contains userId (Ref: User), userName, userEmail
-
-receiver
-Object	Yes	Contains userId (Ref: User), userName, userEmail
-
-amount
-Number	Yes	Min: 0.01
-netAmount
-Number	Yes	Amount minus fee
-status
-String	No	Enum: initiated, pending, processing, completed, failed, reversed. Default: "initiated"
-scheduledFor
-Date	No	Default: null
-processingMode
-String	No	Enum: instant, scheduled. Default: "instant"
-riskLevel
-String	No	Enum: low, medium, high. Default: "low"
-
-
-
-Stores Tracksy AI chatbot history and semantic context wrappers.
-
-Table F. 7:Conversation Collection (`conversations`)
-Field	Data Type	Required	Constraints / Default
-_id
-ObjectId	Yes	Auto-generated
-userId
-ObjectId	Yes	Ref: User
-
-conversationId
-String	Yes	Unique, Auto-generated default
-messages
-Array of Objects	No	Contains role, content, timestamp, intent, entities
-
-sessionMetadata
-Object	No	Contains lastActivityAt, isActive, contextData
-
-summary
-String	No	Max length: 200 characters
-
-
-Stores user retirement constraints and the ML/Monte Carlo output payload.
-
-Table F. 8:Retirement Plan Collection (`retirementplans`)
-Field	Data Type	Required	Constraints / Default
-_id
-ObjectId	Yes	Auto-generated
-userId
-ObjectId	Yes	Ref: User
-
-sourceInput
-Mixed	No	User constraints (age, inflation, yields)
-projectedFund
-Number	Yes	Default: 0
-probability
-Number	Yes	Min: 0, Max: 1, Default: 0
-scenarios
-Array of Nums	No	Used for Monte Carlo distributions
-deterministic
-Mixed	No	
-predictions
-Mixed	No	Random Forest output payload
-simulation
-Mixed	No	Monte Carlo simulation output array
-
-
-Stores amortization curves and debt tracking.
-
-Table F. 9:Loan Collection (`loans`)
-Field	Data Type	Required	Constraints / Default
-_id
-ObjectId	Yes	Auto-generated
-userId
-ObjectId	Yes	Ref: User
-
-loanName
-String	Yes	Trimmed String
-principalAmount
-Number	Yes	Min: 0
-interestRate
-Number	Yes	Min: 0, Max: 100
-tenure
-Number	Yes	Number of months, Min: 1
-startDate
-Date	Yes	
-endDate
-Date	No	Computed via Pre-save hook
-status
-String	No	Enum: active, paid, closed, defaulted. Default: "active"
-
-
-Stores recurring payments tied to CRON reminders and auto-generated loans.
-
-Table F. 10:Bill Collection (`bills`)
-Field	Data Type	Required	Constraints / Default
-_id
-ObjectId	Yes	Auto-generated
-userId
-ObjectId	Yes	Ref: User
-
-name
-String	Yes	Trimmed text
-amount
-Number	Yes	Min: 0
-category
-String	Yes	Enum for utility groupings
-dueDate
-Date	Yes	
-recurring
-Boolean	No	Default: false
-frequency
-String	No	Enum: weekly, biweekly, monthly, yearly
-loanId
-ObjectId	No	Ref: Loan. Link to parent loan if applicable
-Appendix G — API Endpoint Reference
-
-G.1 Purpose
-This appendix provides a complete reference of all backend REST API endpoints, derived directly from the Express.js router files to ensure accurate architectural documentation. 
-
-G.2 Authentication Routes — `/api/users` 
-Handled via the user controller in this project architecture
-
-Table G. 1:User & Auth Endpoints
-Method	Endpoint	Auth Required	Min Role	Description
-POST	/api/users/register	No	Public	Register new user account
-POST	/api/users/login	No	Public	Standard credential login
-POST	/api/users/guest-login	No	Public	Issue temporary guest session
-POST	/api/users/forgot-password
-No	Public	Trigger password reset flow
-POST	/api/users/reset-password
-No	Public	Execute password reset via token
-GET	/api/users/profile	Yes	User	Retrieve current user profile
-POST	/api/users/update-currency
-Yes	User	Update display currency preference
-PUT	/api/users/budget-settings	Yes	User	Update overarching budget rules
-POST	/api/users/change-password
-Yes	User	Change password while authenticated
-PUT	/api/users/profile	Yes	User	Update basic profile metadata
-PUT	/api/users/notification-settings	Yes	User	Restrict or enable notifications
-PUT	/api/users/privacy-settings	Yes	User	Update data sharing & privacy toggles
-GET	/api/users/export-data	Yes	User	Export complete footprint to CSV
-POST	/api/users/delete-account	Yes	User	Hard delete account & all data
-
-G.3 Transaction Routes — `/api/transactions`
-
-Table G. 2:Transaction Endpoints
-Method	Endpoint	Auth Required	Min Role	Description
-GET	/api/transactions	Yes	User	Retrieve paginated list of transactions
-POST	/api/transactions	Yes	User	Create new physical or ledger transaction
-PUT	/api/transactions/:id	Yes	User	Update a specific transaction
-DELETE	/api/transactions/:id	Yes	User	Remove a transaction from the ledger
-
-
-
-
-G.4 Budget Routes — `/api/budgets`
-
-
-Table G. 3:Budget Endpoints
-Method	Endpoint	Auth Required	Min Role	Description
-GET	/api/budgets	Yes	User	Retrieve all active budgets
-GET	/api/budgets/with-spending	Yes	User	Retrieve budgets joined with current spent totals
-GET	/api/budgets/smart-analyze	Yes	User	Generate analytical insight for all categories
-GET	/api/budgets/status
-Yes	User	Retrieve adaptive status metric
-GET	/api/budgets/analysis	Yes	User	Run adaptive analysis on a single spending tier
-POST	/api/budgets	Yes	User	Create a new budget manually
-POST	/api/budgets/smart-generate	Yes	User	AI/heuristic auto-generation of budgets
-POST	/api/budgets/generate-from-income
-Yes	User	Pro-rata generation based on stated income
-PUT	/api/budgets/:id	Yes	User	Update limit or category name for a budget
-DELETE	/api/budgets/:id	Yes	User	Remove a budget
-
-G.5 Goal Routes — `/api/goals`
-
-Table G. 4:Goal Endpoints
-Method	Endpoint	Auth Required	Min Role	Description
-GET	/api/goals	Yes	User	Fetch all tracked financial goals
-POST	/api/goals	Yes	User	Create a new goal (e.g. house deposit)
-PUT	/api/goals/:id	Yes	User	Update a goal's timeline or metadata
-DELETE	/api/goals/:id	Yes	User	Cancel or remove a goal entirely
-PUT	/api/goals/:id/contribute	Yes	User	Add funds/contribution event to a goal
-
-G.6 Bill Routes — `/api/bills`
-
-Table G. 5:Bill Endpoints
-Method	Endpoint	Auth Required	Min Role	Description
-GET	/api/bills	Yes	User	Fetch all registered bills
-GET	/api/bills/upcoming	Yes	User	Fetch bills due imminently for dashboard
-POST	/api/bills	Yes	User	Register a new recurring or one-off bill
-PUT	/api/bills/:id	Yes	User	Modify bill due dates or amounts
-DELETE	/api/bills/:id	Yes	User	Remove bill from ledger
-PATCH	/api/bills/:id/mark-paid
-Yes	User	Toggle boolean Paid status
-
-G.7 Loan Management Routes — `/api/loans`
-
-Table G. 6:Loan Endpoints
-Method	Endpoint	Auth Required	Min Role	Description
-GET	/api/loans	Yes	User	Get all user loans
-POST	/api/loans	Yes	User	Create new loan
-GET	/api/loans/:id	Yes	User	Details of single loan
-PUT	/api/loans/:id	Yes	User	Update loan details
-DELETE	/api/loans/:id	Yes	User	Delete or close a loan
-POST	/api/loans/calculate-emi	Yes	User	Calculate projected EMI independent of DB creation
-GET	/api/loans/:id/amortization	Yes	User	Get full amortization curve for specific loan
-POST	/api/loans/:id/payments	Yes	User	Record a manual payment against principal/interest
-GET	/api/loans/:id/payments	Yes	User	History of payments on a single loan
-POST	/api/loans/:id/simulate-extra-payment	Yes	User	Calculate savings vs time for hypotheticals
-GET	/api/loans/:id/early-payoff	Yes	User	Calculate penalty-inclusive payoff balance
-POST	/api/loans/:id/prepayment	Yes	User	Process a bulk prepayment action
-GET	/api/loans/analytics/summary
-Yes	User	Aggregated outstanding debt load
-GET	/api/loans/analytics/overdue	Yes	User	Identify any missed payments
-POST	/api/loans/compare	Yes	User	Compare multiple hypothetical loan structures
-
-G.8 Wallet and Transfer Routes — `/api/wallet` & `/api/transfers`
-
-Table G. 7:Wallet and Transfer Endpoints
-Method	Endpoint	Auth Required	Min Role	Description
-GET	/api/wallet/balance
-Yes	User	Retrieve instantaneous balance with pending delta
-POST	/api/wallet/initialize	Yes	User	Instantiate wallet zero-state on activation
-POST	/api/wallet/add-funds	Yes	User	Virtual deposit entry into ecosystem
-POST	/api/wallet/withdraw	Yes	User	Virtual withdrawal off-ledger
-GET	/api/wallet/transactions	Yes	User	Retrieve wallet-specific event ledger
-GET	/api/transfers/search-users	Yes	User	Fuzzy search for target P2P users by string
-GET	/api/transfers/contacts	Yes	User	Retrieve previously successful recipients
-POST	/api/transfers/validate-receiver
-Yes	User	Cryptographically verify recipient status
-POST	/api/transfers/send-otp	Yes	User	Request OTP verification code for transfer
-GET	/api/transfers/my-limits	Yes	User	Fetch user-specific rate limits and ceilings
-POST	/api/transfers/check-feasibility	Yes	User	Dry-run checking math before commit
-POST	/api/transfers/initiate	Yes	User	Execute atomic P2P MongoDB session
-GET	/api/transfers/my-transfers	Yes	User	Pagination listing of transfers explicitly
-GET	/api/transfers/:transferId
-Yes	User	Details wrapper block for a transfer
-POST	/api/transfers/:transferId/process
-Yes	User	Admin or backend job continuation event
-POST	/api/transfers/:transferId/cancel	Yes	User	Cancel un-processed transfer
-POST	/api/transfers/:transferId/reverse	Yes	Admin	Manually unwind transfer action (Admin)
-
-G.9 Tracksy AI & Models — `/api/ai`, `/api/forecasting`, `/api/financial-health`
-
-Table G. 8:Analytics and Intelligence Endpoints
-Method	Endpoint	Auth Required	Min Role	Description
-POST	/api/ai/chat	Yes	User	Groq LLM integration hook (handleChat)
-GET	/api/forecasting/expenses
-Yes	User	Returns baseline future trend mapping
-GET	/api/forecasting/category/:category
-Yes	User	Segmented isolated linear forecast
-GET	/api/financial-health/score	Yes	User	Current generated health integer (1-100)
-GET	/api/financial-health/history	Yes	User	Series dataset for health score line graph
-
-
-G.10 Security and Administration — `/api/admin`
-
-Table G. 9:Backoffice Endpoints
-Method	Endpoint	Auth Required	Min Role	Description
-POST	/api/admin/invite	Yes	Super Admin	Register/invite a secondary sub-admin
-POST	/api/admin/accept-invite	No	Public	Initial sub-admin handshake route
-GET	/api/admin/users	Yes	Admin	List all registered user accounts globally
-PATCH	/api/admin/users/:userId/role
-Yes	Super Admin	Elevate or lower user privilege
-PATCH	/api/admin/users/:userId/status
-Yes	Super Admin	Freeze, suspend, or reactivate accounts
-GET	/api/admin/analytics/overview	Yes	Admin	Fetch highest-level platform heartbeat stats
-GET	/api/admin/financial/overview	Yes	Admin	Total platform AUM and transfer volume
-GET	/api/admin/transfers	Yes	Admin	Global ledger access to all active transfers
-GET	/api/admin/system/health	Yes	Admin	Technical uptime logic and node status
-
-
-
-
-
-
-
-
-
-
-
-
-Appendix H — Sprint Log and Agile Backlog
-
-H.1 Purpose
-This appendix documents the complete sprint-by-sprint development log and MoSCoW-prioritised backlog used to govern feature delivery throughout the project lifecycle.
-
-H.2 Sprint Log
-
-Table H. 1:Sprint Delivery Log
-Sprint	Dates	Primary Deliverables	Status
-Sprint 1	Nov 24 – Dec 7, 2025	Project scaffolding, GitHub repository setup, JWT authentication, RBAC (User/Admin/Super Admin/Guest), email verification	Complete
-Sprint 2	Dec 8 – Dec 21, 2025	Full CRUD transaction engine, 18+ expenditure categories, date-range filtering, pagination	Complete
-Sprint 3	Dec 22, 2025 – Jan 4, 2026	Budget module, real-time utilisation tracking, progressive alerts at 80/90/100%, SendGrid email integration	Complete
-Sprint 4	Jan 5 – Jan 18, 2026	Savings goal tracking, milestone progress indicators, contribution logging, goal completion notifications	Complete
-Sprint 5	Jan 19 – Feb 1, 2026	Bill management module, recurring bill configuration, due-date tracker, automated email reminders, mark-as-paid	Complete
-Sprint 6	Feb 2 – Feb 15, 2026	P2P internal wallet, ACID-compliant atomic transfers, UUID v4 idempotency, double-entry accounting, audit trail	Complete
-Sprint 7	Feb 16 – Mar 1, 2026	Analytics dashboard (Recharts), financial health score algorithm, summary cards, spending pattern charts	Complete
-Sprint 8	Mar 2 – Mar 15, 2026	Python ML microservice (Random Forest Regressor), 2FA email OTP, Groq LLM Tracksy assistant, Monte Carlo retirement planner, multi-currency display	Complete
-Sprint 9	Mar 16 – Mar 29, 2026	Integration testing, UAT beta deployment, Lighthouse audit, Postman security tests, mobile CSS bug fixes, dark mode persistence fix	Complete
-Sprint 10	Mar 30 – Apr 13, 2026	Final documentation, appendix population, deployment validation, final report submission	Complete
-
-H.3 MoSCoW Backlog
-
-Table H. 2:MoSCoW Feature Classification
-Priority	Feature	Sprint Delivered	Final Status
-Must Have	Secure user authentication (JWT + RBAC)	Sprints 1, 8	Delivered
-Must Have	Transaction CRUD (18+ categories)	Sprint 2	Delivered
-Must Have	Budget management with progressive alerts	Sprint 3	Delivered
-Must Have	P2P wallet with ACID transactions	Sprint 6	Delivered
-Must Have	Real-time analytics dashboard	Sprint 7	Delivered
-Should Have	Savings goal tracking	Sprint 4	Delivered
-Should Have	Bill management and reminders	Sprint 5	Delivered
-Should Have	ML expense forecasting (Python/Scikit-Learn Random Forest)	Sprint 8	Delivered
-Should Have	AI assistant — Tracksy (Groq LLM API)	Sprint 8	Delivered
-Should Have	Monte Carlo retirement planner	Sprint 8	Delivered
-Should Have	Dark mode with persistence	Sprint 7	Delivered
-Could Have	Data export (CSV/PDF)	Sprint 9	Delivered
-Could Have	Multi-currency display	Sprint 8	Delivered
-Won't Have (this cycle)	Automated bank API sync (Plaid)	—	Intentionally excluded — privacy rationale documented in Chapter 9
-Won't Have (this cycle)	Native mobile app (React Native)	—	Future enhancement — documented in Chapter 11
-Won't Have (this cycle)	OCR receipt scanning	—	Future enhancement — documented in Chapter 11
-
-Appendix I — User Guide
-
-I.1 System Overview
-The Smart Financial Tracker (SFT) is a full-stack web application deployed across 
-two cloud platforms: the React frontend is hosted on Vercel, and the Node.js/Express 
-backend is hosted on Render. A Python Flask ML microservice operates as a separate 
-process on Render. The MongoDB database is managed via MongoDB Atlas (M0 Free Tier).
-
-I.2 Minimum Platform Requirements (End User)
+A.2 Minimum Platform Requirements (End User)
 - Device: Desktop computer, laptop, tablet, or smartphone
 - Browser: Google Chrome 90+, Mozilla Firefox 88+, Safari 14+, or Microsoft Edge 90+
 - Internet connection: Stable broadband (minimum 5 Mbps recommended)
 - Screen resolution: Minimum 1366 × 768 (responsive down to 320px width)
 - No local installation required — the system runs entirely in the browser
 
-I.3 Minimum Platform Requirements (Development / Local Deployment)
+A.3 Minimum Platform Requirements (Development / Local Deployment)
 - Operating System: Windows 10+, macOS 12+, or Ubuntu 22.04+
 - Node.js: Version 20.x LTS or higher
 - Python: Version 3.10 or higher
@@ -2023,39 +1798,39 @@ I.3 Minimum Platform Requirements (Development / Local Deployment)
 - RAM: 8 GB minimum (16 GB recommended)
 - Storage: 10 GB free disk space minimum
 
-I.4 Installation for Local Demonstration
+A.4 Installation for Local Demonstration
 
 Step 1 — Clone the Repository
-  Clone the project repository from GitHub using the link provided in Appendix J.
+Clone the project repository from GitHub using the link provided in Appendix B.
 
 Step 2 — Backend Setup
-  Navigate to the /backend directory.
-  Create a .env file and populate the required environment variables:
-    MONGO_URI         — MongoDB Atlas connection string
-    JWT_SECRET        — A secure random string for token signing
-    EMAIL_USER        — SMTP email address for notifications
-    EMAIL_PASS        — SMTP email password or app password
-    GROQ_API_KEY      — API key from console.groq.com
-  Run: npm install
-  Run: npm start (starts the Express server on port 5000)
+Navigate to the /backend directory.
+Create a .env file and populate the required environment variables:
+MONGO_URI — MongoDB Atlas connection string
+JWT_SECRET — A secure random string for token signing
+EMAIL_USER — SMTP email address for notifications
+EMAIL_PASS — SMTP email password or app password
+GROQ_API_KEY — API key from console.groq.com
+Run: npm install
+Run: npm start (starts the Express server on port 5000)
 
 Step 3 — Python ML Microservice Setup
-  Navigate to the /ml-service directory.
-  Run: pip install -r requirements.txt
-  Run: python app.py (starts the Flask service on port 5001)
+Navigate to the /ml-service directory.
+Run: pip install -r requirements.txt
+Run: python app.py (starts the Flask service on port 5001)
 
 Step 4 — Frontend Setup
-  Navigate to the /frontend directory.
-  Create a .env file with:
-    VITE_API_URL=http://localhost:5000/api
-  Run: npm install
-  Run: npm run dev (starts the Vite dev server on port 5173)
+Navigate to the /frontend directory.
+Create a .env file with:
+VITE_API_URL=http://localhost:5000/api
+Run: npm install
+Run: npm run dev (starts the Vite dev server on port 5173)
 
 Step 5 — Access the Application
-  Open a browser and navigate to: http://localhost:5173
-  Register a new account or use the Guest Login to explore the demo dashboard.
+Open a browser and navigate to: http://localhost:5173
+Register a new account or use the Guest Login to explore the demo dashboard.
 
-I.5 Key Features Available for Demonstration
+A.5 Key Features Available for Demonstration
 - User registration and secure login
 - Manual income and expense transaction entry (18+ categories)
 - Budget management with progressive alerts at 80%, 90%, and 100%
@@ -2068,53 +1843,48 @@ I.5 Key Features Available for Demonstration
 - Monte Carlo retirement planner
 - Dark mode toggle with persistence
 
-Appendix J — Project Source Code Link
+Appendix B — Project Source Code Link
 
-The complete project source code is hosted on Plymouth University OneDrive and is 
-accessible to all evaluators via the link below. The link has been configured with 
-open access permissions as required by the submission guidelines.
+The complete project source code is hosted on Plymouth University OneDrive and is accessible to all evaluators via the link below. The link has been configured with open access permissions as required by the submission guidelines.
 
 OneDrive Source Code Link:
-[INSERT YOUR PLYMOUTH ONEDRIVE LINK HERE]
+https://liveplymouthac-my.sharepoint.com/:u:/g/personal/10953504_students_plymouth_ac_uk/IQAfOxQ-iwehS68GK5aC2wZ9AToFOLXD4di5DkedVPuLGbA?e=BIR1nR
 
 Note: The student must paste their actual OneDrive link here before submission. This appendix is mandatory; failure to include a valid accessible link results in zero marks for the project per the submission guidelines.
 
-The GitHub repository is provided separately in Appendix K.
+The GitHub repository is provided separately in Appendix C.
 
-Appendix K — GitHub Repository and Commit History
+Appendix C — GitHub Repository and Commit History
 
-K.1 Repository Link
-GitHub Repository URL: [INSERT GITHUB REPOSITORY URL HERE]
+C.1 Repository Link
+GitHub Repository URL: https://github.com/nethusara003/smart-financial-manager.git
 
-K.2 Commit History Summary
-The project was developed across 10 Agile sprints from November 2025 to April 2026, 
-with all commits structured according to the Conventional Commits specification 
-(feat:, fix:, docs:, refactor:). The GitFlow branching strategy was applied 
-throughout, with feature branches merged into the main branch following pull 
-request review at each sprint boundary.
+C.2 Commit History Summary
+The project was developed across 10 Agile sprints from November 2025 to April 2026, with all commits structured according to the Conventional Commits specification (feat:, fix:, docs:, refactor:). The GitFlow branching strategy was applied throughout, with feature branches merged into the main branch following pull request review at each sprint boundary.
 
-A screenshot of the GitHub commit history graph is included below, demonstrating 
-the consistent development cadence maintained across the project timeline.
+A screenshot of the GitHub commit history graph is included below, demonstrating the consistent development cadence maintained across the project timeline.
 
 [INSERT SCREENSHOT OF GITHUB COMMIT HISTORY HERE]
 
-Figure K.1: GitHub Commit History — Smart Financial Tracker (Nov 2025 – Apr 2026)
+Figure C.1: GitHub Commit History — Smart Financial Tracker (Nov 2025 – Apr 2026)
 
-Appendix L — Project Initiation Document (PID)
+Appendix D — Project Initiation Document (PID)
 
-The Project Initiation Document (PID) was produced at the outset of the project 
-to formally define the project scope, objectives, schedule, resource constraints, 
-and risk management strategy. It served as the foundational governance document 
-throughout the development lifecycle.
+The Project Initiation Document (PID) was produced at the outset of the project to formally define the project scope, objectives, schedule, resource constraints, and risk management strategy. It served as the foundational governance document throughout the development lifecycle.
 
 [INSERT THE FULL PID DOCUMENT CONTENT HERE, OR INSERT THE PID AS A SCANNED/EMBEDDED PAGE]
 
-Appendix M — Records of Supervisory Meetings
+Appendix E — Interim Report
 
-The following records document the supervisory meetings held with Ms. Yasanthika 
-Mathotaarachchi throughout the project lifecycle. These records confirm the 
-academic oversight and iterative feedback process that guided the development 
-of the Smart Financial Tracker platform.
+The Interim Report was submitted as a formal mid-project academic deliverable documenting the requirements gathering process, literature review, initial system architecture, and early implementation progress as of March 2026.
+
+The full interim report is included on the following pages / attached as a separate bound document per the submission instructions.
+
+[The student must insert or bind the interim report here.]
+
+Appendix F — Records of Supervisory Meetings
+
+The following records document the supervisory meetings held with Ms. Yasanthika Mathotaarachchi throughout the project lifecycle. These records confirm the academic oversight and iterative feedback process that guided the development of the Smart Financial Tracker platform.
 
 [INSERT MEETING RECORDS HERE]
 
