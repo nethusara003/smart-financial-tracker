@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useGuestLogin, useLogin } from "../hooks/useAuth";
+import { useGuestLogin, useLogin, useGoogleLogin } from "../hooks/useAuth";
 import { storeAuthenticatedSession, storeGuestSession } from "../utils/authStorage";
 import { resetUnauthorizedHandling } from "../services/apiClient";
 import { Mail, Lock, TrendingUp, Shield, Zap, Eye, EyeOff, ArrowRight, User, Sparkles } from 'lucide-react';
@@ -22,6 +22,70 @@ function Login({ setAuth }) {
 
   const loginMutation = useLogin();
   const guestLoginMutation = useGuestLogin();
+  const googleLoginMutation = useGoogleLogin();
+
+  const handleGoogleLoginResponse = async (response) => {
+    setLoading(true);
+    setError("");
+
+    try {
+      const data = await googleLoginMutation.mutateAsync({
+        credential: response.credential,
+      });
+
+      completeAuthenticatedLogin(data);
+    } catch (error) {
+      setError(error?.message || "Google authentication failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+    if (!googleClientId || googleClientId === "your-google-client-id") {
+      return;
+    }
+
+    const initGoogle = () => {
+      try {
+        if (typeof window !== "undefined" && window.google) {
+          window.google.accounts.id.initialize({
+            client_id: googleClientId,
+            callback: handleGoogleLoginResponse,
+          });
+
+          const buttonDiv = document.getElementById("google-signin-button");
+          if (buttonDiv) {
+            window.google.accounts.id.renderButton(
+              buttonDiv,
+              {
+                theme: "filled_black",
+                size: "large",
+                width: 382,
+                text: "signin_with",
+                shape: "rectangular",
+              }
+            );
+          }
+        }
+      } catch (err) {
+        console.error("Google Sign-In initialization failed:", err);
+      }
+    };
+
+    if (typeof window !== "undefined" && window.google) {
+      initGoogle();
+    } else {
+      const checkInterval = setInterval(() => {
+        if (typeof window !== "undefined" && window.google) {
+          clearInterval(checkInterval);
+          initGoogle();
+        }
+      }, 100);
+      return () => clearInterval(checkInterval);
+    }
+  }, []);
 
   const completeAuthenticatedLogin = (data) => {
     if (!data?.token) {
@@ -330,6 +394,18 @@ function Login({ setAuth }) {
                     <span className="px-3 text-sm font-medium" style={{ background: '#0D1117', color: '#9CA3AF' }}>or</span>
                   </div>
                 </div>
+
+                {/* Google Sign In Container */}
+                {import.meta.env.VITE_GOOGLE_CLIENT_ID && 
+                 import.meta.env.VITE_GOOGLE_CLIENT_ID !== "your-google-client-id" && (
+                  <div className="flex justify-center mb-3">
+                    <div 
+                      id="google-signin-button" 
+                      className="w-full flex justify-center"
+                      style={{ minHeight: '44px' }}
+                    ></div>
+                  </div>
+                )}
 
                 {/* Guest login button — secondary/cancel style */}
                 <button

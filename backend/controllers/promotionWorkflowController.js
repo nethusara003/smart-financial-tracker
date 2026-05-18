@@ -2,6 +2,7 @@ import AdminPromotionRequest from "../models/AdminPromotionRequest.js";
 import AdminWallNotification from "../models/AdminWallNotification.js";
 import AdminAudit from "../models/AdminAudit.js";
 import User from "../models/User.js";
+import Notification from "../models/Notification.js";
 import { createNotification } from "./notificationController.js";
 
 /* =========================
@@ -296,6 +297,30 @@ export const userRespondToPromotion = async (req, res) => {
         performedByRole: "user",
       });
 
+      // Update the user's notification to reflect resolution and remove buttons
+      try {
+        await Notification.findOneAndUpdate(
+          {
+            userId: req.user.id,
+            "data.promotionRequestId": requestId,
+          },
+          {
+            $set: {
+              title: "Admin Role Invitation (Accepted)",
+              message: "You have accepted the invitation to become an admin. Please log in again for changes to take effect.",
+              color: "success",
+              icon: "CheckCircle",
+              read: true,
+            },
+            $unset: {
+              "data.promotionRequestId": 1,
+            },
+          }
+        );
+      } catch (err) {
+        console.error("Error updating accepted notification:", err);
+      }
+
       return res.json({
         message: "You are now an admin. Please log in again for changes to take effect.",
         newRole: "admin",
@@ -326,6 +351,30 @@ export const userRespondToPromotion = async (req, res) => {
       targetUser: req.user.id,
       performedByRole: "user",
     });
+
+    // Update the user's notification to reflect resolution and remove buttons
+    try {
+      await Notification.findOneAndUpdate(
+        {
+          userId: req.user.id,
+          "data.promotionRequestId": requestId,
+        },
+        {
+          $set: {
+            title: "Admin Role Invitation (Declined)",
+            message: "You have declined the invitation to become an admin.",
+            color: "danger",
+            icon: "XCircle",
+            read: true,
+          },
+          $unset: {
+            "data.promotionRequestId": 1,
+          },
+        }
+      );
+    } catch (err) {
+      console.error("Error updating declined notification:", err);
+    }
 
     return res.json({ message: "You have declined the admin promotion." });
   } catch (error) {

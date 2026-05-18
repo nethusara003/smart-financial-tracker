@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import nodemailer from "nodemailer";
+import { OAuth2Client } from "google-auth-library";
 import { generateResetToken } from "../utils/generateResetToken.js";
 
 /* =========================
@@ -327,6 +328,72 @@ export const loginUser = async (req, res) => {
     res.json(buildAuthenticatedUserResponse(user, token));
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+/* =========================
+   GOOGLE LOGIN
+========================= */
+const googleOAuthClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+export const googleLogin = async (req, res) => {
+  try {
+    const { credential } = req.body;
+    if (!credential) {
+      return res.status(400).json({ message: "Credential token is required" });
+    }
+
+    // Verify Google ID Token
+    const ticket = await googleOAuthClient.verifyIdToken({
+      idToken: credential,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+
+    const payload = ticket.getPayload();
+    if (!payload) {
+      return res.status(400).json({ message: "Invalid token payload" });
+    }
+
+    const { email, name, picture, sub: googleId } = payload;
+
+    // Check if user exists in our DB
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      // Create new user (automatically register)
+      const randomPassword = crypto.randomBytes(32).toString("hex");
+      const hashedPassword = await bcrypt.hash(randomPassword, 10);
+      
+      user = await User.create({
+        name: name || email.split("@")[0],
+        email,
+        password: hashedPassword,
+        googleId,
+        profilePicture: picture || "",
+      });
+    } else {
+      // Link Google ID if not already linked
+      if (!user.googleId) {
+        user.googleId = googleId;
+        if (picture && !user.profilePicture) {
+          user.profilePicture = picture;
+        }
+        await user.save();
+      }
+    }
+
+    // Issue standard Access Token
+    const token = issueAccessToken(user);
+
+    // Send login notification email if enabled
+    void sendLoginNotificationEmail({ user, req }).catch((mailError) => {
+      console.error("Google login notification email failed:", mailError);
+    });
+
+    res.json(buildAuthenticatedUserResponse(user, token));
+  } catch (error) {
+    console.error("Google login error:", error);
+    res.status(400).json({ message: "Google authentication failed: " + error.message });
   }
 };
 

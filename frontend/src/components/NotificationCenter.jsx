@@ -149,7 +149,7 @@ export default function NotificationCenter({ isOpen, onClose }) {
       isOpen={isOpen}
       onClose={onClose}
       containerClassName="items-start justify-end p-0"
-      panelClassName="w-[380px] max-w-[100vw] h-screen"
+      panelClassName="w-[380px] max-w-[380px] h-screen"
       backdropClassName="bg-black/40 backdrop-blur-sm"
       ariaLabelledBy="notification-center-title"
     >

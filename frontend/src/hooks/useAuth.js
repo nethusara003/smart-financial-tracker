@@ -14,6 +14,19 @@ export function useLogin() {
   });
 }
 
+export function useGoogleLogin() {
+  return useMutation({
+    mutationFn: async ({ credential }) => {
+      return request("/users/google-login", {
+        method: "POST",
+        auth: false,
+        body: { credential },
+        fallbackMessage: "Google Sign-In failed",
+      });
+    },
+  });
+}
+
 export function useGuestLogin() {
   return useMutation({
     mutationFn: async () => {
