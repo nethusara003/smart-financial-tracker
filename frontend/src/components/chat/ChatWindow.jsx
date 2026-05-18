@@ -222,7 +222,7 @@ const ChatWindow = () => {
             height: "100vh",
           }}
           minWidth={isMobileViewport ? "100vw" : 300}
-          maxWidth={isMobileViewport ? "100vw" : "72vw"}
+          maxWidth={isMobileViewport ? "100vw" : "75vw"}
           enable={{
             top: false,
             right: false,

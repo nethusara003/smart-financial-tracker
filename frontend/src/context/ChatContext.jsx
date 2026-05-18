@@ -7,9 +7,9 @@ const CHAT_CONVERSATIONS_STORAGE_KEY = "sft.chat.conversations.v2";
 const CHAT_ACTIVE_CONVERSATION_STORAGE_KEY = "sft.chat.activeConversation.v2";
 const CHAT_WIDTH_STORAGE_KEY = "sft.chat.width.v1";
 const CHAT_ANONYMOUS_SCOPE = "anonymous";
-const DEFAULT_CHAT_WIDTH = 42;
-const MIN_CHAT_WIDTH = 24;
-const MAX_CHAT_WIDTH = 72;
+const DEFAULT_CHAT_WIDTH = 45;
+const MIN_CHAT_WIDTH = 32;
+const MAX_CHAT_WIDTH = 75;
 const MAX_HISTORY_MESSAGES = 12;
 const MAX_HISTORY_CONTENT_CHARS = 900;
 const DEFAULT_CONVERSATION_TITLE = "New Chat";
@@ -269,6 +269,11 @@ const loadStoredWidth = () => {
 
     const parsed = Number(raw);
     if (Number.isNaN(parsed)) {
+      return DEFAULT_CHAT_WIDTH;
+    }
+
+    // If the stored width is too narrow/shrinked, reset it to the default comfortable width
+    if (parsed < 35) {
       return DEFAULT_CHAT_WIDTH;
     }
 
