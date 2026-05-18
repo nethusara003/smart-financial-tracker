@@ -23,7 +23,7 @@ import {
 const OBSIDIAN      = "#0B0E14";
 const ELECTRIC_BLUE = "#3B82F6";
 
-const Topbar = ({ auth, onToggleMobileSidebar, isMobileSidebarOpen = false }) => {
+const Topbar = ({ auth }) => {
   const navigate = useNavigate();
   const { isDark, setTheme } = useTheme();
   const { user: currentUser } = useUser();
@@ -87,7 +87,7 @@ const Topbar = ({ auth, onToggleMobileSidebar, isMobileSidebarOpen = false }) =>
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 w-full h-[80px]
+      className="relative z-50 w-full h-[80px] shrink-0
         border-b border-white/5 text-white shadow-xl obsidian-shell"
       style={headerStyle}
     >
@@ -96,22 +96,14 @@ const Topbar = ({ auth, onToggleMobileSidebar, isMobileSidebarOpen = false }) =>
 
           {/* Left — greeting (Pure White Force) */}
           <div className="flex min-w-0 items-center gap-3">
-            <button
-              onClick={onToggleMobileSidebar}
-              className={`${iconBtn} md:hidden text-[#FFFFFF]`}
-              title={isMobileSidebarOpen ? "Close menu" : "Open menu"}
-              aria-label="Open sidebar menu"
-              aria-expanded={isMobileSidebarOpen}
-            >
-              <Menu className={smallIcon} />
-            </button>
 
             <div className={walletWrapper}>
               <WalletCards className="h-[18px] w-[18px]" />
             </div>
             <div className="min-w-0">
               <h2 className="truncate text-sm font-bold font-sans text-[#FFFFFF] sm:text-base uppercase tracking-tight">
-                Welcome back, {user?.name?.split(" ")[0] || "Guest"}
+                <span className="hidden sm:inline">Welcome back, </span>
+                {user?.name?.split(" ")[0] || "Guest"}
               </h2>
               <p className="text-[10px] font-bold font-sans text-[#FFFFFF] tracking-[0.1em] uppercase">
                 {new Date().toLocaleDateString("en-US", {
@@ -140,11 +132,10 @@ const Topbar = ({ auth, onToggleMobileSidebar, isMobileSidebarOpen = false }) =>
                 </span>
               )}
             </button>
-
             {/* Help */}
             <button
               onClick={() => setShowHelp(true)}
-              className={iconBtn}
+              className={`${iconBtn} hidden sm:flex`}
               title="Help & Support"
             >
               <HelpCircle className={smallIcon} />
@@ -153,7 +144,7 @@ const Topbar = ({ auth, onToggleMobileSidebar, isMobileSidebarOpen = false }) =>
             {/* Theme toggle */}
             <button
               onClick={toggleDark}
-              className={`${iconBtn} bg-white/5`}
+              className={`${iconBtn} bg-white/5 hidden sm:flex`}
               title="Switch Theme"
             >
               <Moon className={smallIcon} />
@@ -205,13 +196,11 @@ const Topbar = ({ auth, onToggleMobileSidebar, isMobileSidebarOpen = false }) =>
             {/* Logout */}
             <button
               onClick={handleLogout}
-              className="rounded-lg p-2 text-red-400 transition-colors duration-200 ease-out
-                hover:bg-red-500/10 hover:text-red-300"
+              className={`${iconBtn} hidden sm:flex text-red-400 hover:text-red-300 hover:bg-red-500/10`}
               title="Logout"
             >
               <LogOut className={smallIcon} />
-            </button>
-          </div>
+            </button>          </div>
         </div>
       </div>
 

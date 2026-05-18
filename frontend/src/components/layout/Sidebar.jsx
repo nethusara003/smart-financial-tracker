@@ -1,235 +1,220 @@
-import { NavLink, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
-
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
 import { 
   LayoutDashboard, 
   FileText, 
   TrendingUp,
-  Target, 
-  Calendar,
-  Wallet, 
-  Settings,
-  Shield,
-  ChevronLeft,
-  ChevronRight,
-  ChevronDown,
-  ChevronUp,
-  BarChart3,
-  LayoutGrid,
-  Zap,
+  BarChart2,
+  Wallet,
+  Target,
+  CalendarClock,
   CreditCard,
-  HelpCircle,
+  ArrowLeftRight,
   Heart,
   LineChart,
-  Star,
-  Send,
-  Sparkles
+  Sparkles,
+  Settings,
+  HelpCircle,
+  PanelLeftClose,
+  PanelLeftOpen,
+  Shield,
+  Bell
 } from "lucide-react";
+import { useAdminWallNotifications } from "../../hooks/useAdminWall";
 
-// ── Obsidian Shell constants (Hardcoded Hardlock) ──────────────────────────
-const OBSIDIAN      = "#0B0E14";
-const ELECTRIC_BLUE = "#3B82F6";
+const SidebarHeader = ({ collapsed, onToggle }) => (
+  <div className="relative flex items-center gap-2.5 px-3 py-4 border-b border-white/5 min-h-[69px]">
+    {/* Logo — always visible, never shrinks */}
+    <div className="w-9 h-9 min-w-[36px] rounded-lg bg-[#3B82F6] flex items-center justify-center shrink-0">
+      <span className="text-white text-xs font-bold tracking-wide">SFT</span>
+    </div>
 
-const Sidebar = ({ auth, isMobileOpen = false, onCloseMobile }) => {
+    {/* Brand — fades out when collapsed */}
+    <div className={`overflow-hidden transition-all duration-200 ${collapsed ? 'opacity-0 w-0' : 'opacity-100 w-full'}`}>
+      <p className="text-[11px] font-bold text-[#F9FAFB] uppercase tracking-[0.06em] whitespace-nowrap">
+        Smart Financial Tracker
+      </p>
+      <p className="text-[10px] text-[#3B82F6] uppercase tracking-[0.08em]">
+        SFT Platform
+      </p>
+    </div>
+
+    {/* Toggle button */}
+    <button
+      onClick={onToggle}
+      aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+      className={`
+        ${collapsed ? 'absolute -right-3.5 top-1/2 -translate-y-1/2 bg-[#0B0E14] shadow-md z-50' : 'ml-auto'}
+        w-7 h-7 min-w-[28px] rounded-md
+        border border-white/10
+        flex items-center justify-center shrink-0
+        text-[#9CA3AF]
+        hover:bg-[rgba(59,130,246,0.16)] hover:text-[#3B82F6]
+        transition-all duration-200
+      `}
+    >
+      {collapsed ? <PanelLeftOpen size={15} /> : <PanelLeftClose size={15} />}
+    </button>
+  </div>
+);
+
+const SidebarSection = ({ label, collapsed, children }) => (
+  <div className="py-1">
+    {/* Section label — collapses away */}
+    <p className={`
+      px-4 text-[9px] font-semibold text-[#475569] uppercase tracking-[0.12em]
+      transition-all duration-150 overflow-hidden whitespace-nowrap
+      ${collapsed ? 'opacity-0 max-h-0 py-0' : 'opacity-100 max-h-8 pt-2 pb-1'}
+    `}>
+      {label}
+    </p>
+    {children}
+  </div>
+);
+
+const SidebarItem = ({ icon: Icon, label, to, collapsed }) => (
+  <NavLink
+    to={to}
+    className={({ isActive }) => `
+      group relative flex items-center gap-2.5
+      mx-2 px-3 py-2 rounded-lg
+      transition-colors duration-150 cursor-pointer
+      ${isActive
+        ? 'bg-[rgba(59,130,246,0.12)] text-[#F9FAFB]'
+        : 'text-[#9CA3AF] hover:bg-[rgba(59,130,246,0.08)] hover:text-[#9CA3AF]'
+      }
+    `}
+  >
+    {({ isActive }) => (
+      <>
+        {/* Active left-edge indicator */}
+        {isActive && (
+          <span className="
+            absolute -left-2 top-[20%] h-[60%] w-[3px]
+            bg-[rgba(59,130,246,0.70)] rounded-r-sm
+          " />
+        )}
+
+        {/* Icon */}
+        <Icon
+          size={16}
+          className={`shrink-0 transition-colors duration-150 ${
+            isActive ? 'text-[#3B82F6]' : 'text-[#475569] group-hover:text-[#9CA3AF]'
+          }`}
+        />
+
+        {/* Label — fades when collapsed */}
+        <span className={`
+          text-[13px] whitespace-nowrap overflow-hidden
+          transition-all duration-[180ms]
+          ${isActive ? 'font-medium' : 'font-normal'}
+          ${collapsed ? 'opacity-0 max-w-0' : 'opacity-100 max-w-[200px]'}
+        `}>
+          {label}
+        </span>
+
+        {/* Tooltip — only shown when collapsed + hovering */}
+        {collapsed && (
+          <span className="
+            pointer-events-none select-none
+            absolute left-[calc(100%+10px)] top-1/2 -translate-y-1/2
+            bg-[#111722] text-[#F9FAFB]
+            text-xs px-2.5 py-1.5 rounded-md
+            border border-white/10
+            whitespace-nowrap z-[999]
+            opacity-0 group-hover:opacity-100
+            transition-opacity duration-100
+          ">
+            {label}
+          </span>
+        )}
+      </>
+    )}
+  </NavLink>
+);
+
+const Sidebar = ({ collapsed, onToggle, auth }) => {
   const userRole = auth?.user?.role;
-
-  const location = useLocation();
-  const [isCollapsed] = useState(false);
-  const [expandedSections, setExpandedSections] = useState({
-    financial: true,
-    insights: true,
-    tools: true
-  });
-
-  const toggleSection = (section) => {
-    if (isCollapsed) return;
-    setExpandedSections(prev => ({
-      ...prev,
-      [section]: !prev[section]
-    }));
-  };
-
-  useEffect(() => {
-    if (isMobileOpen && onCloseMobile) {
-      onCloseMobile();
-    }
-  }, [location.pathname, isMobileOpen, onCloseMobile]);
-
-  const navItems = [
-    {
-      id: "financial",
-      section: "Financial",
-      icon: BarChart3,
-      items: [
-        { path: "/dashboard",     label: "Dashboard",    icon: LayoutDashboard },
-        { path: "/transactions",  label: "Transactions", icon: FileText },
-        { path: "/analytics",    label: "Analytics",    icon: TrendingUp },
-        { path: "/reports",      label: "Reports",      icon: FileText },
-      ]
-    },
-    {
-      id: "tools", 
-      section: "Tools",
-      icon: LayoutGrid,
-      items: [
-        { path: "/budgets",         label: "Budgets",         icon: Wallet },
-        { path: "/goals",           label: "Goals",           icon: Target },
-        { path: "/bills-reminders", label: "Bills & Reminders", icon: Calendar },
-        { path: "/loans",           label: "Loans",           icon: CreditCard, badge: "NEW" },
-        { path: "/transfers",       label: "Transfers",       icon: Send,       badge: "NEW" },
-      ]
-    },
-    {
-      id: "insights",
-      section: "Insights",
-      icon: Zap,
-      items: [
-        { path: "/financial-health", label: "Financial Health",    icon: Heart,     badge: "NEW" },
-        { path: "/forecast",         label: "Forecast",            icon: LineChart,  badge: "NEW" },
-        { path: "/retirement",       label: "Retirement Planner",  icon: Sparkles,  badge: "NEW" },
-      ]
-    }
-  ];
-
-  if (userRole === "admin" || userRole === "super_admin") {
-    navItems.push({
-      id: "admin",
-      section: "Administration",
-      icon: Shield,
-      items: [
-        { path: "/admin", label: "Admin Dashboard", icon: Shield },
-      ]
-    });
-  }
-
-  /* ── nav-link class builder (Force Pure White) ── */
-  const linkClass = (isActive, indented = false) => {
-    const base = `relative flex items-center overflow-hidden text-sm font-sans transition-all duration-200
-     ${isCollapsed ? "justify-center p-2.5" : `gap-3 px-3 py-2.5 ${indented ? "ml-4" : ""}`}`;
-
-    if (isActive) {
-      return `${base} font-bold text-white
-        before:absolute before:inset-y-2 before:left-0 before:w-[3px] before:rounded-full
-        before:bg-[#3B82F6]`;
-    }
-    // Restore original muted state for dark mode; obsidian-shell will force white in light mode
-    return `${base} font-medium text-slate-400 hover:text-white hover:bg-white/5 rounded-lg mx-1`;
-  };
-
-  const sectionLabelClass = `group flex w-full items-center justify-between rounded-lg px-3 py-2
-    text-[10px] font-bold uppercase tracking-[0.22em] font-sans
-    transition-all text-white hover:text-[#3B82F6]`;
-
-  const menuLabelClass = `mb-3 px-3 text-[10px] font-bold uppercase tracking-[0.25em] font-sans text-slate-500`;
-  const otherLabelClass = `mb-1 px-3 text-[10px] font-bold uppercase tracking-[0.25em] font-sans text-slate-500`;
-
-  /* ── sidebar style (Permanent Obsidian) ── */
-  const sidebarStyle = { background: OBSIDIAN };
-
-  const borderR      = `border-r border-white/10`;
-  const borderB      = `border-b border-white/10`;
-
-  const dividerClass = `my-3 border-t border-white/10`;
-
-  /* ── icons ── */
-  const iconSize = "h-4 w-4 flex-shrink-0 stroke-current stroke-[1.5]";
+  const isAdmin = userRole === "admin" || userRole === "super_admin";
 
   return (
-    <>
-    {isMobileOpen && (
-      <button
-        type="button"
-        className="fixed inset-0 z-30 bg-black/50 md:hidden"
-        aria-label="Close sidebar overlay"
-        onClick={onCloseMobile}
-      />
-    )}
     <aside
-      className={`${isCollapsed ? "md:w-16" : "md:w-[var(--sidebar-width)]"} w-[85vw] max-w-[20rem]
-        flex flex-col fixed top-0 left-0 h-screen z-40 pt-[80px]
-        transition-all duration-300 ${borderR} overflow-hidden shadow-2xl obsidian-shell
-        ${isMobileOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
-      style={sidebarStyle}
+      className={`
+        flex flex-col h-screen shrink-0
+        bg-[#0B0E14]
+        border-r border-white/5
+        transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]
+        overflow-visible relative z-[60]
+        ${collapsed ? 'w-16' : 'w-[260px]'}
+      `}
     >
-      {/* Branding */}
-      <div className={`${isCollapsed ? "p-3" : "p-5"} ${borderB} transition-all duration-300`}>
-        <div className={`flex items-center ${isCollapsed ? "justify-center" : "gap-3"}`}>
-          <div className="relative flex-shrink-0">
-            <img
-              src="/logo-sft.svg"
-              alt="SFT Logo"
-              className={`${isCollapsed ? "w-8 h-8" : "w-10 h-10"} drop-shadow-lg`}
-            />
-          </div>
-          {!isCollapsed && (
-            <div className="animate-fade-in min-w-0">
-              <h1 className="text-sm font-bold font-sans leading-tight text-[#FFFFFF] tracking-tight uppercase">
-                Smart Financial Tracker
-              </h1>
-              <p className="text-[10px] font-bold font-sans tracking-[0.22em] text-[#3B82F6] mt-0.5">
-                SFT PLATFORM
-              </p>
-            </div>
-          )}
-        </div>
-      </div>
+      <SidebarHeader collapsed={collapsed} onToggle={onToggle} />
+      <nav aria-label="Main navigation" className="flex-1 overflow-y-auto overflow-x-visible py-2 scrollbar-none">
+        <SidebarSection label="Financial" collapsed={collapsed}>
+          <SidebarItem icon={LayoutDashboard} label="Dashboard"  to="/dashboard"        collapsed={collapsed} />
+          <SidebarItem icon={FileText}        label="Transactions" to="/transactions"    collapsed={collapsed} />
+          <SidebarItem icon={TrendingUp}      label="Analytics"   to="/analytics"       collapsed={collapsed} />
+          <SidebarItem icon={BarChart2}       label="Reports"     to="/reports"         collapsed={collapsed} />
+        </SidebarSection>
 
-      {/* Navigation */}
-      <nav className={`flex-1 ${isCollapsed ? "p-2" : "p-3"} space-y-3 overflow-y-auto custom-scrollbar`}>
-        {!isCollapsed && <p className={menuLabelClass}>MENU</p>}
+        <div className="mx-4 my-1 border-t border-white/5" />
 
-        {navItems.map((section) => {
-          const SectionIcon = section.icon;
-          const isExpanded = expandedSections[section.id];
+        <SidebarSection label="Tools" collapsed={collapsed}>
+          <SidebarItem icon={Wallet}          label="Budgets"          to="/budgets"        collapsed={collapsed} />
+          <SidebarItem icon={Target}          label="Goals"            to="/goals"          collapsed={collapsed} />
+          <SidebarItem icon={CalendarClock}   label="Bills & Reminders" to="/bills"         collapsed={collapsed} />
+          <SidebarItem icon={CreditCard}      label="Loans"            to="/loans"          collapsed={collapsed} />
+          <SidebarItem icon={ArrowLeftRight}  label="Transfers"        to="/transfers"      collapsed={collapsed} />
+        </SidebarSection>
 
-          return (
-            <div key={section.id} className="space-y-0.5">
-              {!isCollapsed && (
-                <button onClick={() => toggleSection(section.id)} className={sectionLabelClass}>
-                  <div className="flex items-center gap-2">
-                    <SectionIcon className="h-3.5 w-3.5 stroke-white stroke-[2]" />
-                    <span>{section.section}</span>
-                  </div>
-                  {isExpanded ? <ChevronDown className="h-3 w-3 text-white" /> : <ChevronUp className="h-3 w-3 text-white" />}
-                </button>
-              )}
+        <div className="mx-4 my-1 border-t border-white/5" />
 
-              <div className={`space-y-0.5 ${!isCollapsed && !isExpanded ? "hidden" : ""} transition-all duration-200`}>
-                {section.items.map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <NavLink
-                      key={item.path}
-                      to={item.path}
-                      className={({ isActive }) => linkClass(isActive, !isCollapsed)}
-                      onClick={() => onCloseMobile?.()}
-                    >
-                      <Icon className={iconSize} />
-                      {!isCollapsed && <span className="flex-1">{item.label}</span>}
-                    </NavLink>
-                  );
-                })}
-              </div>
-            </div>
-          );
-        })}
+        <SidebarSection label="Insights" collapsed={collapsed}>
+          <SidebarItem icon={Heart}           label="Financial Health"   to="/financial-health" collapsed={collapsed} />
+          <SidebarItem icon={LineChart}       label="Forecast"           to="/forecast"         collapsed={collapsed} />
+          <SidebarItem icon={Sparkles}        label="Retirement Planner" to="/retirement"       collapsed={collapsed} />
+        </SidebarSection>
 
-        {!isCollapsed && <div className={dividerClass} />}
-        {!isCollapsed && <p className={otherLabelClass}>OTHER</p>}
+        {isAdmin && (
+          <>
+            <div className="mx-4 my-1 border-t border-white/5" />
+            <SidebarSection label="Administration" collapsed={collapsed}>
+              <SidebarItem icon={Shield} label="Admin Dashboard" to="/admin" collapsed={collapsed} />
+              <AdminWallSidebarItem collapsed={collapsed} isAdmin={isAdmin} />
+            </SidebarSection>
+          </>
+        )}
 
-        <NavLink to="/settings" className={({ isActive }) => linkClass(isActive)} onClick={() => onCloseMobile?.()}>
-          <Settings className={iconSize} />
-          {!isCollapsed && <span>Settings</span>}
-        </NavLink>
+        <div className="mx-4 my-1 border-t border-white/5" />
 
-        <NavLink to="/help" className={({ isActive }) => linkClass(isActive)} onClick={() => onCloseMobile?.()}>
-          <HelpCircle className={iconSize} />
-          {!isCollapsed && <span>Help</span>}
-        </NavLink>
+        <SidebarSection label="Other" collapsed={collapsed}>
+          <SidebarItem icon={Settings}        label="Settings"           to="/settings"         collapsed={collapsed} />
+          <SidebarItem icon={HelpCircle}      label="Help"               to="/help"             collapsed={collapsed} />
+        </SidebarSection>
       </nav>
     </aside>
-    </>
   );
 };
 
 export default Sidebar;
+
+/* Admin Wall sidebar item with unread badge */
+function AdminWallSidebarItem({ collapsed, isAdmin }) {
+  const { data } = useAdminWallNotifications({
+    enabled: isAdmin,
+    refetchInterval: 15000,
+  });
+  const unreadCount = data?.unreadCount || 0;
+
+  return (
+    <div className="relative">
+      <SidebarItem icon={Bell} label="Admin Wall" to="/admin/wall" collapsed={collapsed} />
+      {unreadCount > 0 && (
+        <span className={`
+          absolute top-1.5 bg-red-500 rounded-full border-2 border-[#0B0E14]
+          ${collapsed ? 'right-2 w-2.5 h-2.5' : 'left-8 w-2 h-2'}
+        `} />
+      )}
+    </div>
+  );
+}

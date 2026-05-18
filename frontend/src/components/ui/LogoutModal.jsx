@@ -48,24 +48,25 @@ const LogoutModal = ({ isOpen, onClose, onConfirm }) => {
         className="relative w-full max-w-md m-auto transform transition-all duration-300 scale-100 opacity-100"
       >
         {/* Modal card */}
-        <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+        <div className="relative rounded-2xl shadow-2xl overflow-hidden" style={{ background: '#0D1117', border: '1px solid rgba(255,255,255,0.08)' }}>
           {/* Close button */}
           <button
             onClick={handleClose}
-            className="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition-colors group"
+            className="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full transition-colors"
+            style={{ background: 'rgba(255,255,255,0.08)' }}
             aria-label="Close modal"
           >
-            <X className="w-4 h-4 text-white" />
+            <X className="w-4 h-4" style={{ color: '#9CA3AF' }} />
           </button>
 
-          {/* Professional Blue Header */}
-          <div className="bg-gradient-to-r from-primary-600 to-primary-700 px-6 py-6">
+          {/* Header — dark gradient matching dashboard header band */}
+          <div className="px-6 py-6" style={{ background: 'linear-gradient(135deg, #0F172A, #020617)' }}>
             <div className="flex items-center gap-4">
-              <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-xl bg-white/20">
-                <LogOut className="w-6 h-6 text-white" />
+              <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-xl" style={{ background: 'rgba(59,130,246,0.15)', border: '1px solid rgba(59,130,246,0.30)' }}>
+                <LogOut className="w-6 h-6" style={{ color: '#3B82F6' }} />
               </div>
               <div>
-                <h2 id="logout-modal-title" className="text-xl font-bold text-white">
+                <h2 id="logout-modal-title" className="text-xl font-bold" style={{ color: '#F9FAFB' }}>
                   Confirm Logout
                 </h2>
               </div>
@@ -73,29 +74,31 @@ const LogoutModal = ({ isOpen, onClose, onConfirm }) => {
           </div>
 
           {/* Content */}
-          <div className="px-6 py-6">
+          <div className="px-6 py-6" style={{ background: '#0D1117' }}>
             <div className="mb-6">
-              <p className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+              <p className="text-lg font-semibold mb-2" style={{ color: '#F9FAFB' }}>
                 Are you sure you want to logout?
               </p>
-              <p className="text-gray-600 dark:text-gray-400">
-                Your session will be ended and you'll need to login again to access your account. All progress data will be permanently lost.
+              <p style={{ color: '#9CA3AF' }}>
+                Your session will be ended and you'll need to login again to access your account.
               </p>
             </div>
           </div>
 
           {/* Actions */}
-          <div className="px-6 pb-6">
+          <div className="px-6 pb-6" style={{ background: '#0D1117' }}>
             <div className="flex gap-3">
               <button
                 onClick={handleClose}
-                className="flex-1 px-6 py-3 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 font-semibold rounded-xl transition-colors"
+                className="flex-1 px-6 py-3 font-semibold rounded-xl transition-colors"
+                style={{ background: '#1E293B', border: '1px solid rgba(255,255,255,0.10)', color: '#9CA3AF' }}
               >
                 Cancel
               </button>
               <button
                 onClick={handleConfirm}
-                className="flex-1 px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-semibold rounded-xl transition-all shadow-lg flex items-center justify-center gap-2"
+                className="flex-1 px-6 py-3 text-white font-semibold rounded-xl transition-all shadow-lg flex items-center justify-center gap-2"
+                style={{ background: '#3B82F6' }}
               >
                 <LogOut className="w-4 h-4" />
                 Logout

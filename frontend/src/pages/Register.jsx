@@ -92,12 +92,12 @@ function Register() {
 
   return (
     <div className="min-h-screen relative overflow-hidden flex items-center justify-center p-4">
-      {/* Premium animated background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary-900 via-primary-800 to-secondary-900">
-        {/* Animated gradient orbs */}
-        <div className="absolute top-0 -left-4 w-96 h-96 bg-primary-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-        <div className="absolute top-0 -right-4 w-96 h-96 bg-primary-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-        <div className="absolute -bottom-8 left-20 w-96 h-96 bg-accent-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+      {/* Deep-space background — workspace bg is #05070A (never blue) */}
+      <div className="absolute inset-0" style={{ background: '#05070A' }}>
+        {/* Subtle blue glow orbs — low opacity so page stays dark */}
+        <div className="absolute top-0 -left-4 w-96 h-96 bg-blue-600 rounded-full filter blur-3xl opacity-[0.07] animate-blob"></div>
+        <div className="absolute top-0 -right-4 w-96 h-96 bg-blue-500 rounded-full filter blur-3xl opacity-[0.06] animate-blob animation-delay-2000"></div>
+        <div className="absolute -bottom-8 left-20 w-96 h-96 bg-blue-700 rounded-full filter blur-3xl opacity-[0.05] animate-blob animation-delay-4000"></div>
         
         {/* Geometric pattern overlay */}
         <div className="absolute inset-0 opacity-10">
@@ -139,27 +139,19 @@ function Register() {
           <p className="text-primary-100 text-sm font-medium">Start Your Financial Journey Today</p>
         </div>
 
-        {/* Glassmorphism card */}
-        <div className="backdrop-blur-2xl bg-white/10 rounded-3xl shadow-2xl border border-white/20 overflow-hidden animate-scale-in">
-          {/* Card glow effect */}
-          <div className="absolute -inset-1 bg-gradient-to-r from-primary-400 to-secondary-400 rounded-3xl blur opacity-20"></div>
-          
-          <div className="relative bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-3xl">
-            {/* Header with gradient */}
-            <div className="relative bg-gradient-to-r from-primary-600 to-primary-700 p-8 overflow-hidden">
-              <div className="absolute inset-0 bg-black/10"></div>
-              <div className="absolute inset-0 opacity-20" style={{
-                backgroundImage: `linear-gradient(45deg, transparent 45%, white 50%, transparent 55%)`,
-                backgroundSize: '20px 20px'
-              }}></div>
+        {/* Card — dark surface #0D1117 with subtle border */}
+        <div className="rounded-3xl shadow-2xl overflow-hidden animate-scale-in border" style={{ background: '#0D1117', borderColor: 'rgba(255,255,255,0.08)' }}>
+          <div className="relative" style={{ background: '#0D1117' }}>
+            {/* Header with dark gradient — matches dashboard header band */}
+            <div className="relative p-8 overflow-hidden rounded-t-3xl" style={{ background: 'linear-gradient(135deg, #0F172A, #020617)' }}>
               <div className="relative">
-                <h2 className="text-2xl font-bold text-white mb-1">Create Account</h2>
-                <p className="text-primary-50 text-sm">Join thousands managing their finances</p>
+                <h2 className="text-2xl font-bold mb-1" style={{ color: '#F9FAFB' }}>Create Account</h2>
+                <p className="text-sm" style={{ color: '#9CA3AF' }}>Join thousands managing their finances</p>
               </div>
             </div>
 
             {/* Form */}
-            <form onSubmit={handleSubmit} className="p-8 space-y-5">
+            <form onSubmit={handleSubmit} className="p-8 space-y-5" style={{ background: '#0D1117' }}>
               {/* Success message */}
               {message && (
                 <div className="bg-success-50 dark:bg-success-900/30 border border-success-200 dark:border-success-800 rounded-xl p-4 animate-scale-in">
@@ -186,12 +178,12 @@ function Register() {
 
               {/* Name input */}
               <div className="space-y-2">
-                <label htmlFor="name" className="block text-sm font-semibold text-gray-700 dark:text-gray-200">
+                <label htmlFor="name" className="block text-sm font-semibold" style={{ color: '#F9FAFB' }}>
                   Full Name
                 </label>
                 <div className="relative group">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <User className="h-5 w-5 text-gray-400 group-focus-within:text-primary-500 transition-colors" />
+                    <User className="h-5 w-5 transition-colors" style={{ color: '#475569' }} />
                   </div>
                   <input
                     id="name"
@@ -201,7 +193,8 @@ function Register() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
-                    className="block w-full pl-11 pr-11 py-3.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 hover:border-gray-300 dark:hover:border-gray-600"
+                    style={{ background: '#111722', borderColor: 'rgba(255,255,255,0.08)', color: '#F9FAFB' }}
+                    className="block w-full pl-11 pr-11 py-3.5 rounded-xl placeholder-[#475569] focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-all duration-200 border"
                   />
                   {name && name.length >= 2 && (
                     <div className="absolute inset-y-0 right-0 pr-4 flex items-center">
@@ -213,12 +206,12 @@ function Register() {
 
               {/* Email input */}
               <div className="space-y-2">
-                <label htmlFor="email" className="block text-sm font-semibold text-gray-700 dark:text-gray-200">
+                <label htmlFor="email" className="block text-sm font-semibold" style={{ color: '#F9FAFB' }}>
                   Email Address
                 </label>
                 <div className="relative group">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <Mail className="h-5 w-5 text-gray-400 group-focus-within:text-primary-500 transition-colors" />
+                    <Mail className="h-5 w-5 transition-colors" style={{ color: '#475569' }} />
                   </div>
                   <input
                     id="email"
@@ -228,7 +221,8 @@ function Register() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="block w-full pl-11 pr-11 py-3.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 hover:border-gray-300 dark:hover:border-gray-600"
+                    style={{ background: '#111722', borderColor: 'rgba(255,255,255,0.08)', color: '#F9FAFB' }}
+                    className="block w-full pl-11 pr-11 py-3.5 rounded-xl placeholder-[#475569] focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-all duration-200 border"
                   />
                   {email && (
                     <div className="absolute inset-y-0 right-0 pr-4 flex items-center">
@@ -244,12 +238,12 @@ function Register() {
 
               {/* Password input */}
               <div className="space-y-2">
-                <label htmlFor="password" className="block text-sm font-semibold text-gray-700 dark:text-gray-200">
+                <label htmlFor="password" className="block text-sm font-semibold" style={{ color: '#F9FAFB' }}>
                   Password
                 </label>
                 <div className="relative group">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <Lock className="h-5 w-5 text-gray-400 group-focus-within:text-primary-500 transition-colors" />
+                    <Lock className="h-5 w-5 transition-colors" style={{ color: '#475569' }} />
                   </div>
                   <input
                     id="password"
@@ -259,12 +253,14 @@ function Register() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="block w-full pl-11 pr-12 py-3.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 hover:border-gray-300 dark:hover:border-gray-600"
+                    style={{ background: '#111722', borderColor: 'rgba(255,255,255,0.08)', color: '#F9FAFB' }}
+                    className="block w-full pl-11 pr-12 py-3.5 rounded-xl placeholder-[#475569] focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-all duration-200 border"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-primary-600 transition-colors"
+                    className="absolute inset-y-0 right-0 pr-4 flex items-center transition-colors"
+                    style={{ color: '#475569' }}
                     tabIndex={-1}
                   >
                     {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
@@ -306,12 +302,12 @@ function Register() {
 
               {/* Confirm Password input */}
               <div className="space-y-2">
-                <label htmlFor="confirmPassword" className="block text-sm font-semibold text-gray-700 dark:text-gray-200">
+                <label htmlFor="confirmPassword" className="block text-sm font-semibold" style={{ color: '#F9FAFB' }}>
                   Confirm Password
                 </label>
                 <div className="relative group">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <Lock className="h-5 w-5 text-gray-400 group-focus-within:text-primary-500 transition-colors" />
+                    <Lock className="h-5 w-5 transition-colors" style={{ color: '#475569' }} />
                   </div>
                   <input
                     id="confirmPassword"
@@ -321,12 +317,14 @@ function Register() {
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
-                    className="block w-full pl-11 pr-12 py-3.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 hover:border-gray-300 dark:hover:border-gray-600"
+                    style={{ background: '#111722', borderColor: 'rgba(255,255,255,0.08)', color: '#F9FAFB' }}
+                    className="block w-full pl-11 pr-12 py-3.5 rounded-xl placeholder-[#475569] focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-all duration-200 border"
                   />
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-primary-600 transition-colors"
+                    className="absolute inset-y-0 right-0 pr-4 flex items-center transition-colors"
+                    style={{ color: '#475569' }}
                     tabIndex={-1}
                   >
                     {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
@@ -372,11 +370,12 @@ function Register() {
 
               {/* Sign in link */}
               <div className="text-center pt-2">
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm" style={{ color: '#9CA3AF' }}>
                   Already have an account?{' '}
                   <Link
                     to="/login"
-                    className="font-semibold text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 transition-colors"
+                    className="font-semibold transition-colors"
+                    style={{ color: '#3B82F6' }}
                   >
                     Sign in
                   </Link>
@@ -404,25 +403,25 @@ function Register() {
           </div>
         </div>
 
-        {/* Benefits - NEW */}
+        {/* Benefits */}
         <div className="mt-6 animate-fade-in" style={{ animationDelay: '0.15s' }}>
-          <div className="bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 p-4">
+          <div className="rounded-2xl border p-4" style={{ background: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.08)' }}>
             <div className="grid grid-cols-2 gap-3">
               <div className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-400"></div>
-                <span className="text-xs text-white/90 font-medium">Free forever</span>
+                <span className="text-xs font-medium" style={{ color: '#9CA3AF' }}>Free forever</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-400"></div>
-                <span className="text-xs text-white/90 font-medium">No credit card</span>
+                <span className="text-xs font-medium" style={{ color: '#9CA3AF' }}>No credit card</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-400"></div>
-                <span className="text-xs text-white/90 font-medium">Full access</span>
+                <span className="text-xs font-medium" style={{ color: '#9CA3AF' }}>Full access</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-400"></div>
-                <span className="text-xs text-white/90 font-medium">Cancel anytime</span>
+                <span className="text-xs font-medium" style={{ color: '#9CA3AF' }}>Cancel anytime</span>
               </div>
             </div>
           </div>
@@ -430,31 +429,31 @@ function Register() {
 
         {/* Security badge */}
         <div className="mt-6 text-center animate-fade-in" style={{ animationDelay: '0.2s' }}>
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20">
-            <Shield className="w-4 h-4 text-primary-200" />
-            <span className="text-sm text-primary-50 font-medium">Your data is encrypted and secure</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border" style={{ background: 'rgba(255,255,255,0.05)', borderColor: 'rgba(255,255,255,0.10)' }}>
+            <Shield className="w-4 h-4" style={{ color: '#3B82F6' }} />
+            <span className="text-sm font-medium" style={{ color: '#9CA3AF' }}>Your data is encrypted and secure</span>
           </div>
         </div>
 
         {/* Features */}
         <div className="mt-8 grid grid-cols-3 gap-4 animate-fade-in" style={{ animationDelay: '0.3s' }}>
           <div className="text-center">
-            <div className="inline-flex items-center justify-center w-10 h-10 bg-white/10 backdrop-blur-md rounded-lg border border-white/20 mb-2">
-              <TrendingUp className="w-5 h-5 text-primary-200" />
+            <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg border mb-2" style={{ background: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.08)' }}>
+              <TrendingUp className="w-5 h-5" style={{ color: '#3B82F6' }} />
             </div>
-            <p className="text-xs text-primary-100 font-medium">Smart Analytics</p>
+            <p className="text-xs font-medium" style={{ color: '#9CA3AF' }}>Smart Analytics</p>
           </div>
           <div className="text-center">
-            <div className="inline-flex items-center justify-center w-10 h-10 bg-white/10 backdrop-blur-md rounded-lg border border-white/20 mb-2">
-              <Shield className="w-5 h-5 text-primary-200" />
+            <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg border mb-2" style={{ background: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.08)' }}>
+              <Shield className="w-5 h-5" style={{ color: '#3B82F6' }} />
             </div>
-            <p className="text-xs text-primary-100 font-medium">100% Secure</p>
+            <p className="text-xs font-medium" style={{ color: '#9CA3AF' }}>100% Secure</p>
           </div>
           <div className="text-center">
-            <div className="inline-flex items-center justify-center w-10 h-10 bg-white/10 backdrop-blur-md rounded-lg border border-white/20 mb-2">
-              <Zap className="w-5 h-5 text-primary-200" />
+            <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg border mb-2" style={{ background: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.08)' }}>
+              <Zap className="w-5 h-5" style={{ color: '#3B82F6' }} />
             </div>
-            <p className="text-xs text-primary-100 font-medium">Lightning Fast</p>
+            <p className="text-xs font-medium" style={{ color: '#9CA3AF' }}>Lightning Fast</p>
           </div>
         </div>
       </div>

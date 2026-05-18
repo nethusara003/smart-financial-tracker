@@ -130,6 +130,7 @@ const AdminDashboard = () => {
   const [sortOrder] = useState("desc");
   const [showAuditLogs, setShowAuditLogs] = useState(false);
   const [pendingRoleAction, setPendingRoleAction] = useState(null);
+  const [promotionReason, setPromotionReason] = useState("");
   const promoteUserMutation = usePromoteUser();
   const demoteUserMutation = useDemoteUser();
 
@@ -139,20 +140,21 @@ const AdminDashboard = () => {
     error: usersError,
     refetch: refetchUsers,
     isFetching: usersFetching,
-  } = useAdminUsers();
+  } = useAdminUsers({ refetchInterval: 4000 });
 
   const {
     data: adminAnalytics = null,
     refetch: refetchAdminAnalytics,
     isFetching: adminAnalyticsFetching,
-  } = useAdminAnalyticsOverview();
+  } = useAdminAnalyticsOverview({ refetchInterval: 4000 });
 
-  const { data: auditLogs = [] } = useAdminAuditLogs({ enabled: showAuditLogs });
+  const { data: auditLogs = [] } = useAdminAuditLogs({ enabled: showAuditLogs, refetchInterval: showAuditLogs ? 4000 : false });
 
-  const { data: transactions = [], isLoading: txLoading } = useAdminUserTransactions(
+  const { data: transactions = [], isLoading: txLoading, refetch: refetchUserTransactions, isFetching: txFetching } = useAdminUserTransactions(
     selectedUser?._id,
     {
       enabled: Boolean(selectedUser),
+      refetchInterval: 4000, // Poll every 4 seconds ONLY when the modal is open
     }
   );
 
@@ -180,18 +182,22 @@ const AdminDashboard = () => {
 
     try {
       if (pendingRoleAction.type === "promote") {
-        await promoteUserMutation.mutateAsync(pendingRoleAction.userId);
+        await promoteUserMutation.mutateAsync({
+          userId: pendingRoleAction.userId,
+          reason: promotionReason,
+        });
       } else {
         await demoteUserMutation.mutateAsync(pendingRoleAction.userId);
       }
 
       toast.success(
         pendingRoleAction.type === "promote"
-          ? "User promoted to admin"
+          ? "Promotion request submitted for super admin approval"
           : "Admin demoted to user"
       );
 
       setPendingRoleAction(null);
+      setPromotionReason("");
     } catch (e) {
       toast.error(e.message || "Failed to update user role");
     }
@@ -672,6 +678,14 @@ const AdminDashboard = () => {
               <h2 className="text-xl font-bold text-light-text-primary dark:text-dark-text-primary flex items-center gap-2">
                 <FileText className="w-5 h-5" />
                 Transactions - {selectedUser.name}
+                <button
+                  onClick={() => refetchUserTransactions()}
+                  disabled={txFetching}
+                  className="p-1.5 hover:bg-light-surface-primary dark:hover:bg-dark-surface-elevated rounded-lg transition-colors text-light-text-tertiary dark:text-dark-text-tertiary disabled:opacity-50"
+                  title="Manual refresh"
+                >
+                  <RefreshCw className={`w-4 h-4 ${txFetching ? 'animate-spin' : ''}`} />
+                </button>
               </h2>
               <button
                 onClick={() => setSelectedUser(null)}
@@ -772,7 +786,7 @@ const AdminDashboard = () => {
 
         <InlineEditor
           isOpen={Boolean(pendingRoleAction)}
-          title={pendingRoleAction?.type === "promote" ? "Promote User" : "Demote Admin"}
+          title={pendingRoleAction?.type === "promote" ? "Request Promotion" : "Demote Admin"}
           subtitle="Confirm role change"
           onClose={() => {
             if (roleActionLoading) return;
@@ -784,9 +798,23 @@ const AdminDashboard = () => {
             <div className="space-y-4">
               <p className="text-sm text-light-text-primary dark:text-dark-text-primary">
                 {pendingRoleAction.type === "promote"
-                  ? `Promote ${pendingRoleAction.userName || "this user"} to admin?`
+                  ? `Request promotion of ${pendingRoleAction.userName || "this user"} to admin? This will be sent to the super admin for approval.`
                   : `Demote ${pendingRoleAction.userName || "this admin"} to regular user?`}
               </p>
+              {pendingRoleAction.type === "promote" && (
+                <div>
+                  <label className="block text-xs font-medium text-light-text-tertiary dark:text-dark-text-tertiary mb-1.5">
+                    Reason (optional)
+                  </label>
+                  <textarea
+                    value={promotionReason}
+                    onChange={(e) => setPromotionReason(e.target.value)}
+                    placeholder="Why should this user be promoted?"
+                    rows={3}
+                    className="w-full px-3 py-2 bg-light-surface-primary dark:bg-dark-surface-elevated border border-light-border-default dark:border-dark-border-strong rounded-lg text-sm text-light-text-primary dark:text-dark-text-primary focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 resize-none"
+                  />
+                </div>
+              )}
               <div className="flex gap-3">
                 <button
                   type="button"
@@ -809,7 +837,7 @@ const AdminDashboard = () => {
                   {roleActionLoading
                     ? "Applying..."
                     : pendingRoleAction.type === "promote"
-                    ? "Promote"
+                    ? "Submit Request"
                     : "Demote"}
                 </button>
               </div>

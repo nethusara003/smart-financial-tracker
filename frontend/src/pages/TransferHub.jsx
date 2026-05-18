@@ -256,41 +256,41 @@ const TransferHub = ({ auth }) => {
         )}
       />
 
-      <section className="rounded-2xl border border-white/5 bg-[#0D1117] p-4 shadow-premium dark:shadow-card-dark">
-        <div className="flex flex-wrap gap-3 xl:flex-nowrap">
-          <div className="flex h-[92px] min-w-[180px] flex-1 items-center justify-between rounded-xl border border-white/5 bg-[#0D1117] p-4">
+      <section className="rounded-2xl border border-light-border-default dark:border-white/5 bg-light-surface-secondary dark:bg-[#0D1117] p-4 shadow-premium dark:shadow-card-dark">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          <div className="flex h-[92px] items-center justify-between rounded-xl border border-light-border-default dark:border-white/10 bg-light-surface-primary dark:bg-white/[0.03] p-4 shadow-sm">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-slate-300">
+              <p className="text-xs font-semibold uppercase tracking-wide text-light-text-secondary dark:text-slate-300">
                 Total Sent
               </p>
-              <p className="mt-1 text-lg font-bold text-white">{formatCurrency(stats.totalSent)}</p>
+              <p className="mt-1 text-lg font-bold text-light-text-primary dark:text-white">{formatCurrency(stats.totalSent)}</p>
             </div>
-            <ArrowUpRight className="h-4 w-4 text-blue-300" />
+            <ArrowUpRight className="h-4 w-4 text-blue-500 dark:text-blue-300" />
           </div>
 
-          <div className="flex h-[92px] min-w-[180px] flex-1 items-center justify-between rounded-xl border border-white/5 bg-[#0D1117] p-4">
+          <div className="flex h-[92px] items-center justify-between rounded-xl border border-light-border-default dark:border-white/10 bg-light-surface-primary dark:bg-white/[0.03] p-4 shadow-sm">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-slate-300">
+              <p className="text-xs font-semibold uppercase tracking-wide text-light-text-secondary dark:text-slate-300">
                 Total Received
               </p>
-              <p className="mt-1 text-lg font-bold text-white">{formatCurrency(stats.totalReceived)}</p>
+              <p className="mt-1 text-lg font-bold text-light-text-primary dark:text-white">{formatCurrency(stats.totalReceived)}</p>
             </div>
-            <ArrowDownLeft className="h-4 w-4 text-emerald-300" />
+            <ArrowDownLeft className="h-4 w-4 text-emerald-500 dark:text-emerald-300" />
           </div>
 
-          <div className="flex h-[92px] min-w-[180px] flex-1 items-center justify-between rounded-xl border border-white/5 bg-[#0D1117] p-4">
+          <div className="flex h-[92px] items-center justify-between rounded-xl border border-light-border-default dark:border-white/10 bg-light-surface-primary dark:bg-white/[0.03] p-4 shadow-sm">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-slate-300">
+              <p className="text-xs font-semibold uppercase tracking-wide text-light-text-secondary dark:text-slate-300">
                 Total Transfers
               </p>
-              <p className="mt-1 text-lg font-bold text-white">{stats.transferCount}</p>
+              <p className="mt-1 text-lg font-bold text-light-text-primary dark:text-white">{stats.transferCount}</p>
             </div>
-            <RefreshCw className="h-4 w-4 text-violet-300" />
+            <RefreshCw className="h-4 w-4 text-violet-500 dark:text-violet-300" />
           </div>
         </div>
       </section>
 
-      <section className="rounded-xl border border-white/5 bg-[#0D1117] p-3 shadow-premium dark:shadow-card-dark">
+      <section className="rounded-xl border border-light-border-default dark:border-white/5 bg-light-surface-secondary dark:bg-[#0D1117] p-3 shadow-premium dark:shadow-card-dark">
         <div className="flex overflow-x-auto gap-2 custom-scrollbar pb-1">
           {[
             { id: "send", label: "Send Money", icon: Send },
@@ -306,7 +306,7 @@ const TransferHub = ({ auth }) => {
                 className={`inline-flex items-center gap-2 whitespace-nowrap rounded-lg px-3 py-1.5 text-xs font-semibold transition-all duration-200 ${
                   isActive
                     ? "bg-blue-500/80 text-white shadow-[0_0_16px_rgba(59,130,246,0.35)]"
-                    : "bg-white/[0.04] text-slate-300 hover:bg-white/[0.08]"
+                    : "bg-light-bg-accent text-light-text-secondary hover:bg-light-bg-hover dark:bg-white/[0.04] dark:text-slate-300 dark:hover:bg-white/[0.08]"
                 }`}
               >
                 <Icon className="h-4 w-4" />
@@ -317,7 +317,7 @@ const TransferHub = ({ auth }) => {
         </div>
       </section>
 
-      <section className="rounded-2xl border border-white/5 bg-[#0D1117] p-6 shadow-premium dark:shadow-card-dark">
+      <section className="rounded-2xl border border-light-border-default dark:border-white/5 bg-light-surface-secondary dark:bg-[#0D1117] p-6 shadow-premium dark:shadow-card-dark">
         <div className="p-6">
             {/* Send Money Tab */}
             {activeTab === "send" && (

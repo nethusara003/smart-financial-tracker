@@ -628,86 +628,90 @@ const Goals = () => {
           panelClassName="max-w-md"
           ariaLabelledBy="goal-modal-title"
         >
-          <div className="bg-light-surface-primary dark:bg-dark-surface-primary rounded-2xl shadow-2xl dark:shadow-glow-gold border border-light-border-default dark:border-dark-border-strong w-full transform animate-scale-in">
-            {/* Modal Header */}
-            <div className="relative overflow-hidden bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-500 dark:to-blue-600 rounded-t-2xl p-6">
-              <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMDUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-30"></div>
+          <div className="rounded-2xl shadow-2xl w-full transform animate-scale-in" style={{ background: '#0D1117', border: '1px solid rgba(255,255,255,0.08)' }}>
+            {/* Modal Header — dark gradient matching dashboard header band */}
+            <div className="relative overflow-hidden rounded-t-2xl p-6" style={{ background: 'linear-gradient(135deg, #0F172A, #020617)' }}>
               <div className="relative flex items-center gap-3">
-                <div className="bg-white/20 backdrop-blur-sm p-2 rounded-lg border border-white/30">
-                  <Target className="w-5 h-5 text-white" />
+                <div className="p-2 rounded-lg border" style={{ background: 'rgba(59,130,246,0.15)', borderColor: 'rgba(59,130,246,0.30)' }}>
+                  <Target className="w-5 h-5" style={{ color: '#3B82F6' }} />
                 </div>
-                <h3 id="goal-modal-title" className="text-xl font-bold text-white">
+                <h3 id="goal-modal-title" className="text-xl font-bold" style={{ color: '#F9FAFB' }}>
                   {editingGoal ? 'Edit Goal' : 'Add New Goal'}
                 </h3>
               </div>
             </div>
 
             {/* Modal Body */}
-            <div className="p-6 space-y-4">
+            <div className="p-6 space-y-4" style={{ background: '#0D1117' }}>
               {/* Goal Name */}
               <div>
-                <label className="block text-sm font-semibold text-light-text-primary dark:text-dark-text-primary mb-2">
+                <label className="block text-sm font-semibold mb-2" style={{ color: '#F9FAFB' }}>
                   Goal Name
                 </label>
                 <input
                   type="text"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-3 rounded-lg border border-light-border-default dark:border-dark-border-default bg-light-surface-secondary dark:bg-dark-surface-secondary text-light-text-primary dark:text-dark-text-primary focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                  style={{ background: '#111722', borderColor: 'rgba(255,255,255,0.08)', color: '#F9FAFB' }}
+                  className="w-full px-4 py-3 rounded-lg border placeholder-[#475569] focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-colors"
                   placeholder="Enter goal name"
                 />
               </div>
 
               {/* Target Amount */}
               <div>
-                <label className="block text-sm font-semibold text-light-text-primary dark:text-dark-text-primary mb-2">
+                <label className="block text-sm font-semibold mb-2" style={{ color: '#F9FAFB' }}>
                   Target Amount
                 </label>
                 <CurrencyInput
                   name="targetAmount"
                   value={formData.targetAmount}
                   onChange={(e) => setFormData({ ...formData, targetAmount: e.target.value })}
-                  className="w-full px-4 py-3 rounded-lg border border-light-border-default dark:border-dark-border-default bg-light-surface-secondary dark:bg-dark-surface-secondary text-light-text-primary dark:text-dark-text-primary focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                  style={{ background: '#111722', borderColor: 'rgba(255,255,255,0.08)', color: '#F9FAFB' }}
+                  className="w-full px-4 py-3 rounded-lg border placeholder-[#475569] focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-colors"
                   placeholder="Enter target amount"
                 />
               </div>
 
               {/* Current Amount */}
               <div>
-                <label className="block text-sm font-semibold text-light-text-primary dark:text-dark-text-primary mb-2">
+                <label className="block text-sm font-semibold mb-2" style={{ color: '#F9FAFB' }}>
                   Current Amount
                 </label>
                 <CurrencyInput
                   name="currentAmount"
                   value={formData.currentAmount}
                   onChange={(e) => setFormData({ ...formData, currentAmount: e.target.value })}
-                  className="w-full px-4 py-3 rounded-lg border border-light-border-default dark:border-dark-border-default bg-light-surface-secondary dark:bg-dark-surface-secondary text-light-text-primary dark:text-dark-text-primary focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                  style={{ background: '#111722', borderColor: 'rgba(255,255,255,0.08)', color: '#F9FAFB' }}
+                  className="w-full px-4 py-3 rounded-lg border placeholder-[#475569] focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-colors"
                   placeholder="Enter current amount"
                 />
               </div>
 
               {/* Target Date */}
               <div>
-                <label className="block text-sm font-semibold text-light-text-primary dark:text-dark-text-primary mb-2">
+                <label className="block text-sm font-semibold mb-2" style={{ color: '#F9FAFB' }}>
                   Target Date
                 </label>
                 <input
                   type="date"
                   value={formData.targetDate}
                   onChange={(e) => setFormData({ ...formData, targetDate: e.target.value })}
-                  className="w-full px-4 py-3 rounded-lg border border-light-border-default dark:border-dark-border-default bg-light-surface-secondary dark:bg-dark-surface-secondary text-light-text-primary dark:text-dark-text-primary focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                  style={{ background: '#111722', borderColor: 'rgba(255,255,255,0.08)', color: '#F9FAFB' }}
+                  className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-colors"
                 />
               </div>
 
               {/* Category */}
               <div>
-                <label className="block text-sm font-semibold text-light-text-primary dark:text-dark-text-primary mb-2">
+                <label className="block text-sm font-semibold mb-2" style={{ color: '#F9FAFB' }}>
                   Category
                 </label>
                 <select
                   value={formData.category}
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                  className="w-full px-4 py-3 rounded-lg border border-light-border-default dark:border-dark-border-default bg-light-surface-secondary dark:bg-dark-surface-secondary text-light-text-primary dark:text-dark-text-primary focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                  style={{ background: '#111722', borderColor: 'rgba(255,255,255,0.08)', color: '#F9FAFB' }}
+                  className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent transition-colors"
                 >
                   <option value="savings">Savings</option>
                   <option value="housing">Housing</option>
@@ -720,17 +724,19 @@ const Goals = () => {
             </div>
 
             {/* Modal Footer */}
-            <div className="px-6 pb-6 flex gap-3">
+            <div className="px-6 pb-6 flex gap-3" style={{ background: '#0D1117', borderRadius: '0 0 1rem 1rem' }}>
               <button
                 onClick={cancelEdit}
-                className="flex-1 px-4 py-3 rounded-lg border border-light-border-default dark:border-dark-border-default text-light-text-primary dark:text-dark-text-primary bg-light-surface-secondary dark:bg-dark-surface-secondary hover:bg-light-surface-hover dark:hover:bg-dark-surface-hover font-semibold transition-all duration-200"
+                className="flex-1 px-4 py-3 rounded-lg font-semibold transition-all duration-200"
+                style={{ background: '#1E293B', border: '1px solid rgba(255,255,255,0.10)', color: '#9CA3AF' }}
               >
                 Cancel
               </button>
               <button
                 onClick={handleSaveGoal}
                 disabled={!formData.name || !formData.targetAmount}
-                className="flex-1 px-4 py-3 rounded-lg bg-primary-500 hover:bg-primary-600 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-semibold transition-all duration-200 shadow-md hover:shadow-lg disabled:hover:shadow-md"
+                className="flex-1 px-4 py-3 rounded-lg text-white font-semibold transition-all duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{ background: '#3B82F6' }}
               >
                 {editingGoal ? 'Update Goal' : 'Create Goal'}
               </button>

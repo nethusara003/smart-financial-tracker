@@ -41,29 +41,29 @@ const iconMap = {
 
 const colorClasses = {
   primary: {
-    bg: 'bg-blue-50 dark:bg-blue-900/20',
-    icon: 'text-blue-600 dark:text-blue-400',
-    border: 'border-blue-200 dark:border-blue-500/30'
+    bg: 'bg-[rgba(59,130,246,0.12)]',
+    icon: 'text-[#3B82F6]',
+    border: 'border-[rgba(59,130,246,0.2)]'
   },
   success: {
-    bg: 'bg-green-50 dark:bg-green-900/20',
-    icon: 'text-green-600 dark:text-green-400',
-    border: 'border-green-200 dark:border-green-500/30'
+    bg: 'bg-[rgba(16,185,129,0.12)]',
+    icon: 'text-[#10B981]',
+    border: 'border-[rgba(16,185,129,0.2)]'
   },
   warning: {
-    bg: 'bg-yellow-50 dark:bg-yellow-900/20',
-    icon: 'text-yellow-600 dark:text-yellow-400',
-    border: 'border-yellow-200 dark:border-yellow-500/30'
+    bg: 'bg-[rgba(245,158,11,0.12)]',
+    icon: 'text-[#F59E0B]',
+    border: 'border-[rgba(245,158,11,0.2)]'
   },
   danger: {
-    bg: 'bg-red-50 dark:bg-red-900/20',
-    icon: 'text-red-600 dark:text-red-400',
-    border: 'border-red-200 dark:border-red-500/30'
+    bg: 'bg-[rgba(248,113,113,0.12)]',
+    icon: 'text-[#F87171]',
+    border: 'border-[rgba(248,113,113,0.2)]'
   },
   info: {
-    bg: 'bg-purple-50 dark:bg-purple-900/20',
-    icon: 'text-purple-600 dark:text-purple-400',
-    border: 'border-purple-200 dark:border-purple-500/30'
+    bg: 'bg-white/5',
+    icon: 'text-[#9CA3AF]',
+    border: 'border-white/5'
   }
 };
 
@@ -149,30 +149,30 @@ export default function NotificationCenter({ isOpen, onClose }) {
       isOpen={isOpen}
       onClose={onClose}
       containerClassName="items-start justify-end p-0"
-      panelClassName="max-w-md h-screen"
-      backdropClassName="bg-black/20 dark:bg-black/40 backdrop-blur-sm"
+      panelClassName="w-[380px] max-w-[100vw] h-screen"
+      backdropClassName="bg-black/40 backdrop-blur-sm"
       ariaLabelledBy="notification-center-title"
     >
-      <div className="w-full h-screen bg-white dark:bg-gray-900 shadow-2xl transform transition-transform duration-300 ease-out overflow-hidden flex flex-col">
+      <div className="w-full h-full bg-[#0D1117] shadow-2xl transform transition-transform duration-300 ease-out overflow-hidden flex flex-col border-l border-white/5">
         {/* Header */}
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700">
+        <div className="p-5 border-b border-white/5 bg-[#111722]">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-white/20 rounded-lg">
-                <Bell className="w-6 h-6 text-white" />
+              <div className="p-2 bg-white/5 rounded-lg border border-white/5">
+                <Bell className="w-5 h-5 text-[#F9FAFB]" />
               </div>
               <div>
-                <h2 id="notification-center-title" className="text-2xl font-bold text-white">Notifications</h2>
-                <p className="text-sm text-blue-100">
+                <h2 id="notification-center-title" className="text-lg font-bold text-[#F9FAFB]">Notifications</h2>
+                <p className="text-xs text-[#9CA3AF]">
                   {unreadCount > 0 ? `${unreadCount} unread` : 'All caught up!'}
                 </p>
               </div>
             </div>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-white/20 rounded-lg transition-colors"
+              className="p-2 text-[#9CA3AF] hover:bg-white/5 hover:text-[#F9FAFB] rounded-lg transition-colors"
             >
-              <X className="w-6 h-6 text-white" />
+              <X className="w-5 h-5" />
             </button>
           </div>
 
@@ -180,20 +180,20 @@ export default function NotificationCenter({ isOpen, onClose }) {
           <div className="flex gap-2">
             <button
               onClick={() => setFilter('all')}
-              className={`px-4 py-2 rounded-lg font-medium transition-all ${
+              className={`px-3 py-1.5 text-xs rounded-md font-medium transition-all border ${
                 filter === 'all'
-                  ? 'bg-white text-blue-600 shadow-lg'
-                  : 'bg-white/20 text-white hover:bg-white/30'
+                  ? 'bg-[rgba(59,130,246,0.12)] text-[#3B82F6] border-[rgba(59,130,246,0.2)]'
+                  : 'bg-transparent text-[#9CA3AF] border-transparent hover:bg-white/5'
               }`}
             >
               All
             </button>
             <button
               onClick={() => setFilter('unread')}
-              className={`px-4 py-2 rounded-lg font-medium transition-all ${
+              className={`px-3 py-1.5 text-xs rounded-md font-medium transition-all border ${
                 filter === 'unread'
-                  ? 'bg-white text-blue-600 shadow-lg'
-                  : 'bg-white/20 text-white hover:bg-white/30'
+                  ? 'bg-[rgba(59,130,246,0.12)] text-[#3B82F6] border-[rgba(59,130,246,0.2)]'
+                  : 'bg-transparent text-[#9CA3AF] border-transparent hover:bg-white/5'
               }`}
             >
               Unread {unreadCount > 0 && `(${unreadCount})`}
@@ -203,44 +203,44 @@ export default function NotificationCenter({ isOpen, onClose }) {
 
         {/* Actions Bar */}
         {notifications.length > 0 && (
-          <div className="px-6 py-3 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 flex gap-2">
+          <div className="px-5 py-2.5 border-b border-white/5 bg-[#05070A] flex gap-2">
             <button
               onClick={markAllAsRead}
-              className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
+              className="flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium text-[#9CA3AF] hover:text-[#F9FAFB] hover:bg-white/5 rounded-md transition-colors"
             >
-              <Check className="w-4 h-4" />
+              <Check className="w-3.5 h-3.5" />
               Mark all read
             </button>
             <button
               onClick={clearAll}
-              className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+              className="flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium text-[#9CA3AF] hover:text-[#F9FAFB] hover:bg-white/5 rounded-md transition-colors"
             >
-              <Trash2 className="w-4 h-4" />
+              <Trash2 className="w-3.5 h-3.5" />
               Clear read
             </button>
           </div>
         )}
 
         {/* Notifications List */}
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 overflow-y-auto custom-scrollbar">
           {isLoading ? (
             <div className="flex items-center justify-center h-64">
-              <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent"></div>
+              <div className="animate-spin rounded-full h-10 w-10 border-2 border-[rgba(59,130,246,0.2)] border-t-[#3B82F6]"></div>
             </div>
           ) : notifications.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-64 text-center px-6">
-              <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-full mb-4">
-                <Bell className="w-8 h-8 text-blue-500 dark:text-blue-400" />
+              <div className="p-4 bg-[rgba(59,130,246,0.12)] rounded-full mb-4 border border-[rgba(59,130,246,0.2)]">
+                <Bell className="w-6 h-6 text-[#3B82F6]" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
+              <h3 className="text-sm font-semibold text-[#F9FAFB] mb-1">
                 No notifications
               </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <p className="text-xs text-[#9CA3AF]">
                 {filter === 'unread' ? "You're all caught up!" : "You'll see notifications here when you have them"}
               </p>
             </div>
           ) : (
-            <div className="divide-y divide-gray-200 dark:divide-gray-700">
+            <div className="divide-y divide-white/5">
               {notifications.map((notification) => {
                 const Icon = iconMap[notification.icon] || Bell;
                 const colors = colorClasses[notification.color] || colorClasses.info;
@@ -248,26 +248,26 @@ export default function NotificationCenter({ isOpen, onClose }) {
                 return (
                   <div
                     key={notification._id}
-                    className={`p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors ${
-                      !notification.read ? 'bg-blue-50/30 dark:bg-blue-900/10' : ''
+                    className={`p-4 hover:bg-white/5 transition-colors group relative ${
+                      !notification.read ? 'bg-[rgba(59,130,246,0.03)]' : ''
                     }`}
                   >
-                    <div className="flex gap-3">
-                      <div className={`p-2 ${colors.bg} rounded-lg h-fit`}>
-                        <Icon className={`w-5 h-5 ${colors.icon}`} />
+                    {!notification.read && (
+                      <span className="absolute left-0 top-[20%] h-[60%] w-[3px] bg-[rgba(59,130,246,0.70)] rounded-r-sm" />
+                    )}
+                    <div className="flex gap-3 pl-1">
+                      <div className={`p-2 ${colors.bg} rounded-lg h-fit border ${colors.border} shrink-0`}>
+                        <Icon className={`w-4 h-4 ${colors.icon}`} />
                       </div>
 
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between gap-2 mb-1">
-                          <h4 className="font-semibold text-gray-900 dark:text-gray-100 text-sm">
+                          <h4 className="font-medium text-[#F9FAFB] text-xs">
                             {notification.title}
                           </h4>
-                          {!notification.read && (
-                            <span className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0 mt-1.5"></span>
-                          )}
                         </div>
 
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                        <p className="text-xs text-[#9CA3AF] mb-2 leading-relaxed">
                           {notification.message}
                         </p>
 
@@ -301,7 +301,7 @@ export default function NotificationCenter({ isOpen, onClose }) {
                         )}
 
                         <div className="flex items-center justify-between">
-                          <span className="text-xs text-gray-500 dark:text-gray-500">
+                          <span className="text-[10px] font-medium tracking-wide text-[#475569] uppercase">
                             {getTimeAgo(notification.createdAt)}
                           </span>
 
@@ -313,7 +313,7 @@ export default function NotificationCenter({ isOpen, onClose }) {
                                   markAsRead(notification._id);
                                   onClose();
                                 }}
-                                className="text-xs font-medium text-blue-600 dark:text-blue-400 hover:underline"
+                                className="text-[11px] font-medium text-[#3B82F6] hover:text-[#60A5FA] transition-colors"
                               >
                                 View
                               </Link>
@@ -327,7 +327,6 @@ export default function NotificationCenter({ isOpen, onClose }) {
                                   : []),
                                 { key: 'delete', label: 'Delete', onClick: () => deleteNotification(notification._id), variant: 'danger' },
                               ]}
-                              menuClassName="w-40"
                             />
                           </div>
                         </div>

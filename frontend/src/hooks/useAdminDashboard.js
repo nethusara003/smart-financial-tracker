@@ -97,39 +97,47 @@ function useInvalidateAdminQueries() {
   };
 }
 
-export function useAdminUsers({ enabled = true } = {}) {
+export function useAdminUsers(options = {}) {
+  const { enabled = true, ...rest } = options;
   return useQuery({
     queryKey: queryKeys.admin.users,
     queryFn: fetchAdminUsers,
     enabled,
     placeholderData: [],
+    ...rest,
   });
 }
 
-export function useAdminAnalyticsOverview({ enabled = true } = {}) {
+export function useAdminAnalyticsOverview(options = {}) {
+  const { enabled = true, ...rest } = options;
   return useQuery({
     queryKey: queryKeys.admin.analyticsOverview,
     queryFn: fetchAdminAnalyticsOverview,
     enabled,
     placeholderData: null,
+    ...rest,
   });
 }
 
-export function useAdminAuditLogs({ enabled = true } = {}) {
+export function useAdminAuditLogs(options = {}) {
+  const { enabled = true, ...rest } = options;
   return useQuery({
     queryKey: queryKeys.admin.auditLogs,
     queryFn: fetchAdminAuditLogs,
     enabled,
     placeholderData: [],
+    ...rest,
   });
 }
 
-export function useAdminUserTransactions(userId, { enabled = true } = {}) {
+export function useAdminUserTransactions(userId, options = {}) {
+  const { enabled = true, ...rest } = options;
   return useQuery({
     queryKey: queryKeys.admin.userTransactions(userId),
     queryFn: () => fetchAdminUserTransactions(userId),
     enabled: enabled && Boolean(userId),
     placeholderData: [],
+    ...rest,
   });
 }
 

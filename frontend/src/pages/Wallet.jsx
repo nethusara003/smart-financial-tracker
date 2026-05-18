@@ -356,7 +356,7 @@ const Wallet = () => {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <section className="rounded-2xl border border-white/5 bg-[#0B0E14] p-8 text-white shadow-2xl">
+      <section className="rounded-2xl border border-light-border-default dark:border-white/5 bg-light-surface-secondary dark:bg-[#0B0E14] p-6 sm:p-8 text-light-text-primary dark:text-white shadow-2xl">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="flex items-center gap-3">
             <button
@@ -370,10 +370,10 @@ const Wallet = () => {
               <WalletIcon className="h-6 w-6 text-blue-300" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-[#3B82F6]">
+              <h1 className="text-2xl sm:text-3xl font-bold text-blue-600 dark:text-[#3B82F6]">
                 My Wallet
               </h1>
-              <p className="mt-2 text-sm text-blue-100/80">
+              <p className="mt-2 text-sm text-light-text-secondary dark:text-blue-100/80">
                 Liquidity control panel for funds, withdrawals, and balance visibility
               </p>
             </div>
@@ -385,7 +385,7 @@ const Wallet = () => {
                 <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-400">
                   Available Balance
                 </p>
-                <p className="text-3xl font-bold text-white">
+                <p className="text-2xl sm:text-3xl font-bold text-light-text-primary dark:text-white">
                   {showBalance ? formatCurrency(wallet?.balance || 0) : "••••••"}
                 </p>
                 {wallet?.pendingBalance > 0 && (
@@ -451,8 +451,8 @@ const Wallet = () => {
       )}
 
       {/* Recent Transactions */}
-      <div className="rounded-2xl border border-white/5 bg-[#0B0E14] p-6 shadow-premium">
-        <h2 className="mb-4 flex items-center gap-2 text-xl font-bold text-slate-100">
+      <div className="rounded-2xl border border-light-border-default dark:border-white/5 bg-light-surface-secondary dark:bg-[#0B0E14] p-6 shadow-premium">
+        <h2 className="mb-4 flex items-center gap-2 text-xl font-bold text-light-text-primary dark:text-slate-100">
           <TrendingUp className="h-5 w-5 text-blue-300" />
           Recent Activity
         </h2>
@@ -472,7 +472,7 @@ const Wallet = () => {
             {transactions.map((transaction) => (
               <div
                 key={transaction._id}
-                className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] p-4 transition-shadow hover:shadow-md"
+                className="flex items-center justify-between rounded-xl border border-light-border-default dark:border-white/10 bg-light-surface-primary dark:bg-white/[0.03] p-4 transition-shadow hover:shadow-md"
               >
                 {(() => {
                   const activityMeta = getWalletActivityMeta(transaction.category);
