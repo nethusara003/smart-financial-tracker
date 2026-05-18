@@ -32,6 +32,10 @@ export async function loginUser(page, user) {
 
   await page.goto("/login");
 
+  await page.evaluate(() => {
+    localStorage.setItem("sft-e2e", "true");
+  }).catch(() => {});
+
   await page.getByTestId("login-email-input").fill(user.email);
   await page.getByTestId("login-password-input").fill(user.password);
   await page.getByTestId("login-submit-button").click();

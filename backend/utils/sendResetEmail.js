@@ -1,6 +1,11 @@
 import nodemailer from "nodemailer";
 
 export const sendResetEmail = async (to, resetToken) => {
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    console.warn("⚠️ Email service is not configured. Skipping sendResetEmail.");
+    return;
+  }
+
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {

@@ -5,6 +5,16 @@ import User from "../models/User.js";
    EMAIL TRANSPORTER SETUP
 ========================= */
 const createTransporter = () => {
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    console.warn("⚠️ Email service is not configured. Returning a mock mail transporter.");
+    return {
+      sendMail: async (mailOptions) => {
+        console.log(`[MOCK EMAIL] Sent mail to ${mailOptions.to} with subject "${mailOptions.subject}"`);
+        return { messageId: "mock-message-id" };
+      }
+    };
+  }
+
   return nodemailer.createTransport({
     service: "gmail",
     auth: {

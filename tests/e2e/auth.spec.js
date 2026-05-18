@@ -50,6 +50,6 @@ test.describe("Authentication + Security + Edge cases", () => {
     await page.getByTestId("register-confirm-password-input").fill("12345");
     await page.getByTestId("register-submit-button").click();
 
-    await expect(page.getByText("Password must be at least 6 characters long")).toBeVisible();
+    await expect(page.getByText("Password must be at least 8 characters long, and contain both letters and numbers")).toBeVisible();
   });
 });

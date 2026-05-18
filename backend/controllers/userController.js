@@ -146,6 +146,11 @@ const sendLoginNotificationEmail = async ({ user, req }) => {
     return;
   }
 
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    console.warn("⚠️ Email service is not configured. Skipping login notification email.");
+    return;
+  }
+
   const transporter = getMailTransporter();
   const ipAddress = normalizeRequestIp(req);
   const userAgent = req.headers["user-agent"] || "Unknown device";
@@ -421,6 +426,13 @@ export const forgotPassword = async (req, res) => {
     await user.save();
 
     const resetUrl = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
+
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      console.warn("⚠️ Email service is not configured. Skipping password reset email sending.");
+      return res.json({
+        message: "If the email exists, a reset link will be sent (SMTP not configured)",
+      });
+    }
 
     const transporter = nodemailer.createTransport({
       service: "gmail",

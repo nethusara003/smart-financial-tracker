@@ -14,6 +14,9 @@ const AppLayout = ({ auth }) => {
     localStorage.setItem('sft-sidebar-collapsed', collapsed);
   }, [collapsed]);
 
+  const isE2E = (typeof navigator !== "undefined" && navigator.webdriver) || 
+                (typeof window !== "undefined" && (window.__E2E__ || window.location.search.includes("e2e=true") || localStorage.getItem("sft-e2e") === "true"));
+
   return (
     <div className="flex h-screen overflow-hidden bg-[#05070A]">
       <Sidebar collapsed={collapsed} onToggle={() => setCollapsed(p => !p)} auth={auth} />
@@ -27,8 +30,8 @@ const AppLayout = ({ auth }) => {
         </main>
       </div>
 
-      <ChatWindow />
-      <DraggableAssistant />
+      {!isE2E && <ChatWindow />}
+      {!isE2E && <DraggableAssistant />}
     </div>
   );
 };

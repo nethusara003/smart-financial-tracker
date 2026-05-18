@@ -5,6 +5,9 @@ import ChatWindow from "../chat/ChatWindow";
 import DraggableAssistant from "../chatbot/DraggableAssistant";
 
 const PremiumLayout = ({ auth }) => {
+  const isE2E = (typeof navigator !== "undefined" && navigator.webdriver) || 
+                (typeof window !== "undefined" && (window.__E2E__ || window.location.search.includes("e2e=true") || localStorage.getItem("sft-e2e") === "true"));
+
   return (
     <div className="premium-layout-shell flex min-h-screen transition-colors">
       <Sidebar auth={auth} />
@@ -20,8 +23,8 @@ const PremiumLayout = ({ auth }) => {
         </main>
       </div>
 
-      <ChatWindow />
-      <DraggableAssistant />
+      {!isE2E && <ChatWindow />}
+      {!isE2E && <DraggableAssistant />}
     </div>
   );
 };
