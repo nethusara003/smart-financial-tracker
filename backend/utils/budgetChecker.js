@@ -207,38 +207,47 @@ export const checkBudgetAlerts = async (userId, budgets) => {
       if (categoryAlertState && budget.lastAlertLevel !== categoryAlertState.level) {
         console.log(`📧 Sending budget alert for ${budget.category}: ${roundedPercentage}% (level: ${categoryAlertState.level})`);
         
-        // Send email alert
-        const emailResult = await sendBudgetAlert(
-          userId,
-          budget.category,
-          spent,
-          budget.limit,
-          roundedPercentage,
-          {
-            scope: "category",
-            level: categoryAlertState.level,
-          }
-        );
-        console.log(`📧 Email result:`, emailResult);
-        
-        // Create in-app notification
-        await createNotification(
-          userId,
-          'budget_alert',
-          `${categoryAlertState.titlePrefix}: ${budget.category}`,
-          categoryAlertState.messageBuilder(budget.category, spent, budget.limit, roundedPercentage),
-          {
-            scope: "category",
-            category: budget.category,
+        // Dispatch email alert and in-app notification in parallel to avoid SMTP delays blocking UI notifications
+        const [emailRes, notificationRes] = await Promise.allSettled([
+          sendBudgetAlert(
+            userId,
+            budget.category,
             spent,
-            limit: budget.limit,
-            percentage: roundedPercentage,
-            level: categoryAlertState.level,
-          },
-          'AlertCircle',
-          categoryAlertState.color,
-          '/budgets'
-        );
+            budget.limit,
+            roundedPercentage,
+            {
+              scope: "category",
+              level: categoryAlertState.level,
+            }
+          ),
+          createNotification(
+            userId,
+            'budget_alert',
+            `${categoryAlertState.titlePrefix}: ${budget.category}`,
+            categoryAlertState.messageBuilder(budget.category, spent, budget.limit, roundedPercentage),
+            {
+              scope: "category",
+              category: budget.category,
+              spent,
+              limit: budget.limit,
+              percentage: roundedPercentage,
+              level: categoryAlertState.level,
+            },
+            'AlertCircle',
+            categoryAlertState.color,
+            '/budgets'
+          )
+        ]);
+
+        if (emailRes.status === "rejected") {
+          console.error(`❌ SMTP email failed:`, emailRes.reason);
+        } else {
+          console.log(`📧 Email result:`, emailRes.value);
+        }
+
+        if (notificationRes.status === "rejected") {
+          console.error(`❌ In-app notification failed:`, notificationRes.reason);
+        }
 
         // Update budget to track this alert was sent
         await Budget.findByIdAndUpdate(budget._id, { 
@@ -269,35 +278,45 @@ export const checkBudgetAlerts = async (userId, budgets) => {
       if (overallAlertState && user.overallBudgetLastAlertLevel !== overallAlertState.level) {
         console.log(`📧 Sending overall budget alert: ${roundedOverallPercentage}% (level: ${overallAlertState.level})`);
 
-        const overallEmailResult = await sendBudgetAlert(
-          userId,
-          "Overall Budget",
-          totalSpent,
-          totalLimit,
-          roundedOverallPercentage,
-          {
-            scope: "overall",
-            level: overallAlertState.level,
-          }
-        );
-        console.log(`📧 Overall budget email result:`, overallEmailResult);
+        const [overallEmailRes, overallNotificationRes] = await Promise.allSettled([
+          sendBudgetAlert(
+            userId,
+            "Overall Budget",
+            totalSpent,
+            totalLimit,
+            roundedOverallPercentage,
+            {
+              scope: "overall",
+              level: overallAlertState.level,
+            }
+          ),
+          createNotification(
+            userId,
+            "budget_alert",
+            overallAlertState.title,
+            overallAlertState.messageBuilder(totalSpent, totalLimit, roundedOverallPercentage),
+            {
+              scope: "overall",
+              spent: totalSpent,
+              limit: totalLimit,
+              percentage: roundedOverallPercentage,
+              level: overallAlertState.level,
+            },
+            overallAlertState.level === "exceeded" ? "AlertTriangle" : "AlertCircle",
+            overallAlertState.color,
+            "/budgets"
+          )
+        ]);
 
-        await createNotification(
-          userId,
-          "budget_alert",
-          overallAlertState.title,
-          overallAlertState.messageBuilder(totalSpent, totalLimit, roundedOverallPercentage),
-          {
-            scope: "overall",
-            spent: totalSpent,
-            limit: totalLimit,
-            percentage: roundedOverallPercentage,
-            level: overallAlertState.level,
-          },
-          overallAlertState.level === "exceeded" ? "AlertTriangle" : "AlertCircle",
-          overallAlertState.color,
-          "/budgets"
-        );
+        if (overallEmailRes.status === "rejected") {
+          console.error(`❌ SMTP overall email failed:`, overallEmailRes.reason);
+        } else {
+          console.log(`📧 Overall budget email result:`, overallEmailRes.value);
+        }
+
+        if (overallNotificationRes.status === "rejected") {
+          console.error(`❌ Overall in-app notification failed:`, overallNotificationRes.reason);
+        }
 
         user.overallBudgetLastAlertLevel = overallAlertState.level;
         user.overallBudgetLastAlertDate = new Date();

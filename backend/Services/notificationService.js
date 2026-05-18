@@ -76,7 +76,9 @@ const emailTemplates = {
     const detailText = isOverallScope
       ? `You've spent ${percentage}% of your total planned budget across all categories.`
       : `You've used ${percentage}% of your budget for ${category}.`;
-    const ctaUrl = `${process.env.FRONTEND_URL || 'http://localhost:5173'}/budgets`;
+    const ctaUrl = isOverallScope
+      ? `${process.env.FRONTEND_URL || 'http://localhost:5173'}/budgets`
+      : `${process.env.FRONTEND_URL || 'http://localhost:5173'}/budgets?category=${encodeURIComponent(category)}`;
     const ctaLabel = isCriticalOverall ? "Review Budget Now" : "View Budget Details";
 
     return {

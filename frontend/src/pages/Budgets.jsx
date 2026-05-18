@@ -450,6 +450,8 @@ export default function Budgets({ auth }) {
     };
   }, [activeSavedProfile, currentCurrency]);
 
+
+
   useEffect(() => {
     if (isPlanRoute || showDashboardMetrics || suppressAutoShowMetrics) {
       return;
@@ -660,6 +662,46 @@ export default function Budgets({ auth }) {
     };
   }, [closeBudgetEditor, editingBudget]);
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("category")) {
+      setShowDashboardMetrics(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (categoryBudgets.length === 0) return;
+    const params = new URLSearchParams(window.location.search);
+    const categoryQuery = params.get("category");
+    if (categoryQuery) {
+      const targetCategory = normalizeBudgetCategoryName(categoryQuery);
+      const foundBudget = categoryBudgets.find(
+        (b) => normalizeBudgetCategoryName(b.category) === targetCategory
+      );
+      if (foundBudget) {
+        // Open the editor modal automatically
+        openBudgetEditor(foundBudget);
+
+        // Smooth scroll to the target table row after a short timeout to let the DOM stabilize
+        setTimeout(() => {
+          const element = document.getElementById(`budget-row-${targetCategory}`);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth", block: "center" });
+            
+            // Add a brief highlighted visual pulse to the row
+            element.classList.add("bg-blue-50/50", "dark:bg-blue-500/10");
+            setTimeout(() => {
+              element.classList.remove("bg-blue-50/50", "dark:bg-blue-500/10");
+            }, 3000);
+          }
+        }, 500);
+
+        // Clean up the URL search params so a page refresh doesn't trigger the modal again
+        navigate("/budgets", { replace: true });
+      }
+    }
+  }, [categoryBudgets, openBudgetEditor, navigate]);
+
   const handleUpdateCategoryBudget = useCallback(async () => {
     if (!editingBudget?._id) {
       return;
@@ -863,9 +905,38 @@ export default function Budgets({ auth }) {
             (entry) =>
               Number(entry?.recommendedAmount) > 0 &&
               typeof entry?.category === "string" &&
-              !isNonActionableBudgetCategory(entry.category)
+              !isNonActionableBudgetCategory(entry.category) &&
+              normalizeBudgetCategoryName(entry.category) !== OTHER_EXPENSE_CATEGORY
           )
           .slice(0, 10);
+
+        // Rebalancing Allocation Math
+        let allocatedSum = 0;
+        const tempRecommendations = actionableRecommendations.map((entry) => {
+          const limit = Math.max(10, Math.round(Number(entry.recommendedAmount)));
+          allocatedSum += limit;
+          return { ...entry, limit };
+        });
+
+        let finalRecommendations = [];
+        let otherExpenseLimit = 0;
+
+        if (allocatedSum > usableBudget) {
+          const scaleFactor = usableBudget / allocatedSum;
+          let runningSum = 0;
+          finalRecommendations = tempRecommendations.map((entry, index) => {
+            let limit = Math.max(10, Math.round(entry.limit * scaleFactor));
+            if (index === tempRecommendations.length - 1) {
+              limit = Math.max(10, Math.round(usableBudget - runningSum));
+            }
+            runningSum += limit;
+            return { ...entry, limit };
+          });
+          otherExpenseLimit = Math.max(0, Math.round(usableBudget - runningSum));
+        } else {
+          finalRecommendations = tempRecommendations;
+          otherExpenseLimit = Math.round(usableBudget - allocatedSum);
+        }
 
         const existingBudgets = await fetchCategoryBudgets();
         const existingBudgetMap = new Map(
@@ -875,44 +946,81 @@ export default function Budgets({ auth }) {
           ])
         );
 
-        await Promise.all(
-          actionableRecommendations.map(async (entry) => {
-            const key = `${entry.category.trim().toLowerCase()}|monthly`;
-            const limit = Math.max(10, Math.round(Number(entry.recommendedAmount)));
-            const existing = existingBudgetMap.get(key);
+        // Build list of operations to run in parallel
+        const updatePromises = finalRecommendations.map(async (entry) => {
+          const key = `${entry.category.trim().toLowerCase()}|monthly`;
+          const existing = existingBudgetMap.get(key);
 
-            if (existing?._id) {
-              await fetchWithAuth(`/budgets/${existing._id}`, {
-                method: "PUT",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  limit,
-                  alertThreshold: 85,
-                  active: true,
-                  expenseStartMode,
-                }),
-              });
-              return;
-            }
-
-            await fetchWithAuth("/budgets", {
-              method: "POST",
+          if (existing?._id) {
+            await fetchWithAuth(`/budgets/${existing._id}`, {
+              method: "PUT",
               headers: {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
-                category: entry.category,
-                limit,
-                period: "monthly",
+                limit: entry.limit,
                 alertThreshold: 85,
-                color: entry.type === "essential" ? "blue" : "cyan",
+                active: true,
                 expenseStartMode,
               }),
             });
-          })
-        );
+            return;
+          }
+
+          await fetchWithAuth("/budgets", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              category: entry.category,
+              limit: entry.limit,
+              period: "monthly",
+              alertThreshold: 85,
+              color: entry.type === "essential" ? "blue" : "cyan",
+              expenseStartMode,
+            }),
+          });
+        });
+
+        // Add 'other expense' operation to capture leftover buffer
+        const otherExpenseKey = `${OTHER_EXPENSE_CATEGORY}|monthly`;
+        const existingOtherExpense = existingBudgetMap.get(otherExpenseKey);
+
+        updatePromises.push((async () => {
+          if (existingOtherExpense?._id) {
+            await fetchWithAuth(`/budgets/${existingOtherExpense._id}`, {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                limit: otherExpenseLimit,
+                alertThreshold: 85,
+                active: true,
+                expenseStartMode,
+              }),
+            });
+            return;
+          }
+
+          await fetchWithAuth("/budgets", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              category: OTHER_EXPENSE_CATEGORY,
+              limit: otherExpenseLimit,
+              period: "monthly",
+              alertThreshold: 85,
+              color: "cyan",
+              expenseStartMode,
+            }),
+          });
+        })());
+
+        await Promise.all(updatePromises);
 
         await loadCategoryBudgets();
 
@@ -1712,7 +1820,11 @@ export default function Budgets({ auth }) {
                         : "text-success-600 dark:text-success-400";
 
                     return (
-                      <tr key={budget._id} className="border-b border-light-border-subtle dark:border-dark-border-default/60">
+                      <tr
+                        key={budget._id}
+                        id={`budget-row-${normalizeBudgetCategoryName(budget.category)}`}
+                        className="border-b border-light-border-subtle dark:border-dark-border-default/60 transition-colors duration-500"
+                      >
                         <td className="px-3 py-2 font-medium text-light-text-primary dark:text-dark-text-primary">{budget.category}</td>
                         <td className="px-3 py-2 text-right text-light-text-primary dark:text-dark-text-primary">
                           {formatAmount(budget.limit, selectedCurrency)}
