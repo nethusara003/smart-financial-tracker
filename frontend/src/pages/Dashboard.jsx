@@ -304,7 +304,7 @@ const parseDateInputValue = (value, endOfDay = false) => {
 
 const getPresetDateBounds = (range, referenceDate = new Date()) => {
   const now = new Date(referenceDate);
-  const endDate = toEndOfDay(now);
+  let endDate = toEndOfDay(now);
   let startDate = toStartOfDay(now);
 
   switch (range) {
@@ -321,7 +321,8 @@ const getPresetDateBounds = (range, referenceDate = new Date()) => {
       break;
     }
     case 'pastYear': {
-      startDate = toStartOfDay(new Date(now.getFullYear(), now.getMonth(), now.getDate() - 365));
+      startDate = new Date(now.getFullYear() - 1, 0, 1, 0, 0, 0, 0);
+      endDate = new Date(now.getFullYear() - 1, 11, 31, 23, 59, 59, 999);
       break;
     }
     default: {
