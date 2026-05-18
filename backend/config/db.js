@@ -38,8 +38,20 @@ const connectDB = async () => {
   }
 
   try {
+    // 1. Setup listeners BEFORE connecting to handle sudden drops
+    mongoose.connection.on('disconnected', () => {
+      console.warn('⚠️  MongoDB disconnected! Attempting to reconnect...');
+    });
+    
+    mongoose.connection.on('reconnected', () => {
+      console.log('✅ MongoDB reconnected successfully.');
+    });
+
+    // 2. Connect with better resilience settings
     await mongoose.connect(mongoUri, {
-      serverSelectionTimeoutMS: 10000,
+      serverSelectionTimeoutMS: 30000, // Increased to 30 seconds for slow wake-ups
+      socketTimeoutMS: 45000,          // Close sockets after 45 seconds of inactivity
+      family: 4                        // Force IPv4 (fixes some DNS issues)
     });
 
     console.log("✅ MongoDB connected");
