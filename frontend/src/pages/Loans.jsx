@@ -172,15 +172,15 @@ const Loans = ({ openAddSignal = 0, openExportSignal = 0, onSummaryChange = null
   const getStatusColor = (status) => {
     switch (status) {
       case 'active':
-        return 'text-blue-600 bg-blue-50';
+        return 'text-blue-500 bg-blue-500/10 border border-blue-500/20';
       case 'paid':
-        return 'text-green-600 bg-green-50';
+        return 'text-emerald-500 bg-emerald-500/10 border border-emerald-500/20';
       case 'closed':
-        return 'text-gray-600 bg-gray-50';
+        return 'text-slate-400 bg-white/5 border border-white/10';
       case 'defaulted':
-        return 'text-red-600 bg-red-50';
+        return 'text-rose-500 bg-rose-500/10 border border-rose-500/20';
       default:
-        return 'text-gray-600 bg-gray-50';
+        return 'text-slate-400 bg-white/5 border border-white/10';
     }
   };
 
@@ -248,7 +248,7 @@ const Loans = ({ openAddSignal = 0, openExportSignal = 0, onSummaryChange = null
 
   return (
     <div className="space-y-6">
-      <div className="rounded-xl border border-white/5 bg-[#0D1117] p-3 shadow-premium dark:shadow-card-dark">
+      <div className="rounded-xl border border-light-border-default dark:border-white/5 bg-light-surface-secondary dark:bg-[#0D1117] p-3 shadow-premium dark:shadow-card-dark">
         <div className="grid grid-cols-1 gap-3 md:grid-cols-5">
           {/* Search */}
           <div className="relative">
@@ -258,7 +258,7 @@ const Loans = ({ openAddSignal = 0, openExportSignal = 0, onSummaryChange = null
               placeholder="Search loans..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full rounded-lg border border-white/10 bg-white/[0.03] py-2 pl-10 pr-3 text-sm text-slate-100 placeholder:text-slate-500 focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-lg border border-light-border-default dark:border-white/10 bg-light-surface-primary dark:bg-white/[0.03] py-2 pl-10 pr-3 text-sm text-light-text-primary dark:text-slate-100 placeholder:text-light-text-tertiary dark:placeholder:text-slate-500 focus:ring-2 focus:ring-blue-500 outline-none"
             />
           </div>
 
@@ -266,7 +266,7 @@ const Loans = ({ openAddSignal = 0, openExportSignal = 0, onSummaryChange = null
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-slate-100 focus:ring-2 focus:ring-blue-500"
+            className="rounded-lg border border-light-border-default dark:border-white/10 bg-light-surface-primary dark:bg-white/[0.03] px-3 py-2 text-sm text-light-text-primary dark:text-slate-100 focus:ring-2 focus:ring-blue-500 outline-none"
           >
             <option value="all">All Status</option>
             <option value="active">Active</option>
@@ -279,7 +279,7 @@ const Loans = ({ openAddSignal = 0, openExportSignal = 0, onSummaryChange = null
           <select
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
-            className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-slate-100 focus:ring-2 focus:ring-blue-500"
+            className="rounded-lg border border-light-border-default dark:border-white/10 bg-light-surface-primary dark:bg-white/[0.03] px-3 py-2 text-sm text-light-text-primary dark:text-slate-100 focus:ring-2 focus:ring-blue-500 outline-none"
           >
             <option value="all">All Types</option>
             <option value="home">Home Loan</option>
@@ -294,7 +294,7 @@ const Loans = ({ openAddSignal = 0, openExportSignal = 0, onSummaryChange = null
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-slate-100 focus:ring-2 focus:ring-blue-500"
+            className="rounded-lg border border-light-border-default dark:border-white/10 bg-light-surface-primary dark:bg-white/[0.03] px-3 py-2 text-sm text-light-text-primary dark:text-slate-100 focus:ring-2 focus:ring-blue-500 outline-none"
           >
             <option value="nextPaymentDate">Next Payment</option>
             <option value="amount">Loan Amount</option>
@@ -302,7 +302,7 @@ const Loans = ({ openAddSignal = 0, openExportSignal = 0, onSummaryChange = null
             <option value="balance">Remaining Balance</option>
           </select>
 
-          <div className="flex items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-xs font-semibold text-slate-300">
+          <div className="flex items-center justify-center rounded-lg border border-light-border-default dark:border-white/10 bg-light-surface-primary dark:bg-white/[0.03] px-3 py-2 text-xs font-semibold text-light-text-tertiary dark:text-slate-300">
             Dense Tools Filter Bar
           </div>
         </div>
@@ -317,12 +317,12 @@ const Loans = ({ openAddSignal = 0, openExportSignal = 0, onSummaryChange = null
 
       {/* Loans Grid */}
       {sortedLoans.length === 0 ? (
-        <div className="rounded-2xl border border-white/5 bg-[#0D1117] p-12 text-center shadow-premium dark:shadow-card-dark">
+        <div className="rounded-2xl border border-light-border-default dark:border-white/5 bg-light-surface-secondary dark:bg-[#0D1117] p-12 text-center shadow-premium dark:shadow-card-dark">
           <CreditCard className="mx-auto mb-4 h-16 w-16 text-slate-500" />
-          <h3 className="mb-2 text-lg font-semibold text-white">
+          <h3 className="mb-2 text-lg font-semibold text-light-text-primary dark:text-white">
             No loans found
           </h3>
-          <p className="mb-4 text-slate-400">
+          <p className="mb-4 text-light-text-secondary dark:text-slate-400">
             {searchTerm || filterStatus !== 'all' || filterType !== 'all'
               ? 'Try adjusting your filters'
               : 'Get started by adding your first loan'}
@@ -347,19 +347,19 @@ const Loans = ({ openAddSignal = 0, openExportSignal = 0, onSummaryChange = null
             return (
               <div
                 key={loan._id}
-                className="rounded-2xl border border-white/5 bg-[#0D1117] p-6 shadow-premium transition-shadow hover:shadow-2xl"
+                className="rounded-2xl border border-light-border-default dark:border-white/5 bg-light-surface-secondary dark:bg-[#0D1117] p-6 shadow-premium transition-all hover:shadow-2xl hover:border-light-border-strong dark:hover:border-white/20"
               >
                 {/* Header */}
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="rounded-lg border border-blue-400/30 bg-blue-500/10 p-3">
-                      <Icon className="h-6 w-6 text-blue-300" />
+                    <div className="rounded-lg border border-blue-400/30 bg-blue-500/10 p-3 shadow-[0_0_15px_rgba(59,130,246,0.15)]">
+                      <Icon className="h-6 w-6 text-blue-500 dark:text-blue-300" />
                     </div>
                     <div>
-                      <h3 className="text-lg font-bold text-white">
+                      <h3 className="text-lg font-bold text-light-text-primary dark:text-white">
                         {loan.loanName}
                       </h3>
-                      <p className="text-sm capitalize text-slate-400">
+                      <p className="text-sm capitalize text-light-text-secondary dark:text-slate-400">
                         {loan.loanType} Loan
                       </p>
                     </div>
@@ -375,12 +375,12 @@ const Loans = ({ openAddSignal = 0, openExportSignal = 0, onSummaryChange = null
                 {/* Progress Bar */}
                 <div className="mb-4">
                   <div className="flex justify-between text-sm mb-1">
-                    <span className="text-slate-400">Progress</span>
-                    <span className="font-medium text-slate-100">
+                    <span className="text-light-text-secondary dark:text-slate-400">Progress</span>
+                    <span className="font-medium text-light-text-primary dark:text-slate-100">
                       {Math.round(progress)}%
                     </span>
                   </div>
-                  <div className="h-1.5 w-full overflow-hidden rounded-full bg-[#111827]">
+                  <div className="h-1.5 w-full overflow-hidden rounded-full bg-light-bg-accent dark:bg-[#111827]">
                     <div
                       className="h-full rounded-full bg-gradient-to-r from-blue-500 to-blue-600 transition-all"
                       style={{
@@ -394,26 +394,26 @@ const Loans = ({ openAddSignal = 0, openExportSignal = 0, onSummaryChange = null
                 {/* Loan Details */}
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <div>
-                    <p className="mb-1 text-xs text-slate-400">EMI Amount</p>
-                    <p className="text-lg font-bold text-white">
+                    <p className="mb-1 text-xs text-light-text-secondary dark:text-slate-400">EMI Amount</p>
+                    <p className="text-lg font-bold text-light-text-primary dark:text-white">
                       {formatCurrency(loan.emiAmount)}
                     </p>
                   </div>
                   <div>
-                    <p className="mb-1 text-xs text-slate-400">Remaining Balance</p>
-                    <p className="text-lg font-bold text-white">
+                    <p className="mb-1 text-xs text-light-text-secondary dark:text-slate-400">Remaining Balance</p>
+                    <p className="text-lg font-bold text-light-text-primary dark:text-white">
                       {formatCurrency(loan.remainingBalance)}
                     </p>
                   </div>
                   <div>
-                    <p className="mb-1 text-xs text-slate-400">Interest Rate</p>
-                    <p className="text-sm font-medium text-slate-100">
+                    <p className="mb-1 text-xs text-light-text-secondary dark:text-slate-400">Interest Rate</p>
+                    <p className="text-sm font-medium text-light-text-primary dark:text-slate-100">
                       {loan.interestRate}% p.a.
                     </p>
                   </div>
                   <div>
-                    <p className="mb-1 text-xs text-slate-400">Tenure</p>
-                    <p className="text-sm font-medium text-slate-100">
+                    <p className="mb-1 text-xs text-light-text-secondary dark:text-slate-400">Tenure</p>
+                    <p className="text-sm font-medium text-light-text-primary dark:text-slate-100">
                       {loan.tenure} months
                     </p>
                   </div>
@@ -421,33 +421,33 @@ const Loans = ({ openAddSignal = 0, openExportSignal = 0, onSummaryChange = null
 
                 {/* Next Payment */}
                 {loan.status === 'active' && loan.nextPaymentDate && (
-                  <div className={`p-3 rounded-lg mb-4 ${
-                    daysUntilDue < 0 ? 'bg-rose-500/10 border border-rose-400/30' :
-                    daysUntilDue <= 3 ? 'bg-amber-500/10 border border-amber-400/30' :
-                    'bg-white/[0.03] border border-white/10'
+                  <div className={`p-3 rounded-lg mb-4 border transition-colors ${
+                    daysUntilDue < 0 ? 'bg-rose-500/10 border-rose-400/30' :
+                    daysUntilDue <= 3 ? 'bg-amber-500/10 border-amber-400/30' :
+                    'bg-light-bg-accent dark:bg-white/[0.03] border-light-border-default dark:border-white/10'
                   }`}>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <Calendar className={`w-4 h-4 ${
-                          daysUntilDue < 0 ? 'text-rose-300' :
-                          daysUntilDue <= 3 ? 'text-amber-300' :
-                          'text-slate-300'
+                          daysUntilDue < 0 ? 'text-rose-400 dark:text-rose-300' :
+                          daysUntilDue <= 3 ? 'text-amber-400 dark:text-amber-300' :
+                          'text-light-text-tertiary dark:text-slate-300'
                         }`} />
-                        <span className="text-sm font-medium text-white">
+                        <span className="text-sm font-medium text-light-text-primary dark:text-white">
                           Next Payment
                         </span>
                       </div>
                       <span className={`text-sm font-medium ${
-                        daysUntilDue < 0 ? 'text-rose-300' :
-                        daysUntilDue <= 3 ? 'text-amber-300' :
-                        'text-slate-100'
+                        daysUntilDue < 0 ? 'text-rose-400 dark:text-rose-300' :
+                        daysUntilDue <= 3 ? 'text-amber-400 dark:text-amber-300' :
+                        'text-light-text-primary dark:text-slate-100'
                       }`}>
                         {daysUntilDue < 0 ? `${Math.abs(daysUntilDue)} days overdue` :
                          daysUntilDue === 0 ? 'Due today' :
                          `Due in ${daysUntilDue} days`}
                       </span>
                     </div>
-                    <p className="mt-1 text-xs text-slate-400">
+                    <p className="mt-1 text-xs text-light-text-tertiary dark:text-slate-400">
                       {new Date(loan.nextPaymentDate).toLocaleDateString()}
                     </p>
                   </div>
@@ -461,7 +461,7 @@ const Loans = ({ openAddSignal = 0, openExportSignal = 0, onSummaryChange = null
                         setSelectedLoan(loan);
                         setShowPaymentModal(true);
                       }}
-                      className="flex-1 flex items-center justify-center gap-2 rounded-lg bg-emerald-600 px-4 py-2 text-white transition-colors hover:bg-emerald-700"
+                      className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-white transition-all hover:bg-emerald-700 shadow-lg shadow-emerald-500/20"
                     >
                       <CreditCard className="w-4 h-4" />
                       Record Payment
@@ -469,7 +469,7 @@ const Loans = ({ openAddSignal = 0, openExportSignal = 0, onSummaryChange = null
                   )}
                   <button
                     onClick={() => navigate(`/loans/${loan._id}`)}
-                    className={`${loan.status === 'active' ? 'flex-1' : 'flex-[2]'} flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700`}
+                    className={`${loan.status === 'active' ? 'flex-1' : 'flex-[2]'} flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2 text-white transition-all hover:bg-blue-700 shadow-lg shadow-blue-500/20`}
                   >
                     <Eye className="w-4 h-4" />
                     View Details
@@ -479,7 +479,7 @@ const Loans = ({ openAddSignal = 0, openExportSignal = 0, onSummaryChange = null
                       setLoanToDelete(loan);
                       setShowDeleteModal(true);
                     }}
-                    className="rounded-lg border border-rose-400/40 px-4 py-2 text-rose-300 transition-colors hover:bg-rose-500/10"
+                    className="rounded-xl border border-rose-400/40 px-4 py-2 text-rose-500 dark:text-rose-300 transition-all hover:bg-rose-500/10"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -499,23 +499,23 @@ const Loans = ({ openAddSignal = 0, openExportSignal = 0, onSummaryChange = null
           panelClassName="max-w-md"
           ariaLabelledBy="loan-delete-modal-title"
         >
-          <div className="w-full rounded-lg bg-[#0D1117] p-6 shadow-2xl">
-            <h3 className="mb-4 text-lg font-bold text-white">
+          <div className="w-full rounded-2xl border border-light-border-default dark:border-white/10 bg-light-surface-secondary dark:bg-[#0D1117] p-6 shadow-2xl">
+            <h3 className="mb-4 text-lg font-bold text-light-text-primary dark:text-white">
               <span id="loan-delete-modal-title">Delete Loan</span>
             </h3>
-            <p className="mb-6 text-slate-400">
+            <p className="mb-6 text-light-text-secondary dark:text-slate-400">
               Are you sure you want to delete "{loanToDelete?.loanName}"? This action cannot be undone.
             </p>
             <div className="flex gap-3">
               <button
                 onClick={closeDeleteModal}
-                className="flex-1 rounded-lg border border-white/15 px-4 py-2 text-slate-200 transition-colors hover:bg-white/[0.06]"
+                className="flex-1 rounded-xl border border-light-border-default dark:border-white/10 px-4 py-2 text-light-text-secondary dark:text-slate-200 transition-all hover:bg-light-bg-hover dark:hover:bg-white/[0.06]"
               >
                 Cancel
               </button>
               <button
                 onClick={handleDelete}
-                className="flex-1 rounded-lg bg-rose-600 px-4 py-2 text-white transition-colors hover:bg-rose-700"
+                className="flex-1 rounded-xl bg-rose-600 px-4 py-2 text-white transition-all hover:bg-rose-700 shadow-lg shadow-rose-500/20"
               >
               Delete Loan
               </button>

@@ -107,8 +107,8 @@ const LoanComparison = () => {
         {loanOffers.map((loan) => (
           <div 
             key={loan.id} 
-            className={`rounded-2xl border border-white/5 bg-[#0D1117] p-6 shadow-premium ${
-              bestLoan && bestLoan.id === loan.id ? 'ring-2 ring-green-500' : ''
+            className={`rounded-2xl border border-light-border-default dark:border-white/5 bg-light-surface-secondary dark:bg-[#0D1117] p-6 shadow-premium dark:shadow-card-dark transition-all ${
+              bestLoan && bestLoan.id === loan.id ? 'ring-2 ring-emerald-500/50 shadow-emerald-500/20' : ''
             }`}
           >
             <div className="flex justify-between items-center mb-4">
@@ -116,7 +116,7 @@ const LoanComparison = () => {
                 type="text"
                 value={loan.name}
                 onChange={(e) => updateLoanOffer(loan.id, 'name', e.target.value)}
-                className="border-b border-white/15 bg-transparent text-lg font-semibold text-white focus:border-blue-500 focus:outline-none"
+                className="border-b border-light-border-default dark:border-white/15 bg-transparent text-lg font-semibold text-light-text-primary dark:text-white focus:border-blue-500 focus:outline-none"
               />
               <div className="flex items-center gap-2">
                 {bestLoan && bestLoan.id === loan.id && (
@@ -127,7 +127,7 @@ const LoanComparison = () => {
                 {loanOffers.length > 2 && (
                   <button
                     onClick={() => removeLoanOffer(loan.id)}
-                    className="rounded-lg p-2 text-rose-300 hover:bg-rose-500/10"
+                    className="rounded-xl p-2 text-rose-500 dark:text-rose-300 hover:bg-rose-500/10 transition-colors"
                   >
                     <Trash2 className="w-5 h-5" />
                   </button>
@@ -137,7 +137,7 @@ const LoanComparison = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
               <div>
-                <label className="mb-2 block text-sm font-medium text-slate-300">
+                <label className="mb-2 block text-sm font-medium text-light-text-secondary dark:text-slate-300">
                   <DollarSign className="w-4 h-4 inline mr-1" />
                   Principal Amount ({formatCurrency(0).replace('0', '').trim()})
                 </label>
@@ -146,12 +146,12 @@ const LoanComparison = () => {
                   value={loan.principal}
                   onChange={(e) => updateLoanOffer(loan.id, 'principal', e.target.value)}
                   placeholder="500000"
-                  className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-slate-100 focus:ring-2 focus:ring-blue-500"
+                  className="w-full rounded-lg border border-light-border-default dark:border-white/10 bg-light-surface-primary dark:bg-white/[0.03] px-3 py-2 text-light-text-primary dark:text-slate-100 placeholder:text-light-text-tertiary dark:placeholder:text-slate-500 focus:ring-2 focus:ring-blue-500 outline-none"
                 />
               </div>
 
               <div>
-                <label className="mb-2 block text-sm font-medium text-slate-300">
+                <label className="mb-2 block text-sm font-medium text-light-text-secondary dark:text-slate-300">
                   <Percent className="w-4 h-4 inline mr-1" />
                   Interest Rate (% p.a.)
                 </label>
@@ -161,12 +161,12 @@ const LoanComparison = () => {
                   onChange={(e) => updateLoanOffer(loan.id, 'rate', e.target.value)}
                   placeholder="8.5"
                   step="0.1"
-                  className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-slate-100 focus:ring-2 focus:ring-blue-500"
+                  className="w-full rounded-lg border border-light-border-default dark:border-white/10 bg-light-surface-primary dark:bg-white/[0.03] px-3 py-2 text-light-text-primary dark:text-slate-100 placeholder:text-light-text-tertiary dark:placeholder:text-slate-500 focus:ring-2 focus:ring-blue-500 outline-none"
                 />
               </div>
 
               <div>
-                <label className="mb-2 block text-sm font-medium text-slate-300">
+                <label className="mb-2 block text-sm font-medium text-light-text-secondary dark:text-slate-300">
                   <Calendar className="w-4 h-4 inline mr-1" />
                   Tenure
                 </label>
@@ -176,12 +176,12 @@ const LoanComparison = () => {
                     value={loan.tenure}
                     onChange={(e) => updateLoanOffer(loan.id, 'tenure', e.target.value)}
                     placeholder="60"
-                    className="flex-1 rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-slate-100 focus:ring-2 focus:ring-blue-500"
+                    className="flex-1 rounded-lg border border-light-border-default dark:border-white/10 bg-light-surface-primary dark:bg-white/[0.03] px-3 py-2 text-light-text-primary dark:text-slate-100 placeholder:text-light-text-tertiary dark:placeholder:text-slate-500 focus:ring-2 focus:ring-blue-500 outline-none"
                   />
                   <select
                     value={loan.tenureUnit}
                     onChange={(e) => updateLoanOffer(loan.id, 'tenureUnit', e.target.value)}
-                    className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-slate-100 focus:ring-2 focus:ring-blue-500"
+                    className="rounded-lg border border-light-border-default dark:border-white/10 bg-light-surface-primary dark:bg-white/[0.03] px-3 py-2 text-light-text-primary dark:text-slate-100 focus:ring-2 focus:ring-blue-500 outline-none"
                   >
                     <option value="months">Months</option>
                     <option value="years">Years</option>
@@ -192,7 +192,7 @@ const LoanComparison = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="mb-2 block text-sm font-medium text-slate-300">
+                <label className="mb-2 block text-sm font-medium text-light-text-secondary dark:text-slate-300">
                   Processing Fee ({formatCurrency(0).replace('0', '').trim()})
                 </label>
                 <input
@@ -200,12 +200,12 @@ const LoanComparison = () => {
                   value={loan.processingFee}
                   onChange={(e) => updateLoanOffer(loan.id, 'processingFee', e.target.value)}
                   placeholder="5000"
-                  className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-slate-100 focus:ring-2 focus:ring-blue-500"
+                  className="w-full rounded-lg border border-light-border-default dark:border-white/10 bg-light-surface-primary dark:bg-white/[0.03] px-3 py-2 text-light-text-primary dark:text-slate-100 placeholder:text-light-text-tertiary dark:placeholder:text-slate-500 focus:ring-2 focus:ring-blue-500 outline-none"
                 />
               </div>
 
               <div>
-                <label className="mb-2 block text-sm font-medium text-slate-300">
+                <label className="mb-2 block text-sm font-medium text-light-text-secondary dark:text-slate-300">
                   Prepayment Penalty (%)
                 </label>
                 <input
@@ -214,36 +214,36 @@ const LoanComparison = () => {
                   onChange={(e) => updateLoanOffer(loan.id, 'prepaymentPenalty', e.target.value)}
                   placeholder="2"
                   step="0.1"
-                  className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-slate-100 focus:ring-2 focus:ring-blue-500"
+                  className="w-full rounded-lg border border-light-border-default dark:border-white/10 bg-light-surface-primary dark:bg-white/[0.03] px-3 py-2 text-light-text-primary dark:text-slate-100 placeholder:text-light-text-tertiary dark:placeholder:text-slate-500 focus:ring-2 focus:ring-blue-500 outline-none"
                 />
               </div>
             </div>
 
             {/* Results */}
             {loan.calculated && !loan.calculated.error && (
-              <div className="mt-4 border-t border-white/10 pt-4">
+              <div className="mt-4 border-t border-light-border-default dark:border-white/10 pt-4">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div>
-                    <p className="mb-1 text-xs text-slate-400">Monthly EMI</p>
-                    <p className="text-lg font-bold text-blue-300">
+                    <p className="mb-1 text-xs text-light-text-tertiary dark:text-slate-400">Monthly EMI</p>
+                    <p className="text-lg font-bold text-blue-500 dark:text-blue-300">
                       {formatCurrency(loan.calculated.emiAmount)}
                     </p>
                   </div>
                   <div>
-                    <p className="mb-1 text-xs text-slate-400">Total Interest</p>
-                    <p className="text-lg font-bold text-amber-300">
+                    <p className="mb-1 text-xs text-light-text-tertiary dark:text-slate-400">Total Interest</p>
+                    <p className="text-lg font-bold text-amber-500 dark:text-amber-300">
                       {formatCurrency(loan.calculated.totalInterest)}
                     </p>
                   </div>
                   <div>
-                    <p className="mb-1 text-xs text-slate-400">Total Repayment</p>
-                    <p className="text-lg font-bold text-violet-300">
+                    <p className="mb-1 text-xs text-light-text-tertiary dark:text-slate-400">Total Repayment</p>
+                    <p className="text-lg font-bold text-indigo-500 dark:text-violet-300">
                       {formatCurrency(loan.calculated.totalAmount)}
                     </p>
                   </div>
                   <div>
-                    <p className="mb-1 text-xs text-slate-400">Total Cost</p>
-                    <p className="text-lg font-bold text-rose-300">
+                    <p className="mb-1 text-xs text-light-text-tertiary dark:text-slate-400">Total Cost</p>
+                    <p className="text-lg font-bold text-rose-500 dark:text-rose-300">
                       {formatCurrency(loan.calculated.totalCost)}
                     </p>
                   </div>
@@ -264,7 +264,7 @@ const LoanComparison = () => {
       <div className="flex gap-4 mb-8">
         <button
           onClick={addLoanOffer}
-          className="flex items-center gap-2 rounded-lg border border-white/15 px-4 py-2 text-slate-100 transition-colors hover:bg-white/[0.06]"
+          className="flex items-center gap-2 rounded-xl border border-light-border-default dark:border-white/15 px-4 py-2 text-light-text-primary dark:text-slate-100 transition-all hover:bg-light-bg-hover dark:hover:bg-white/[0.06]"
         >
           <Plus className="w-5 h-5" />
           Add Another Loan
@@ -272,7 +272,7 @@ const LoanComparison = () => {
         <button
           onClick={calculateAllLoans}
           disabled={calculating}
-          className="flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-2 text-white transition-colors hover:bg-blue-700 disabled:bg-slate-500"
+          className="flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-2 text-white transition-all hover:bg-blue-700 disabled:bg-slate-500 shadow-lg shadow-blue-500/20"
         >
           <TrendingDown className="w-5 h-5" />
           {calculating ? 'Calculating...' : 'Compare All Loans'}
@@ -281,40 +281,40 @@ const LoanComparison = () => {
 
       {/* Summary Comparison Table */}
       {bestLoan && (
-        <div className="rounded-2xl border border-white/5 bg-[#0D1117] p-6 shadow-premium">
-          <h2 className="mb-4 text-xl font-bold text-[#3B82F6]">
+        <div className="rounded-2xl border border-light-border-default dark:border-white/5 bg-light-surface-secondary dark:bg-[#0D1117] p-6 shadow-premium dark:shadow-card-dark">
+          <h2 className="mb-4 text-xl font-bold text-blue-500 dark:text-[#3B82F6]">
             Quick Comparison Summary
           </h2>
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto rounded-xl border border-light-border-default dark:border-white/10">
             <table className="w-full text-sm">
-              <thead className="bg-white/[0.04]">
+              <thead className="bg-light-bg-accent dark:bg-white/[0.04]">
                 <tr>
-                  <th className="px-4 py-3 text-left font-medium text-slate-100">Loan Offer</th>
-                  <th className="px-4 py-3 text-right font-medium text-slate-100">Monthly EMI</th>
-                  <th className="px-4 py-3 text-right font-medium text-slate-100">Total Interest</th>
-                  <th className="px-4 py-3 text-right font-medium text-slate-100">Processing Fee</th>
-                  <th className="px-4 py-3 text-right font-medium text-slate-100">Total Cost</th>
-                  <th className="px-4 py-3 text-center font-medium text-slate-100">Savings</th>
+                  <th className="px-4 py-3 text-left font-medium text-light-text-primary dark:text-slate-100">Loan Offer</th>
+                  <th className="px-4 py-3 text-right font-medium text-light-text-primary dark:text-slate-100">Monthly EMI</th>
+                  <th className="px-4 py-3 text-right font-medium text-light-text-primary dark:text-slate-100">Total Interest</th>
+                  <th className="px-4 py-3 text-right font-medium text-light-text-primary dark:text-slate-100">Processing Fee</th>
+                  <th className="px-4 py-3 text-right font-medium text-light-text-primary dark:text-slate-100">Total Cost</th>
+                  <th className="px-4 py-3 text-center font-medium text-light-text-primary dark:text-slate-100">Savings</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/10">
+              <tbody className="divide-y divide-light-border-default dark:divide-white/10">
                 {loanOffers.filter(loan => loan.calculated && !loan.calculated.error).map(loan => {
                   const savings = loan.calculated.totalCost - bestLoan.calculated.totalCost;
                   return (
                     <tr 
                       key={loan.id}
-                      className={loan.id === bestLoan.id ? 'bg-emerald-500/10' : ''}
+                      className={loan.id === bestLoan.id ? 'bg-emerald-500/5 dark:bg-emerald-500/10' : ''}
                     >
-                      <td className="px-4 py-3 font-medium text-slate-100">
+                      <td className="px-4 py-3 font-medium text-light-text-primary dark:text-slate-100">
                         {loan.name}
                         {loan.id === bestLoan.id && (
-                          <span className="ml-2 text-xs text-emerald-300">✓ Best</span>
+                          <span className="ml-2 text-xs text-emerald-600 dark:text-emerald-300 font-bold">✓ BEST</span>
                         )}
                       </td>
-                      <td className="px-4 py-3 text-right text-slate-200">{formatCurrency(loan.calculated.emiAmount)}</td>
-                      <td className="px-4 py-3 text-right text-slate-200">{formatCurrency(loan.calculated.totalInterest)}</td>
-                      <td className="px-4 py-3 text-right text-slate-200">{formatCurrency(loan.calculated.processingFee)}</td>
-                      <td className="px-4 py-3 text-right font-bold text-slate-100">{formatCurrency(loan.calculated.totalCost)}</td>
+                      <td className="px-4 py-3 text-right text-light-text-secondary dark:text-slate-200">{formatCurrency(loan.calculated.emiAmount)}</td>
+                      <td className="px-4 py-3 text-right text-light-text-secondary dark:text-slate-200">{formatCurrency(loan.calculated.totalInterest)}</td>
+                      <td className="px-4 py-3 text-right text-light-text-secondary dark:text-slate-200">{formatCurrency(loan.calculated.processingFee)}</td>
+                      <td className="px-4 py-3 text-right font-bold text-light-text-primary dark:text-slate-100">{formatCurrency(loan.calculated.totalCost)}</td>
                       <td className="px-4 py-3 text-center">
                         {savings === 0 ? (
                           <span className="font-medium text-emerald-300">Best!</span>
@@ -331,9 +331,9 @@ const LoanComparison = () => {
             </table>
           </div>
 
-          <div className="mt-6 rounded-lg bg-blue-500/10 p-4">
-            <p className="text-sm text-slate-200">
-              <strong className="text-blue-300">Tip:</strong> The "Best Deal" is determined by the lowest total cost 
+          <div className="mt-6 rounded-xl bg-blue-500/5 dark:bg-blue-500/10 p-4 border border-blue-500/10 dark:border-blue-500/20">
+            <p className="text-sm text-light-text-secondary dark:text-slate-200">
+              <strong className="text-blue-600 dark:text-blue-300">Tip:</strong> The "Best Deal" is determined by the lowest total cost 
               (including principal, interest, and processing fees). Consider other factors like prepayment flexibility, 
               lender reputation, and additional benefits when making your final decision.
             </p>

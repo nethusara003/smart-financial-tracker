@@ -53,16 +53,16 @@ const RecordPaymentModal = ({ loan, onClose, onSuccess }) => {
       isOpen
       onClose={onClose}
       containerClassName="z-[9999]"
-      panelClassName="max-w-md rounded-lg bg-white dark:bg-gray-800 shadow-xl overflow-hidden"
+      panelClassName="max-w-md rounded-2xl border border-light-border-default dark:border-white/10 bg-light-surface-secondary dark:bg-[#0D1117] shadow-xl overflow-hidden"
       ariaLabelledBy="record-payment-title"
     >
-        <div className="flex justify-between items-center p-6 border-b border-gray-200 dark:border-gray-700">
-          <h2 id="record-payment-title" className="text-xl font-semibold text-gray-900 dark:text-white">
+        <div className="flex justify-between items-center p-6 border-b border-light-border-default dark:border-white/10">
+          <h2 id="record-payment-title" className="text-xl font-semibold text-light-text-primary dark:text-white">
             Record Payment
           </h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+            className="text-light-text-tertiary dark:text-slate-500 hover:text-light-text-primary dark:hover:text-white transition-colors"
           >
             <X className="w-6 h-6" />
           </button>
@@ -71,25 +71,25 @@ const RecordPaymentModal = ({ loan, onClose, onSuccess }) => {
         <form onSubmit={handleSubmit} className="p-6">
           <div className="space-y-4">
             {/* Loan Info */}
-            <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
-              <h3 className="font-medium text-gray-900 dark:text-white mb-2">
+            <div className="bg-blue-500/5 dark:bg-blue-500/10 border border-blue-500/10 dark:border-blue-500/20 p-4 rounded-xl">
+              <h3 className="font-medium text-light-text-primary dark:text-white mb-2">
                 {loan?.loanName}
               </h3>
-              <div className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+              <div className="text-sm text-light-text-secondary dark:text-slate-400 space-y-1">
                 <div className="flex justify-between">
                   <span>Regular EMI:</span>
-                  <span className="font-medium">{formatCurrency(loan?.emiAmount)}</span>
+                  <span className="font-medium text-light-text-primary dark:text-white">{formatCurrency(loan?.emiAmount)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Remaining Balance:</span>
-                  <span className="font-medium">{formatCurrency(loan?.remainingBalance)}</span>
+                  <span className="font-medium text-light-text-primary dark:text-white">{formatCurrency(loan?.remainingBalance)}</span>
                 </div>
               </div>
             </div>
 
             {/* Payment Amount */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-light-text-secondary dark:text-slate-400 mb-2">
                 <DollarSign className="w-4 h-4 inline mr-1" />
                 Payment Amount *
               </label>
@@ -98,15 +98,14 @@ const RecordPaymentModal = ({ loan, onClose, onSuccess }) => {
                 value={formData.paymentAmount}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
-                         focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-light-border-default dark:border-white/10 rounded-lg focus:ring-2 focus:ring-blue-500 bg-light-surface-primary dark:bg-white/[0.05] text-light-text-primary dark:text-white outline-none"
                 placeholder="Enter payment amount"
               />
             </div>
 
             {/* Payment Date */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-light-text-secondary dark:text-slate-400 mb-2">
                 <Calendar className="w-4 h-4 inline mr-1" />
                 Payment Date *
               </label>
@@ -117,14 +116,13 @@ const RecordPaymentModal = ({ loan, onClose, onSuccess }) => {
                 onChange={handleChange}
                 required
                 max={new Date().toISOString().split('T')[0]}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
-                         focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-light-border-default dark:border-white/10 rounded-lg focus:ring-2 focus:ring-blue-500 bg-light-surface-primary dark:bg-white/[0.05] text-light-text-primary dark:text-white outline-none"
               />
             </div>
 
             {/* Payment Type */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-light-text-secondary dark:text-slate-400 mb-2">
                 <CreditCard className="w-4 h-4 inline mr-1" />
                 Payment Type *
               </label>
@@ -133,8 +131,7 @@ const RecordPaymentModal = ({ loan, onClose, onSuccess }) => {
                 value={formData.paymentType}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
-                         focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-light-border-default dark:border-white/10 rounded-lg focus:ring-2 focus:ring-blue-500 bg-light-surface-primary dark:bg-white/[0.05] text-light-text-primary dark:text-white outline-none"
               >
                 <option value="regular">Regular EMI</option>
                 <option value="extra">Extra Payment</option>
@@ -145,7 +142,7 @@ const RecordPaymentModal = ({ loan, onClose, onSuccess }) => {
 
             {/* Notes */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-light-text-secondary dark:text-slate-400 mb-2">
                 <FileText className="w-4 h-4 inline mr-1" />
                 Notes (Optional)
               </label>
@@ -154,8 +151,7 @@ const RecordPaymentModal = ({ loan, onClose, onSuccess }) => {
                 value={formData.notes}
                 onChange={handleChange}
                 rows="3"
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
-                         focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                className="w-full px-3 py-2 border border-light-border-default dark:border-white/10 rounded-lg focus:ring-2 focus:ring-blue-500 bg-light-surface-primary dark:bg-white/[0.05] text-light-text-primary dark:text-white outline-none"
                 placeholder="Add any notes about this payment..."
               />
             </div>
@@ -167,9 +163,9 @@ const RecordPaymentModal = ({ loan, onClose, onSuccess }) => {
                 name="createTransaction"
                 checked={formData.createTransaction}
                 onChange={handleChange}
-                className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                className="w-4 h-4 text-blue-600 border-light-border-default dark:border-white/20 rounded bg-light-surface-primary dark:bg-white/[0.05] focus:ring-blue-500"
               />
-              <label className="ml-2 text-sm text-gray-700 dark:text-gray-300">
+              <label className="ml-2 text-sm text-light-text-secondary dark:text-slate-400">
                 Automatically create transaction record
               </label>
             </div>
@@ -180,16 +176,14 @@ const RecordPaymentModal = ({ loan, onClose, onSuccess }) => {
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 
-                       dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition"
+              className="flex-1 px-4 py-2 border border-light-border-default dark:border-white/10 text-light-text-secondary dark:text-slate-400 rounded-xl hover:bg-light-bg-hover dark:hover:bg-white/10 transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 
-                       disabled:bg-gray-400 transition"
+              className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 disabled:bg-blue-400/50 transition-colors shadow-lg shadow-blue-500/20"
             >
               {loading ? 'Recording...' : 'Record Payment'}
             </button>

@@ -159,17 +159,17 @@ const LoanForm = ({ loan = null, onClose, onSuccess }) => {
       isOpen
       onClose={onClose}
       containerClassName="z-[9999]"
-      panelClassName="max-w-3xl max-h-[90vh] flex flex-col rounded-lg bg-white dark:bg-gray-800 shadow-2xl overflow-hidden"
+      panelClassName="max-w-3xl max-h-[90vh] flex flex-col rounded-2xl border border-light-border-default dark:border-white/10 bg-light-surface-secondary dark:bg-[#0D1117] shadow-2xl overflow-hidden"
       ariaLabelledBy="loan-form-title"
     >
         {/* Header - Fixed */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
-          <h2 id="loan-form-title" className="text-2xl font-bold text-gray-900 dark:text-white">
+        <div className="flex items-center justify-between p-6 border-b border-light-border-default dark:border-white/10 flex-shrink-0">
+          <h2 id="loan-form-title" className="text-2xl font-bold text-light-text-primary dark:text-white">
             {loan ? 'Edit Loan' : 'Add New Loan'}
           </h2>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+            className="p-2 hover:bg-light-bg-hover dark:hover:bg-white/10 rounded-lg transition-colors text-light-text-secondary dark:text-slate-400"
           >
             <X className="w-5 h-5" />
           </button>
@@ -180,12 +180,12 @@ const LoanForm = ({ loan = null, onClose, onSuccess }) => {
           <div className="p-6 space-y-6">
           {/* Basic Information */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            <h3 className="text-lg font-semibold text-light-text-primary dark:text-white mb-4">
               Basic Information
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-light-text-secondary dark:text-slate-400 mb-2">
                   Loan Name *
                 </label>
                 <input
@@ -195,12 +195,12 @@ const LoanForm = ({ loan = null, onClose, onSuccess }) => {
                   onChange={handleChange}
                   required
                   placeholder="e.g., Home Loan - HDFC"
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-light-border-default dark:border-white/10 rounded-lg focus:ring-2 focus:ring-blue-500 bg-light-surface-primary dark:bg-white/[0.05] text-light-text-primary dark:text-white outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-light-text-secondary dark:text-slate-400 mb-2">
                   Loan Type *
                 </label>
                 <select
@@ -208,7 +208,7 @@ const LoanForm = ({ loan = null, onClose, onSuccess }) => {
                   value={formData.loanType}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-light-border-default dark:border-white/10 rounded-lg focus:ring-2 focus:ring-blue-500 bg-light-surface-primary dark:bg-white/[0.05] text-light-text-primary dark:text-white outline-none"
                 >
                   <option value="home">Home Loan</option>
                   <option value="car">Car Loan</option>
@@ -220,7 +220,7 @@ const LoanForm = ({ loan = null, onClose, onSuccess }) => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-light-text-secondary dark:text-slate-400 mb-2">
                   Start Date *
                 </label>
                 <input
@@ -229,7 +229,7 @@ const LoanForm = ({ loan = null, onClose, onSuccess }) => {
                   value={formData.startDate}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-light-border-default dark:border-white/10 rounded-lg focus:ring-2 focus:ring-blue-500 bg-light-surface-primary dark:bg-white/[0.05] text-light-text-primary dark:text-white outline-none"
                 />
               </div>
             </div>
@@ -237,12 +237,12 @@ const LoanForm = ({ loan = null, onClose, onSuccess }) => {
 
           {/* Loan Amount & Terms */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            <h3 className="text-lg font-semibold text-light-text-primary dark:text-white mb-4">
               Loan Amount & Terms
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-light-text-secondary dark:text-slate-400 mb-2">
                   Principal Amount * ({formatCurrency(0).replace('0', '').trim()})
                 </label>
                 <CurrencyInput
@@ -251,12 +251,12 @@ const LoanForm = ({ loan = null, onClose, onSuccess }) => {
                   onChange={handleChange}
                   required
                   placeholder="500000"
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-light-border-default dark:border-white/10 rounded-lg focus:ring-2 focus:ring-blue-500 bg-light-surface-primary dark:bg-white/[0.05] text-light-text-primary dark:text-white outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-light-text-secondary dark:text-slate-400 mb-2">
                   Interest Rate * (% p.a.)
                 </label>
                 <input
@@ -269,12 +269,12 @@ const LoanForm = ({ loan = null, onClose, onSuccess }) => {
                   max="100"
                   step="0.1"
                   placeholder="8.5"
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-light-border-default dark:border-white/10 rounded-lg focus:ring-2 focus:ring-blue-500 bg-light-surface-primary dark:bg-white/[0.05] text-light-text-primary dark:text-white outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-light-text-secondary dark:text-slate-400 mb-2">
                   Tenure *
                 </label>
                 <input
@@ -285,19 +285,19 @@ const LoanForm = ({ loan = null, onClose, onSuccess }) => {
                   required
                   min="1"
                   placeholder="60"
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-light-border-default dark:border-white/10 rounded-lg focus:ring-2 focus:ring-blue-500 bg-light-surface-primary dark:bg-white/[0.05] text-light-text-primary dark:text-white outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-light-text-secondary dark:text-slate-400 mb-2">
                   Tenure Unit *
                 </label>
                 <select
                   name="tenureUnit"
                   value={formData.tenureUnit}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-light-border-default dark:border-white/10 rounded-lg focus:ring-2 focus:ring-blue-500 bg-light-surface-primary dark:bg-white/[0.05] text-light-text-primary dark:text-white outline-none"
                 >
                   <option value="months">Months</option>
                   <option value="years">Years</option>
@@ -305,7 +305,7 @@ const LoanForm = ({ loan = null, onClose, onSuccess }) => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-light-text-secondary dark:text-slate-400 mb-2">
                   Payment Day (1-31)
                 </label>
                 <input
@@ -315,35 +315,35 @@ const LoanForm = ({ loan = null, onClose, onSuccess }) => {
                   onChange={handleChange}
                   min="1"
                   max="31"
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-light-border-default dark:border-white/10 rounded-lg focus:ring-2 focus:ring-blue-500 bg-light-surface-primary dark:bg-white/[0.05] text-light-text-primary dark:text-white outline-none"
                 />
-                <p className="text-xs text-gray-500 mt-1">Day of month for EMI payment</p>
+                <p className="text-xs text-light-text-tertiary dark:text-slate-500 mt-1">Day of month for EMI payment</p>
               </div>
             </div>
           </div>
 
           {/* EMI Preview */}
           {emiPreview && (
-            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-              <h4 className="text-sm font-semibold text-blue-900 dark:text-blue-300 mb-3">
+            <div className="bg-blue-500/5 dark:bg-blue-500/10 border border-blue-500/20 dark:border-blue-500/30 rounded-xl p-4">
+              <h4 className="text-sm font-semibold text-blue-600 dark:text-blue-400 mb-3">
                 EMI Calculation Preview
               </h4>
               <div className="grid grid-cols-3 gap-4 text-center">
                 <div>
-                  <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Monthly EMI</p>
+                  <p className="text-xs text-light-text-secondary dark:text-slate-400 mb-1">Monthly EMI</p>
                   <p className="text-lg font-bold text-blue-600 dark:text-blue-400">
                     {formatCurrency(emiPreview.emiAmount)}
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Total Interest</p>
-                  <p className="text-lg font-bold text-orange-600 dark:text-orange-400">
+                  <p className="text-xs text-light-text-secondary dark:text-slate-400 mb-1">Total Interest</p>
+                  <p className="text-lg font-bold text-amber-600 dark:text-amber-400">
                     {formatCurrency(emiPreview.totalInterest)}
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Total Payment</p>
-                  <p className="text-lg font-bold text-gray-900 dark:text-white">
+                  <p className="text-xs text-light-text-secondary dark:text-slate-400 mb-1">Total Payment</p>
+                  <p className="text-lg font-bold text-light-text-primary dark:text-white">
                     {formatCurrency(emiPreview.totalPayment)}
                   </p>
                 </div>
@@ -353,19 +353,19 @@ const LoanForm = ({ loan = null, onClose, onSuccess }) => {
 
           {/* Lender Information */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            <h3 className="text-lg font-semibold text-light-text-primary dark:text-white mb-4">
               Lender Information
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-light-text-secondary dark:text-slate-400 mb-2">
                   Lender / Bank Name
                 </label>
                 <select
                   name="lender"
                   value={formData.lender}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-light-border-default dark:border-white/10 rounded-lg focus:ring-2 focus:ring-blue-500 bg-light-surface-primary dark:bg-white/[0.05] text-light-text-primary dark:text-white outline-none"
                 >
                   <option value="">Select Bank / Lender</option>
                   <optgroup label="Sri Lankan Banks">
@@ -417,13 +417,13 @@ const LoanForm = ({ loan = null, onClose, onSuccess }) => {
                     name="customLender"
                     placeholder="Enter lender name"
                     onChange={(e) => setFormData(prev => ({ ...prev, lender: e.target.value }))}
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white mt-2"
+                    className="w-full px-4 py-2 border border-light-border-default dark:border-white/10 rounded-lg focus:ring-2 focus:ring-blue-500 bg-light-surface-primary dark:bg-white/[0.05] text-light-text-primary dark:text-white mt-2 outline-none"
                   />
                 )}
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-light-text-secondary dark:text-slate-400 mb-2">
                   Account Number
                 </label>
                 <input
@@ -432,7 +432,7 @@ const LoanForm = ({ loan = null, onClose, onSuccess }) => {
                   value={formData.accountNumber}
                   onChange={handleChange}
                   placeholder="XXXXXXXXX"
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-light-border-default dark:border-white/10 rounded-lg focus:ring-2 focus:ring-blue-500 bg-light-surface-primary dark:bg-white/[0.05] text-light-text-primary dark:text-white outline-none"
                 />
               </div>
             </div>
@@ -440,12 +440,12 @@ const LoanForm = ({ loan = null, onClose, onSuccess }) => {
 
           {/* Additional Charges */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            <h3 className="text-lg font-semibold text-light-text-primary dark:text-white mb-4">
               Additional Charges
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-light-text-secondary dark:text-slate-400 mb-2">
                   Processing Fee ({formatCurrency(0).replace('0', '').trim()})
                 </label>
                 <CurrencyInput
@@ -453,12 +453,12 @@ const LoanForm = ({ loan = null, onClose, onSuccess }) => {
                   value={formData.processingFee}
                   onChange={handleChange}
                   placeholder="5000"
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-light-border-default dark:border-white/10 rounded-lg focus:ring-2 focus:ring-blue-500 bg-light-surface-primary dark:bg-white/[0.05] text-light-text-primary dark:text-white outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-light-text-secondary dark:text-slate-400 mb-2">
                   Prepayment Penalty (%)
                 </label>
                 <input
@@ -470,12 +470,12 @@ const LoanForm = ({ loan = null, onClose, onSuccess }) => {
                   max="100"
                   step="0.1"
                   placeholder="2"
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-light-border-default dark:border-white/10 rounded-lg focus:ring-2 focus:ring-blue-500 bg-light-surface-primary dark:bg-white/[0.05] text-light-text-primary dark:text-white outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-light-text-secondary dark:text-slate-400 mb-2">
                   Insurance Amount ({formatCurrency(0).replace('0', '').trim()})
                 </label>
                 <CurrencyInput
@@ -483,7 +483,7 @@ const LoanForm = ({ loan = null, onClose, onSuccess }) => {
                   value={formData.insuranceAmount}
                   onChange={handleChange}
                   placeholder="10000"
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-light-border-default dark:border-white/10 rounded-lg focus:ring-2 focus:ring-blue-500 bg-light-surface-primary dark:bg-white/[0.05] text-light-text-primary dark:text-white outline-none"
                 />
               </div>
             </div>
@@ -491,7 +491,7 @@ const LoanForm = ({ loan = null, onClose, onSuccess }) => {
 
           {/* Notes */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-light-text-secondary dark:text-slate-400 mb-2">
               Notes / Collateral Details
             </label>
             <textarea
@@ -500,18 +500,18 @@ const LoanForm = ({ loan = null, onClose, onSuccess }) => {
               onChange={handleChange}
               rows="3"
               placeholder="Add any additional notes or collateral details..."
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+              className="w-full px-4 py-2 border border-light-border-default dark:border-white/10 rounded-lg focus:ring-2 focus:ring-blue-500 bg-light-surface-primary dark:bg-white/[0.05] text-light-text-primary dark:text-white outline-none"
             />
           </div>
           </div>
         </form>
 
         {/* Buttons - Fixed at bottom */}
-        <div className="flex gap-3 p-6 border-t border-gray-200 dark:border-gray-700 flex-shrink-0">
+        <div className="flex gap-3 p-6 border-t border-light-border-default dark:border-white/10 flex-shrink-0">
           <button
             type="button"
             onClick={onClose}
-            className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+            className="flex-1 px-6 py-3 border border-light-border-default dark:border-white/10 text-light-text-secondary dark:text-slate-400 rounded-xl hover:bg-light-bg-hover dark:hover:bg-white/10 transition-colors"
           >
             Cancel
           </button>
@@ -519,7 +519,7 @@ const LoanForm = ({ loan = null, onClose, onSuccess }) => {
             type="submit"
             form="loan-form"
             disabled={loading}
-            className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-blue-400 transition-colors flex items-center justify-center gap-2"
+            className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 disabled:bg-blue-400/50 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-blue-500/20"
           >
             {loading ? (
               <>

@@ -68,30 +68,36 @@ const PaymentHistoryChart = ({ payments, schedule, loan }) => {
     <div className="space-y-6">
       {/* Payment History Line Chart */}
       {payments.length > 0 && (
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-          <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+        <div className="rounded-2xl border border-light-border-default dark:border-white/5 bg-light-surface-secondary dark:bg-[#0D1117] p-6 shadow-premium dark:shadow-card-dark">
+          <h4 className="text-lg font-semibold text-light-text-primary dark:text-white mb-4">
             Payment History Trend
           </h4>
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={paymentHistoryData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
               <XAxis 
                 dataKey="date" 
-                stroke="#9ca3af"
-                style={{ fontSize: '12px' }}
+                stroke="#94a3b8"
+                style={{ fontSize: '10px', fontWeight: 500 }}
+                tickLine={false}
+                axisLine={false}
               />
               <YAxis 
-                stroke="#9ca3af"
+                stroke="#94a3b8"
                 tickFormatter={formatCurrency}
-                style={{ fontSize: '12px' }}
+                style={{ fontSize: '10px', fontWeight: 500 }}
+                tickLine={false}
+                axisLine={false}
               />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: '#1f2937',
-                  border: 'none',
-                  borderRadius: '8px',
-                  color: '#fff'
+                  backgroundColor: '#0D1117',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  borderRadius: '12px',
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
+                  fontSize: '12px'
                 }}
+                itemStyle={{ padding: '2px 0' }}
                 formatter={(value) => formatFullCurrency(value)}
               />
               <Legend />
@@ -126,39 +132,45 @@ const PaymentHistoryChart = ({ payments, schedule, loan }) => {
       )}
 
       {/* Amortization Breakdown Bar Chart */}
-      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-        <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+      <div className="rounded-2xl border border-light-border-default dark:border-white/5 bg-light-surface-secondary dark:bg-[#0D1117] p-6 shadow-premium dark:shadow-card-dark">
+        <h4 className="text-lg font-semibold text-light-text-primary dark:text-white mb-4">
           EMI Breakdown (First 24 Months)
         </h4>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={amortizationData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
             <XAxis 
               dataKey="month" 
-              stroke="#9ca3af"
-              style={{ fontSize: '12px' }}
-              label={{ value: 'Payment Number', position: 'insideBottom', offset: -5 }}
+              stroke="#94a3b8"
+              style={{ fontSize: '10px', fontWeight: 500 }}
+              tickLine={false}
+              axisLine={false}
+              label={{ value: 'Payment Number', position: 'insideBottom', offset: -5, fill: '#94a3b8', fontSize: 10 }}
             />
             <YAxis 
-              stroke="#9ca3af"
+              stroke="#94a3b8"
               tickFormatter={formatCurrency}
-              style={{ fontSize: '12px' }}
+              style={{ fontSize: '10px', fontWeight: 500 }}
+              tickLine={false}
+              axisLine={false}
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: '#1f2937',
-                border: 'none',
-                borderRadius: '8px',
-                color: '#fff'
+                backgroundColor: '#0D1117',
+                border: '1px solid rgba(255,255,255,0.1)',
+                borderRadius: '12px',
+                boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
+                fontSize: '12px'
               }}
+              itemStyle={{ padding: '2px 0' }}
               formatter={(value) => formatFullCurrency(value)}
             />
-            <Legend />
-            <Bar dataKey="principal" fill="#3b82f6" name="Principal" />
-            <Bar dataKey="interest" fill="#f59e0b" name="Interest" />
+            <Legend wrapperStyle={{ paddingTop: '20px', fontSize: '11px' }} />
+            <Bar dataKey="principal" fill="#3b82f6" name="Principal" radius={[4, 4, 0, 0]} />
+            <Bar dataKey="interest" fill="#f59e0b" name="Interest" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
-        <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center">
+        <p className="text-xs text-light-text-tertiary dark:text-slate-500 mt-2 text-center">
           Notice how the principal portion increases and interest decreases over time
         </p>
       </div>
@@ -166,8 +178,8 @@ const PaymentHistoryChart = ({ payments, schedule, loan }) => {
       {/* Pie Charts Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Total Cost Breakdown */}
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-          <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+        <div className="rounded-2xl border border-light-border-default dark:border-white/5 bg-light-surface-secondary dark:bg-[#0D1117] p-6 shadow-premium dark:shadow-card-dark">
+          <h4 className="text-lg font-semibold text-light-text-primary dark:text-white mb-4">
             Total Loan Cost Breakdown
           </h4>
           <ResponsiveContainer width="100%" height={250}>
@@ -192,8 +204,8 @@ const PaymentHistoryChart = ({ payments, schedule, loan }) => {
         </div>
 
         {/* Repayment Progress */}
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-          <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+        <div className="rounded-2xl border border-light-border-default dark:border-white/5 bg-light-surface-secondary dark:bg-[#0D1117] p-6 shadow-premium dark:shadow-card-dark">
+          <h4 className="text-lg font-semibold text-light-text-primary dark:text-white mb-4">
             Repayment Progress
           </h4>
           <ResponsiveContainer width="100%" height={250}>
@@ -219,30 +231,36 @@ const PaymentHistoryChart = ({ payments, schedule, loan }) => {
       </div>
 
       {/* Area Chart for Balance Over Time */}
-      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-        <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+      <div className="rounded-2xl border border-light-border-default dark:border-white/5 bg-light-surface-secondary dark:bg-[#0D1117] p-6 shadow-premium dark:shadow-card-dark">
+        <h4 className="text-lg font-semibold text-light-text-primary dark:text-white mb-4">
           Outstanding Balance Projection
         </h4>
         <ResponsiveContainer width="100%" height={300}>
           <AreaChart data={amortizationData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
             <XAxis 
               dataKey="month" 
-              stroke="#9ca3af"
-              style={{ fontSize: '12px' }}
+              stroke="#94a3b8"
+              style={{ fontSize: '10px', fontWeight: 500 }}
+              tickLine={false}
+              axisLine={false}
             />
             <YAxis 
-              stroke="#9ca3af"
+              stroke="#94a3b8"
               tickFormatter={formatCurrency}
-              style={{ fontSize: '12px' }}
+              style={{ fontSize: '10px', fontWeight: 500 }}
+              tickLine={false}
+              axisLine={false}
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: '#1f2937',
-                border: 'none',
-                borderRadius: '8px',
-                color: '#fff'
+                backgroundColor: '#0D1117',
+                border: '1px solid rgba(255,255,255,0.1)',
+                borderRadius: '12px',
+                boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
+                fontSize: '12px'
               }}
+              itemStyle={{ padding: '2px 0' }}
               formatter={(value) => formatFullCurrency(value)}
             />
             <Area 
