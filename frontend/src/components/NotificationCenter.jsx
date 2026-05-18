@@ -11,7 +11,8 @@ import {
   DollarSign,
   Target,
   Check,
-  Trash2
+  Trash2,
+  Shield
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ContextMenu, Overlay } from './ui';
@@ -22,6 +23,7 @@ import {
   useMarkNotificationAsRead,
   useNotifications,
 } from '../hooks/useNotifications';
+import { useRespondToPromotion } from '../hooks/usePromotionResponse';
 
 const iconMap = {
   Bell: Bell,
@@ -33,7 +35,8 @@ const iconMap = {
   Calendar: Calendar,
   DollarSign: DollarSign,
   Target: Target,
-  BarChart: Calendar
+  BarChart: Calendar,
+  Shield: Shield
 };
 
 const colorClasses = {
@@ -84,6 +87,15 @@ export default function NotificationCenter({ isOpen, onClose }) {
   const markAllAsReadMutation = useMarkAllNotificationsAsRead();
   const deleteNotificationMutation = useDeleteNotification();
   const clearReadMutation = useClearReadNotifications();
+  const promotionResponseMutation = useRespondToPromotion();
+
+  const respondToPromotion = async (requestId, decision) => {
+    try {
+      await promotionResponseMutation.mutateAsync({ requestId, decision });
+    } catch (error) {
+      console.error('Error responding to promotion:', error);
+    }
+  };
 
   const markAsRead = async (id) => {
     try {
@@ -258,6 +270,35 @@ export default function NotificationCenter({ isOpen, onClose }) {
                         <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
                           {notification.message}
                         </p>
+
+                        {/* Promotion Accept/Decline buttons */}
+                        {notification.data?.promotionRequestId && (
+                          <div className="flex gap-2 mb-2">
+                            <button
+                              onClick={() => {
+                                respondToPromotion(notification.data.promotionRequestId, 'accept');
+                                markAsRead(notification._id);
+                              }}
+                              disabled={promotionResponseMutation.isPending}
+                              className="px-3 py-1 text-xs font-medium rounded-md bg-[rgba(16,185,129,0.12)] text-[#10B981] border border-[rgba(16,185,129,0.2)] hover:bg-[rgba(16,185,129,0.2)] transition-colors disabled:opacity-50"
+                            >
+                              Accept
+                            </button>
+                            <button
+                              onClick={() => {
+                                respondToPromotion(notification.data.promotionRequestId, 'reject');
+                                markAsRead(notification._id);
+                              }}
+                              disabled={promotionResponseMutation.isPending}
+                              className="px-3 py-1 text-xs font-medium rounded-md bg-[rgba(248,113,113,0.12)] text-[#F87171] border border-[rgba(248,113,113,0.2)] hover:bg-[rgba(248,113,113,0.2)] transition-colors disabled:opacity-50"
+                            >
+                              Decline
+                            </button>
+                            {promotionResponseMutation.isPending && (
+                              <span className="text-[10px] text-[#9CA3AF] self-center animate-pulse">Processing...</span>
+                            )}
+                          </div>
+                        )}
 
                         <div className="flex items-center justify-between">
                           <span className="text-xs text-gray-500 dark:text-gray-500">

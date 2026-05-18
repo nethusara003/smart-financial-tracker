@@ -5,6 +5,8 @@ export const queryKeys = {
     analyticsOverview: ["admin", "analyticsOverview"],
     auditLogs: ["admin", "auditLogs"],
     userTransactions: (userId) => ["admin", "userTransactions", userId],
+    promotionRequests: ["admin", "promotionRequests"],
+    wallNotifications: ["admin", "wallNotifications"],
   },
   bills: {
     all: ["bills"],

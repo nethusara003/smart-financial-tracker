@@ -137,10 +137,11 @@ export function usePromoteUser() {
   const invalidateAdminQueries = useInvalidateAdminQueries();
 
   return useMutation({
-    mutationFn: async (userId) => {
-      return request(`/admin/promote/${userId}`, {
-        method: "PATCH",
-        fallbackMessage: "Failed to update user role",
+    mutationFn: async ({ userId, reason }) => {
+      return request("/admin/promotions/request", {
+        method: "POST",
+        body: { userId, reason },
+        fallbackMessage: "Failed to submit promotion request",
       });
     },
     onSuccess: invalidateAdminQueries,

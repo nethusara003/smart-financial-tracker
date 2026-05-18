@@ -39,6 +39,7 @@ import EMICalculator from "./components/loans/EMICalculator";
 /* ADMIN PAGES */
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminAcceptInvite from "./pages/AdminAcceptInvite";
+import AdminNotificationWall from "./pages/AdminNotificationWall";
 
 /* ROUTES & LAYOUT */
 import ProtectedRoute from "./routes/ProtectedRoute";
@@ -423,6 +424,14 @@ function App() {
             element={
               <ProtectedRoute auth={auth} adminOnly>
                 <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/wall"
+            element={
+              <ProtectedRoute auth={auth} adminOnly>
+                <AdminNotificationWall />
               </ProtectedRoute>
             }
           />
