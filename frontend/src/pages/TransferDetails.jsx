@@ -181,7 +181,7 @@ Smart Financial Tracker
     );
   }
 
-  const isSender = transfer.sender.userId === auth?.user?._id;
+  const isSender = transfer.sender.userId === auth?.user?.id;
   const canCancel = isSender && ["initiated", "pending"].includes(transfer.status);
   const canReverse = isSender && transfer.status === "completed";
 

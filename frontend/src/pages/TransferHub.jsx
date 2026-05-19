@@ -565,7 +565,7 @@ const TransferHub = ({ auth }) => {
                       <TransferCard
                         key={transfer._id}
                         transfer={transfer}
-                        currentUserId={auth?.user?._id}
+                        currentUserId={auth?.user?.id}
                         onRefresh={refreshTransferData}
                       />
                     ))}
