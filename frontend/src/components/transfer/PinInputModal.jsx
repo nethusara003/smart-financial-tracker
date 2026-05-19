@@ -20,7 +20,7 @@ const PinInputModal = ({
   const toast = useToast();
   const [phoneNumber, setPhoneNumber] = useState(defaultPhone || "");
   const [savePhonePermanently, setSavePhonePermanently] = useState(Boolean(defaultPhone));
-  const [fallbackEmailInput, setFallbackEmailInput] = useState("");
+  const [fallbackEmailInput, setFallbackEmailInput] = useState(fallbackEmail || "");
   const [showEmailFallbackInput, setShowEmailFallbackInput] = useState(Boolean(emailOnlyMode));
   const [code, setCode] = useState("");
   const [otpSessionId, setOtpSessionId] = useState("");
@@ -68,6 +68,8 @@ const PinInputModal = ({
       const target = payload?.delivery?.target || (channel === "sms" ? "your phone" : "your email");
       const message =
         channel === "sms"
+          ? `Code sent to ${target}`
+          : emailOnlyMode
           ? `Code sent to ${target}`
           : `Phone unavailable. Code sent to ${target}`;
 
@@ -150,22 +152,38 @@ const PinInputModal = ({
         )}
 
         {showEmailFallbackInput && (
-          <div className="space-y-2 rounded-lg border border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20 p-3">
-            {fallbackReasonText && (
-              <p className="text-xs text-amber-700 dark:text-amber-300">SMS issue: {fallbackReasonText}</p>
-            )}
-            <label className="text-sm font-medium text-amber-800 dark:text-amber-300 flex items-center gap-2">
-              <Mail className="w-4 h-4" />
-              Fallback email for OTP
-            </label>
-            <input
-              type="email"
-              value={fallbackEmailInput}
-              onChange={(event) => setFallbackEmailInput(event.target.value)}
-              placeholder={fallbackEmail || "name@example.com"}
-              className="w-full px-3 py-2.5 border border-amber-300 dark:border-amber-600 rounded-lg focus:ring-2 focus:ring-amber-500 bg-white dark:bg-dark-bg-secondary text-gray-900 dark:text-white"
-            />
-          </div>
+          emailOnlyMode ? (
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
+                <Mail className="w-4 h-4 text-blue-500" />
+                Email address for OTP
+              </label>
+              <input
+                type="email"
+                value={fallbackEmailInput}
+                onChange={(event) => setFallbackEmailInput(event.target.value)}
+                placeholder={fallbackEmail || "name@example.com"}
+                className="w-full px-3 py-2.5 border border-gray-300 dark:border-dark-border-default rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-dark-bg-secondary text-gray-900 dark:text-white"
+              />
+            </div>
+          ) : (
+            <div className="space-y-2 rounded-lg border border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20 p-3">
+              {fallbackReasonText && (
+                <p className="text-xs text-amber-700 dark:text-amber-300">SMS issue: {fallbackReasonText}</p>
+              )}
+              <label className="text-sm font-medium text-amber-800 dark:text-amber-300 flex items-center gap-2">
+                <Mail className="w-4 h-4" />
+                Fallback email for OTP
+              </label>
+              <input
+                type="email"
+                value={fallbackEmailInput}
+                onChange={(event) => setFallbackEmailInput(event.target.value)}
+                placeholder={fallbackEmail || "name@example.com"}
+                className="w-full px-3 py-2.5 border border-amber-300 dark:border-amber-600 rounded-lg focus:ring-2 focus:ring-amber-500 bg-white dark:bg-dark-bg-secondary text-gray-900 dark:text-white"
+              />
+            </div>
+          )
         )}
 
         {!emailOnlyMode && (
