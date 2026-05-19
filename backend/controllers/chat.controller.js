@@ -185,7 +185,46 @@ const clearSessionLimitCooldown = (sessionId) => {
   }
 };
 
-const getSpendingOverview = (context) => {
+const getSpendingOverview = (context, message = "") => {
+  const normalized = String(message).toLowerCase();
+
+  if (normalized.includes("all time") || normalized.includes("all-time") || normalized.includes("throughout") || normalized.includes("whole time")) {
+    const totalIncome = Number(context?.summary?.income || 0);
+    const totalExpenses = Number(context?.summary?.expenses || 0);
+    const totalSavings = Number(context?.summary?.savings || totalIncome - totalExpenses);
+    return {
+      income: totalIncome,
+      expenses: totalExpenses,
+      savings: totalSavings,
+      periodLabel: "throughout all time",
+    };
+  }
+
+  if (normalized.includes("this year") || normalized.includes("year alone") || normalized.includes("of the year") || normalized.includes("of this year")) {
+    const yearlyIncome = Number(context?.yearlySummary?.income || 0);
+    const yearlyExpenses = Number(context?.yearlySummary?.expenses || 0);
+    const yearlySavings = Number(context?.yearlySummary?.savings || yearlyIncome - yearlyExpenses);
+    return {
+      income: yearlyIncome,
+      expenses: yearlyExpenses,
+      savings: yearlySavings,
+      periodLabel: "this year alone",
+    };
+  }
+
+  if (normalized.includes("7 days") || normalized.includes("week")) {
+    const weeklyIncome = Number(context?.weeklySummary?.income || 0);
+    const weeklyExpenses = Number(context?.weeklySummary?.expenses || 0);
+    const weeklySavings = Number(context?.weeklySummary?.savings || weeklyIncome - weeklyExpenses);
+    return {
+      income: weeklyIncome,
+      expenses: weeklyExpenses,
+      savings: weeklySavings,
+      periodLabel: "this week",
+    };
+  }
+
+  // Default behavior
   const monthlyIncome = Number(context?.monthlySummary?.income || 0);
   const monthlyExpenses = Number(context?.monthlySummary?.expenses || 0);
   const monthlySavings = Number(
@@ -245,9 +284,9 @@ const buildNaturalLeadIn = ({ message, intent }) => {
   return timeframe ? `For ${timeframe}, ` : "";
 };
 
-const buildWorstSpendingHabitReply = (context) => {
+const buildWorstSpendingHabitReply = (context, message = "") => {
   const currency = context?.preferences?.currency || "USD";
-  const overview = getSpendingOverview(context);
+  const overview = getSpendingOverview(context, message);
   const topCategory = context?.transactions?.topSpendingCategories?.[0];
 
   if (!topCategory) {
@@ -271,7 +310,7 @@ const buildWorstSpendingHabitReply = (context) => {
 const getDeterministicFinanceReply = ({ message, intent, context }) => {
   const normalized = String(message || "").toLowerCase();
   const currency = context?.preferences?.currency || "USD";
-  const overview = getSpendingOverview(context);
+  const overview = getSpendingOverview(context, message);
   const topCategory = context?.transactions?.topSpendingCategories?.[0];
   const leadIn = buildNaturalLeadIn({ message, intent });
 
@@ -283,7 +322,7 @@ const getDeterministicFinanceReply = ({ message, intent, context }) => {
 
   if (asksWorstHabit || intent === "expenses") {
     if (asksWorstHabit) {
-      return `${leadIn}${buildWorstSpendingHabitReply(context)}`.trim();
+      return `${leadIn}${buildWorstSpendingHabitReply(context, message)}`.trim();
     }
 
     if (/how\s+much.*spen|spent\s+.*month/.test(normalized)) {
@@ -311,7 +350,7 @@ const getDeterministicFinanceReply = ({ message, intent, context }) => {
 
 const buildDeterministicLimitReply = ({ intent, context, userMessage, cooldownMsRemaining }) => {
   const currency = context?.preferences?.currency || "USD";
-  const overview = getSpendingOverview(context);
+  const overview = getSpendingOverview(context, userMessage);
   const topCategory = context?.transactions?.topSpendingCategories?.[0];
   const activeLoans = Number(context?.loans?.count || 0);
   const outstandingBalance = Number(context?.loans?.outstandingBalance || 0);

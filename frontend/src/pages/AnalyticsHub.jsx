@@ -1428,7 +1428,27 @@ const AnalyticsHub = ({ auth }) => {
                 <CompactDateModal draft={customRangeDraft} onDraftChange={handleCustomDateDraftChange} onApply={handleApplyCustomRange} onCancel={handleCancelCustomRange} onPreset={handleQuickCustomPreset} />
               )}
             </div>
-            <span className="text-[11px] text-slate-400 whitespace-nowrap">{selectedRangeLabel}</span>
+            {timeScope === "custom" ? (
+              <span
+                onClick={() => setShowCustomRangePanel((prev) => !prev)}
+                className="text-[11px] text-blue-400 hover:text-blue-300 whitespace-nowrap cursor-pointer hover:underline font-semibold"
+                title="Click to edit custom range"
+              >
+                {selectedRangeLabel}
+              </span>
+            ) : (
+              <span className="text-[11px] text-slate-400 whitespace-nowrap">{selectedRangeLabel}</span>
+            )}
+            {timeScope === "custom" && (
+              <button
+                type="button"
+                onClick={() => setShowCustomRangePanel((prev) => !prev)}
+                className="flex items-center justify-center p-1 rounded bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/20 text-blue-300 transition-all cursor-pointer"
+                title="Edit custom date range"
+              >
+                <span className="text-[9px] font-bold px-1">Edit</span>
+              </button>
+            )}
           </div>
           <div className="relative">
             <button onClick={() => setShowExportMenu(!showExportMenu)} className="flex items-center gap-2 px-3 py-1.5 text-xs bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-all">

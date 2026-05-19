@@ -159,28 +159,40 @@ const FinancialHealth = () => {
         title="Financial Health"
         subtitle="Comprehensive analysis of your financial wellness."
         actions={(
-          <div className="group relative flex cursor-pointer items-center gap-2 rounded-full border border-white/5 bg-white/5 px-4 py-2 transition-all duration-300 hover:-translate-y-0.5 hover:border-blue-500/50 hover:bg-white/10 hover:shadow-[0_8px_16px_-4px_rgba(59,130,246,0.3)] active:translate-y-0 active:scale-95 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
-            <label className="cursor-pointer text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500 transition-colors group-hover:text-blue-500 dark:text-slate-300 dark:group-hover:text-blue-400">Analysis Period</label>
-            <select
-              value={timeRange}
-              onChange={(e) => handleTimeRangeChange(e.target.value)}
-              className="cursor-pointer appearance-none bg-transparent pr-6 text-sm font-semibold text-slate-800 outline-none transition-colors group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-300"
-            >
-              {DATE_RANGE_OPTIONS.map((option) => (
-                <option key={option.value} value={option.value} className="bg-white text-slate-900 dark:bg-slate-950 dark:text-white">
-                  {option.label}
-                </option>
-              ))}
-            </select>
+          <div className="flex items-center gap-1.5">
+            <div className="group relative flex cursor-pointer items-center gap-2 rounded-full border border-white/5 bg-white/5 px-4 py-2 transition-all duration-300 hover:-translate-y-0.5 hover:border-blue-500/50 hover:bg-white/10 hover:shadow-[0_8px_16px_-4px_rgba(59,130,246,0.3)] active:translate-y-0 active:scale-95 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
+              <label className="cursor-pointer text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500 transition-colors group-hover:text-blue-500 dark:text-slate-300 dark:group-hover:text-blue-400">Analysis Period</label>
+              <select
+                value={timeRange}
+                onChange={(e) => handleTimeRangeChange(e.target.value)}
+                className="cursor-pointer appearance-none bg-transparent pr-6 text-sm font-semibold text-slate-800 outline-none transition-colors group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-300"
+              >
+                {DATE_RANGE_OPTIONS.map((option) => (
+                  <option key={option.value} value={option.value} className="bg-white text-slate-900 dark:bg-slate-950 dark:text-white">
+                    {option.label}
+                  </option>
+                ))}
+              </select>
 
-            {timeRange === 'custom' && showCustomRangePanel && (
-              <CompactDateModal
-                draft={customRangeDraft}
-                onDraftChange={handleCustomDateDraftChange}
-                onApply={handleApplyCustomRange}
-                onCancel={handleCancelCustomRange}
-                onPreset={handleQuickCustomPreset}
-              />
+              {timeRange === 'custom' && showCustomRangePanel && (
+                <CompactDateModal
+                  draft={customRangeDraft}
+                  onDraftChange={handleCustomDateDraftChange}
+                  onApply={handleApplyCustomRange}
+                  onCancel={handleCancelCustomRange}
+                  onPreset={handleQuickCustomPreset}
+                />
+              )}
+            </div>
+            {timeRange === 'custom' && (
+              <button
+                type="button"
+                onClick={() => setShowCustomRangePanel((prev) => !prev)}
+                className="flex items-center justify-center p-2 rounded-full border border-blue-500/20 bg-blue-500/10 hover:bg-blue-500/20 text-blue-300 hover:text-white transition-colors cursor-pointer"
+                title="Edit custom date range"
+              >
+                <span className="text-[10px] font-bold px-1 py-0.5">Edit</span>
+              </button>
             )}
           </div>
         )}

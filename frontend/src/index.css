@@ -681,8 +681,8 @@ html:not(.dark) .dashboard-skeleton::after {
 }
 
 /* --- KPI cards: white bg + strong Slate-400 border so edges are deeply defined --- */
-html:not(.dark) .rounded-2xl.border,
-html:not(.dark) .rounded-xl.border {
+html:not(.dark) .rounded-2xl.border:not(input):not(textarea):not(select):not(button),
+html:not(.dark) .rounded-xl.border:not(input):not(textarea):not(select):not(button) {
   background-color: #ffffff !important;
   border-color: #94A3B8 !important;
   box-shadow: none;

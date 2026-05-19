@@ -1037,17 +1037,27 @@ const Dashboard = ({ auth }) => {
           <div className="mb-2.5 flex flex-wrap items-center justify-between gap-3">
             <div className="min-w-0 pt-0.5">
               <h2 className="text-sm font-semibold text-[#F9FAFB]">Spending Analytics</h2>
-              <p className="text-[11px] text-[#9CA3AF]">{selectedRangeLabel}</p>
+              {timeRange === 'custom' ? (
+                <p
+                  onClick={() => setShowCustomRangePanel((prev) => !prev)}
+                  className="text-[11px] text-blue-400 hover:text-blue-300 cursor-pointer hover:underline font-semibold"
+                  title="Click to edit custom range"
+                >
+                  {selectedRangeLabel}
+                </p>
+              ) : (
+                <p className="text-[11px] text-[#9CA3AF]">{selectedRangeLabel}</p>
+              )}
             </div>
 
-            <div className="relative">
+            <div className="relative flex items-center gap-1.5">
               <div className="flex items-center gap-2 rounded-2xl border border-white/5 bg-[#0D1117] px-3 py-2 shadow-[0_8px_24px_rgba(2,6,23,0.45)]">
                 <Calendar className="h-4 w-4 text-blue-400" />
                 <div className="relative">
                   <select
                     value={timeRange}
                     onChange={(event) => handleTimeRangeChange(event.target.value)}
-                    className="min-w-[150px] max-w-full appearance-none bg-transparent pr-6 text-[11px] font-semibold text-[#F9FAFB] focus:outline-none"
+                    className="min-w-[150px] max-w-full appearance-none bg-transparent pr-6 text-[11px] font-semibold text-[#F9FAFB] focus:outline-none cursor-pointer"
                   >
                     {rangeOptions.map((option) => (
                       <option key={option.value} value={option.value}>
@@ -1068,6 +1078,16 @@ const Dashboard = ({ auth }) => {
                   )}
                 </div>
               </div>
+              {timeRange === 'custom' && (
+                <button
+                  type="button"
+                  onClick={() => setShowCustomRangePanel((prev) => !prev)}
+                  className="flex items-center justify-center p-1.5 rounded-xl border border-blue-500/20 bg-blue-500/10 hover:bg-blue-500/20 text-blue-300 hover:text-white transition-colors cursor-pointer"
+                  title="Edit custom date range"
+                >
+                  <span className="text-[10px] font-bold px-1 py-0.5">Edit</span>
+                </button>
+              )}
             </div>
           </div>
 

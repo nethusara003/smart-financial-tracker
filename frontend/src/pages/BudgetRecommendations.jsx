@@ -126,27 +126,39 @@ const BudgetRecommendations = () => {
           </div>
           <div className="flex w-full items-center gap-3 md:w-auto">
             <label className="text-sm font-medium text-gray-700 dark:text-dark-text-secondary">Analysis Period:</label>
-            <select
-              value={timeRange}
-              onChange={(e) => handleTimeRangeChange(e.target.value)}
-              className="w-full md:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-dark-border-strong rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-dark-surface-secondary"
-            >
-              {DATE_RANGE_OPTIONS.map((option) => (
-                <option key={option.value} value={option.value}>{option.label}</option>
-              ))}
-            </select>
+            <div className="relative flex items-center gap-1.5">
+              <select
+                value={timeRange}
+                onChange={(e) => handleTimeRangeChange(e.target.value)}
+                className="w-full md:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-dark-border-strong rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-dark-surface-secondary cursor-pointer"
+              >
+                {DATE_RANGE_OPTIONS.map((option) => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))}
+              </select>
+
+              {timeRange === 'custom' && showCustomRangePanel && (
+                <CompactDateModal
+                  draft={customRangeDraft}
+                  onDraftChange={handleCustomDateDraftChange}
+                  onApply={handleApplyCustomRange}
+                  onCancel={handleCancelCustomRange}
+                  onPreset={handleQuickCustomPreset}
+                />
+              )}
+              {timeRange === 'custom' && (
+                <button
+                  type="button"
+                  onClick={() => setShowCustomRangePanel((prev) => !prev)}
+                  className="flex items-center justify-center p-1.5 rounded-lg border border-indigo-500/20 bg-indigo-50/10 hover:bg-indigo-50/20 text-indigo-600 dark:text-indigo-400 font-bold text-[10px] transition-colors cursor-pointer"
+                  title="Edit custom date range"
+                >
+                  Edit
+                </button>
+              )}
+            </div>
           </div>
         </div>
-
-        {timeRange === 'custom' && showCustomRangePanel && (
-          <CompactDateModal
-            draft={customRangeDraft}
-            onDraftChange={handleCustomDateDraftChange}
-            onApply={handleApplyCustomRange}
-            onCancel={handleCancelCustomRange}
-            onPreset={handleQuickCustomPreset}
-          />
-        )}
 
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6 text-center max-w-2xl mx-auto">
           <AlertCircle className="text-yellow-500 mx-auto mb-4" size={48} />
@@ -170,26 +182,36 @@ const BudgetRecommendations = () => {
         </div>
         <div className="flex w-full items-center gap-3 md:w-auto">
           <label className="text-sm font-medium text-gray-700 dark:text-dark-text-secondary">Analysis Period:</label>
-          <div className="relative">
-          <select
-            value={timeRange}
-            onChange={(e) => handleTimeRangeChange(e.target.value)}
-            className="w-full md:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-dark-border-strong rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-dark-surface-secondary"
-          >
-            {DATE_RANGE_OPTIONS.map((option) => (
-              <option key={option.value} value={option.value}>{option.label}</option>
-            ))}
-          </select>
+          <div className="relative flex items-center gap-1.5">
+            <select
+              value={timeRange}
+              onChange={(e) => handleTimeRangeChange(e.target.value)}
+              className="w-full md:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-dark-border-strong rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-dark-surface-secondary cursor-pointer"
+            >
+              {DATE_RANGE_OPTIONS.map((option) => (
+                <option key={option.value} value={option.value}>{option.label}</option>
+              ))}
+            </select>
 
-          {timeRange === 'custom' && showCustomRangePanel && (
-            <CompactDateModal
-              draft={customRangeDraft}
-              onDraftChange={handleCustomDateDraftChange}
-              onApply={handleApplyCustomRange}
-              onCancel={handleCancelCustomRange}
-              onPreset={handleQuickCustomPreset}
-            />
-          )}
+            {timeRange === 'custom' && showCustomRangePanel && (
+              <CompactDateModal
+                draft={customRangeDraft}
+                onDraftChange={handleCustomDateDraftChange}
+                onApply={handleApplyCustomRange}
+                onCancel={handleCancelCustomRange}
+                onPreset={handleQuickCustomPreset}
+              />
+            )}
+            {timeRange === 'custom' && (
+              <button
+                type="button"
+                onClick={() => setShowCustomRangePanel((prev) => !prev)}
+                className="flex items-center justify-center p-1.5 rounded-lg border border-indigo-500/20 bg-indigo-50/10 hover:bg-indigo-50/20 text-indigo-600 dark:text-indigo-400 font-bold text-[10px] transition-colors cursor-pointer"
+                title="Edit custom date range"
+              >
+                Edit
+              </button>
+            )}
           </div>
         </div>
       </div>

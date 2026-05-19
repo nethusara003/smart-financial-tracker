@@ -285,31 +285,43 @@ const Transactions = ({ auth }) => {
           subtitle="Track, analyze and manage all your financial activities."
           actions={(
             <>
-              <div className="flex flex-wrap items-center gap-2 rounded-full border border-light-border-default dark:border-white/5 bg-light-surface-primary dark:bg-white/5 px-3 py-2">
-                <Calendar className="w-4 h-4 text-light-text-secondary dark:text-slate-300" />
-                <div className="relative">
-                  <select
-                    value={timePeriod}
-                    onChange={(e) => handleTimePeriodChange(e.target.value)}
-                    className="min-w-[140px] bg-transparent text-[11px] font-semibold text-light-text-primary dark:text-white focus:outline-none"
-                  >
-                    <option value="week">Last 7 Days</option>
-                    <option value="thisMonth">This Month</option>
-                    <option value="thisYear">This Year</option>
-                    <option value="pastYear">Past Year</option>
-                    <option value="custom">Custom Range</option>
-                  </select>
+              <div className="flex items-center gap-1.5">
+                <div className="flex flex-wrap items-center gap-2 rounded-full border border-light-border-default dark:border-white/5 bg-light-surface-primary dark:bg-white/5 px-3 py-2">
+                  <Calendar className="w-4 h-4 text-light-text-secondary dark:text-slate-300" />
+                  <div className="relative">
+                    <select
+                      value={timePeriod}
+                      onChange={(e) => handleTimePeriodChange(e.target.value)}
+                      className="min-w-[140px] bg-transparent text-[11px] font-semibold text-light-text-primary dark:text-white focus:outline-none cursor-pointer"
+                    >
+                      <option value="week">Last 7 Days</option>
+                      <option value="thisMonth">This Month</option>
+                      <option value="thisYear">This Year</option>
+                      <option value="pastYear">Past Year</option>
+                      <option value="custom">Custom Range</option>
+                    </select>
 
-                  {timePeriod === 'custom' && showCustomRangePanel && (
-                    <CompactDateModal
-                      draft={customRangeDraft}
-                      onDraftChange={handleCustomDateDraftChange}
-                      onApply={handleApplyCustomRange}
-                      onCancel={handleCancelCustomRange}
-                      onPreset={handleQuickCustomPreset}
-                    />
-                  )}
+                    {timePeriod === 'custom' && showCustomRangePanel && (
+                      <CompactDateModal
+                        draft={customRangeDraft}
+                        onDraftChange={handleCustomDateDraftChange}
+                        onApply={handleApplyCustomRange}
+                        onCancel={handleCancelCustomRange}
+                        onPreset={handleQuickCustomPreset}
+                      />
+                    )}
+                  </div>
                 </div>
+                {timePeriod === 'custom' && (
+                  <button
+                    type="button"
+                    onClick={() => setShowCustomRangePanel((prev) => !prev)}
+                    className="flex items-center justify-center p-1.5 rounded-full border border-blue-500/20 bg-blue-500/10 hover:bg-blue-500/20 text-blue-300 hover:text-white transition-colors cursor-pointer"
+                    title="Edit custom date range"
+                  >
+                    <span className="text-[10px] font-bold px-1 py-0.5">Edit</span>
+                  </button>
+                )}
               </div>
 
               <button

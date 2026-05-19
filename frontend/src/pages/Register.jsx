@@ -288,11 +288,11 @@ function Register() {
                         passwordStrength.strength >= 3 ? 'text-warning-600 dark:text-warning-400' :
                         'text-danger-600 dark:text-danger-400'
                       }`}>
-                        <div className={`w-1.5 h-1.5 rounded-full ${
+                        <span className={`w-1.5 h-1.5 rounded-full ${
                           passwordStrength.strength >= 4 ? 'bg-success-500' :
                           passwordStrength.strength >= 3 ? 'bg-warning-500' :
                           'bg-danger-500'
-                        } animate-pulse`}></div>
+                        } animate-pulse`}></span>
                         Password strength: <span className="font-semibold">{passwordStrength.label}</span>
                       </p>
                     )}

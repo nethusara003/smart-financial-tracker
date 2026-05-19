@@ -171,6 +171,66 @@ const buildMonthlySummary = (transactions) => {
   };
 };
 
+const buildWeeklySummary = (transactions) => {
+  const now = new Date();
+  const start = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+
+  const weeklyTransactions = transactions.filter((tx) => {
+    const date = new Date(tx.date || tx.createdAt || now);
+    return date >= start;
+  });
+
+  const income = round(
+    sumAmounts(
+      weeklyTransactions.filter((tx) => tx.type === "income"),
+      (tx) => Number(tx.amount || 0)
+    )
+  );
+  const expenses = round(
+    sumAmounts(
+      weeklyTransactions.filter((tx) => tx.type === "expense"),
+      (tx) => Math.abs(Number(tx.amount || 0))
+    )
+  );
+
+  return {
+    income,
+    expenses,
+    savings: round(income - expenses),
+    transactionCount: weeklyTransactions.length,
+  };
+};
+
+const buildYearlySummary = (transactions) => {
+  const now = new Date();
+  const start = new Date(now.getFullYear(), 0, 1);
+
+  const yearlyTransactions = transactions.filter((tx) => {
+    const date = new Date(tx.date || tx.createdAt || now);
+    return date >= start;
+  });
+
+  const income = round(
+    sumAmounts(
+      yearlyTransactions.filter((tx) => tx.type === "income"),
+      (tx) => Number(tx.amount || 0)
+    )
+  );
+  const expenses = round(
+    sumAmounts(
+      yearlyTransactions.filter((tx) => tx.type === "expense"),
+      (tx) => Math.abs(Number(tx.amount || 0))
+    )
+  );
+
+  return {
+    income,
+    expenses,
+    savings: round(income - expenses),
+    transactionCount: yearlyTransactions.length,
+  };
+};
+
 export const getFullUserContext = async (userId) => {
   const objectId = toObjectId(userId);
 
@@ -218,6 +278,8 @@ export const getFullUserContext = async (userId) => {
   const loanSummary = buildLoanSummary(loans, loanPayments);
   const walletSummary = buildWalletSummary(wallets);
   const monthlySummary = buildMonthlySummary(transactions);
+  const weeklySummary = buildWeeklySummary(transactions);
+  const yearlySummary = buildYearlySummary(transactions);
   const recentActivity = transactions.slice(0, 10);
 
   return {
@@ -231,7 +293,9 @@ export const getFullUserContext = async (userId) => {
       expenses,
       savings,
     },
+    weeklySummary,
     monthlySummary,
+    yearlySummary,
     loans: loanSummary,
     budgets: {
       items: budgetUsage,

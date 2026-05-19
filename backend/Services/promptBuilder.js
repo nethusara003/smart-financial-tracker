@@ -263,7 +263,10 @@ Use the user's name at most once.
 Do not mention model limitations or external account connections.
 
 User: ${userName}
-Summary: income ${context?.summary?.income || 0}, expenses ${context?.summary?.expenses || 0}, savings ${context?.summary?.savings || 0}
+Summary (All-Time): income ${context?.summary?.income || 0}, expenses ${context?.summary?.expenses || 0}, savings ${context?.summary?.savings || 0}
+Summary (This Year): income ${context?.yearlySummary?.income || 0}, expenses ${context?.yearlySummary?.expenses || 0}, savings ${context?.yearlySummary?.savings || 0}
+Summary (This Month): income ${context?.monthlySummary?.income || 0}, expenses ${context?.monthlySummary?.expenses || 0}, savings ${context?.monthlySummary?.savings || 0}
+Summary (Last 7 Days): income ${context?.weeklySummary?.income || 0}, expenses ${context?.weeklySummary?.expenses || 0}, savings ${context?.weeklySummary?.savings || 0}
 Active loans: ${context?.loans?.count || 0}`;
 
   const userPrompt = `${userName} asked:

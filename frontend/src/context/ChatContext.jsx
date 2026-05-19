@@ -409,14 +409,8 @@ export const ChatProvider = ({ children }) => {
 
   useEffect(() => {
     if (sessionScope === "guest" || sessionScope === CHAT_ANONYMOUS_SCOPE) {
-      if (conversations.length !== 0) {
-        setConversations([]);
-      }
-
-      if (activeConversationId !== null) {
-        setActiveConversationId(null);
-      }
-
+      setConversations([]);
+      setActiveConversationId(null);
       setError("");
       setIsTyping(false);
       return;
@@ -429,7 +423,7 @@ export const ChatProvider = ({ children }) => {
     setActiveConversationId(nextActiveConversationId || nextConversations[0]?.id || null);
     setError("");
     setIsTyping(false);
-  }, [sessionScope, activeConversationId, conversations.length]);
+  }, [sessionScope]);
 
   useEffect(() => {
     if (sessionScope === "guest" || sessionScope === CHAT_ANONYMOUS_SCOPE) {

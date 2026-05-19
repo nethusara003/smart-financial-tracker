@@ -1,5 +1,13 @@
 import mongoose from "mongoose";
 import User from "../models/User.js";
+import dns from "dns";
+
+// Force Node.js to use Google DNS (bypasses Windows/Hotspot DNS bugs with SRV records)
+try {
+  dns.setServers(['8.8.8.8', '8.8.4.4']);
+} catch (err) {
+  console.warn("Could not set custom DNS servers:", err.message);
+}
 
 const DEFAULT_MONGO_URI = "mongodb://127.0.0.1:27017/smart_financial_tracker";
 
