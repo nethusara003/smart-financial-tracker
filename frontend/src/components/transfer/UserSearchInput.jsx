@@ -80,8 +80,13 @@ const UserSearchInput = ({ onSelectUser, selectedUser, savedContacts = [] }) => 
             <User className="w-6 h-6 text-blue-600 dark:text-blue-400" />
           </div>
           <div>
-            <p className="font-medium text-gray-800 dark:text-white">
+            <p className="font-medium text-gray-800 dark:text-white flex items-center gap-2 flex-wrap">
               {selectedUser.name}
+              {selectedUser.accountNumber && (
+                <span className="text-xs font-mono bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 px-2 py-0.5 rounded">
+                  {selectedUser.accountNumber}
+                </span>
+              )}
             </p>
             <p className="text-sm text-gray-600 dark:text-gray-400">
               {selectedUser.email}
@@ -106,7 +111,7 @@ const UserSearchInput = ({ onSelectUser, selectedUser, savedContacts = [] }) => 
           type="text"
           value={query}
           onChange={handleQueryChange}
-          placeholder="Search by email, username, or name..."
+          placeholder="Search by email, name, or account number (SFT-XXXXXX)..."
           className="w-full pl-10 pr-10 py-3 border border-gray-300 dark:border-dark-border-default rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent bg-white dark:bg-dark-bg-secondary text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
         />
         {loading && (
@@ -127,8 +132,13 @@ const UserSearchInput = ({ onSelectUser, selectedUser, savedContacts = [] }) => 
                 <User className="w-5 h-5 text-gray-600 dark:text-gray-400" />
               </div>
               <div className="text-left flex-1">
-                <p className="font-medium text-gray-800 dark:text-white">
+                <p className="font-medium text-gray-800 dark:text-white flex items-center gap-2">
                   {user.name}
+                  {user.accountNumber && (
+                    <span className="text-xs font-mono bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 px-1.5 py-0.5 rounded">
+                      {user.accountNumber}
+                    </span>
+                  )}
                 </p>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
                   {user.email}

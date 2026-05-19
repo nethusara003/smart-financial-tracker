@@ -183,6 +183,36 @@ describe("transferRoutes integration", () => {
 
     expect(cancelResponse.status).toBe(403);
     expect(cancelResponse.body).toEqual({ message: "Only sender can cancel transfer" });
+  });
 
+  it("validates a receiver by account number", async () => {
+    const app = createTestApp();
+    const sender = await createUser({ name: "Sender User" });
+    const receiver = await createUser({ name: "Receiver User", accountNumber: "SFT-889977" });
+
+    const response = await request(app)
+      .post("/api/transfers/validate-receiver")
+      .set(authHeaderForUser(sender))
+      .send({ receiverIdentifier: "SFT-889977" });
+
+    expect(response.status).toBe(200);
+    expect(response.body.isValid).toBe(true);
+    expect(response.body.receiver.userId).toBe(receiver._id.toString());
+    expect(response.body.receiver.accountNumber).toBe("SFT-889977");
+  });
+
+  it("searches users by account number", async () => {
+    const app = createTestApp();
+    const sender = await createUser({ name: "Sender User" });
+    const receiver = await createUser({ name: "Receiver User", accountNumber: "SFT-991122" });
+
+    const response = await request(app)
+      .get("/api/transfers/search-users?query=SFT-9911")
+      .set(authHeaderForUser(sender));
+
+    expect(response.status).toBe(200);
+    expect(response.body.users).toHaveLength(1);
+    expect(response.body.users[0].userId).toBe(receiver._id.toString());
+    expect(response.body.users[0].accountNumber).toBe("SFT-991122");
   });
 });

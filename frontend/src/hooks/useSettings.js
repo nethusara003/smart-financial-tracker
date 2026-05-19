@@ -10,6 +10,7 @@ const EMPTY_PROFILE = {
   profilePicture: "",
   notificationSettings: null,
   privacySettings: null,
+  accountNumber: "",
 };
 
 const EMPTY_TRANSFER_PIN_STATUS = {
@@ -50,6 +51,7 @@ async function fetchSettingsProfile() {
     profilePicture: user.profilePicture || "",
     notificationSettings: user.notificationSettings || null,
     privacySettings: user.privacySettings || null,
+    accountNumber: user.accountNumber || "",
   };
 }
 

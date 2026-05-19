@@ -569,6 +569,7 @@ export const getUserProfile = async (req, res) => {
         budgetPeriodEndDate: resolveBudgetPeriodEndDate(user.budgetPeriodStartDate, user.budgetPeriodDays),
         notificationSettings: user.notificationSettings,
         privacySettings: user.privacySettings,
+        accountNumber: user.accountNumber,
         isGuest: false
       }
     });
@@ -931,7 +932,8 @@ export const updateProfile = async (req, res) => {
         bio: user.bio,
         profilePicture: user.profilePicture,
         monthlySalary: user.monthlySalary,
-        savingsPercentage: user.savingsPercentage
+        savingsPercentage: user.savingsPercentage,
+        accountNumber: user.accountNumber
       }
     });
   } catch (error) {

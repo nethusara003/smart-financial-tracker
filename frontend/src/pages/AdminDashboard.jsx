@@ -225,7 +225,8 @@ const AdminDashboard = () => {
     .filter((u) => {
       const matchesSearch =
         u.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        u.email?.toLowerCase().includes(searchTerm.toLowerCase());
+        u.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        u.accountNumber?.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesRole = roleFilter === "all" || u.role === roleFilter;
       return matchesSearch && matchesRole;
     })
@@ -269,9 +270,10 @@ const AdminDashboard = () => {
      EXPORT FUNCTIONALITY
   ========================= */
   const exportToCSV = () => {
-    const headers = ["Name", "Email", "Role", "Created"];
+    const headers = ["Name", "Account Number", "Email", "Role", "Created"];
     const rows = filteredUsers.map((u) => [
       u.name,
+      u.accountNumber || "",
       u.email,
       u.role,
       new Date(u.createdAt).toLocaleDateString(),
@@ -517,6 +519,7 @@ const AdminDashboard = () => {
                 <thead>
                   <tr className="border-b border-light-border-default dark:border-dark-border-strong">
                     <th className="text-left py-3 px-4 text-sm font-semibold text-light-text-tertiary dark:text-dark-text-tertiary">Name</th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-light-text-tertiary dark:text-dark-text-tertiary">Account No.</th>
                     <th className="text-left py-3 px-4 text-sm font-semibold text-light-text-tertiary dark:text-dark-text-tertiary">Email</th>
                     <th className="text-left py-3 px-4 text-sm font-semibold text-light-text-tertiary dark:text-dark-text-tertiary">Role</th>
                     <th className="text-left py-3 px-4 text-sm font-semibold text-light-text-tertiary dark:text-dark-text-tertiary">Created</th>
@@ -526,7 +529,7 @@ const AdminDashboard = () => {
                 <tbody>
                   {filteredUsers.length === 0 ? (
                     <tr>
-                      <td colSpan="5" className="text-center py-8 text-light-text-tertiary dark:text-dark-text-tertiary">
+                      <td colSpan="6" className="text-center py-8 text-light-text-tertiary dark:text-dark-text-tertiary">
                         No users found
                       </td>
                     </tr>
@@ -543,6 +546,9 @@ const AdminDashboard = () => {
                             </div>
                             <span className="font-medium text-light-text-primary dark:text-dark-text-primary">{u.name}</span>
                           </div>
+                        </td>
+                        <td className="py-3 px-4 text-sm font-mono text-light-text-secondary dark:text-dark-text-secondary">
+                          {u.accountNumber || "—"}
                         </td>
                         <td className="py-3 px-4 text-light-text-secondary dark:text-dark-text-secondary">{u.email}</td>
                         <td className="py-3 px-4">

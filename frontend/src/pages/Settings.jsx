@@ -515,6 +515,31 @@ export default function Settings({ auth }) {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-semibold text-light-text-secondary dark:text-dark-text-secondary mb-2">
+                      Account Number
+                    </label>
+                    <div className="relative">
+                      <Shield className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-light-text-tertiary dark:text-dark-text-tertiary" />
+                      <input
+                        type="text"
+                        value={settingsProfile?.accountNumber || "Generating..."}
+                        readOnly
+                        className="w-full pl-11 pr-20 py-3 border border-light-border-default dark:border-white/5 bg-light-surface-hover dark:bg-[#0d1117]/60 text-light-text-secondary dark:text-dark-text-secondary rounded-xl font-mono focus:outline-none cursor-default select-all"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          navigator.clipboard.writeText(settingsProfile?.accountNumber || "");
+                          toast.success("Account number copied to clipboard!");
+                        }}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold px-2.5 py-1.5 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors"
+                      >
+                        Copy
+                      </button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold text-light-text-secondary dark:text-dark-text-secondary mb-2">
                       Full Name
                     </label>
                     <div className="relative">

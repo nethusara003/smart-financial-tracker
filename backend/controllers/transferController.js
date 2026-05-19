@@ -441,9 +441,9 @@ export const sendTransferOtp = async (req, res) => {
         fallbackUsed,
         fallbackReason: fallbackUsed
           ? {
-              code: smsUnavailableReasonCode || OTP_FALLBACK_REASON.SMS_DELIVERY_FAILED,
-              message: smsUnavailableReason || describeFallbackReason(OTP_FALLBACK_REASON.SMS_DELIVERY_FAILED),
-            }
+            code: smsUnavailableReasonCode || OTP_FALLBACK_REASON.SMS_DELIVERY_FAILED,
+            message: smsUnavailableReason || describeFallbackReason(OTP_FALLBACK_REASON.SMS_DELIVERY_FAILED),
+          }
           : null,
       },
       message:
@@ -502,15 +502,16 @@ export const searchUsers = async (req, res) => {
       return res.status(400).json({ message: "Search query must be at least 2 characters" });
     }
 
-    // Search users by email, name (excluding current user)
+    // Search users by email, name, or account number (excluding current user)
     const users = await User.find({
       _id: { $ne: currentUserId },
       $or: [
         { email: { $regex: query, $options: "i" } },
         { name: { $regex: query, $options: "i" } },
+        { accountNumber: { $regex: query, $options: "i" } },
       ],
     })
-      .select("name email profilePicture")
+      .select("name email profilePicture accountNumber")
       .limit(Math.min(parseInt(limit), 50));
 
     // Mask email for privacy (show only first 2 chars and domain)
@@ -519,6 +520,7 @@ export const searchUsers = async (req, res) => {
       name: user.name,
       email: maskEmail(user.email),
       profilePicture: user.profilePicture,
+      accountNumber: user.accountNumber,
     }));
 
     res.json({ users: maskedUsers });
@@ -542,13 +544,14 @@ export const validateReceiver = async (req, res) => {
       return res.status(400).json({ message: "Receiver identifier is required" });
     }
 
-    // Find receiver by email or userId
+    // Find receiver by email, accountNumber, or userId
     let receiver = await User.findOne({
       $or: [
         { email: receiverIdentifier },
+        { accountNumber: receiverIdentifier },
         { _id: mongoose.Types.ObjectId.isValid(receiverIdentifier) ? receiverIdentifier : null },
       ],
-    }).select("name email profilePicture");
+    }).select("name email profilePicture accountNumber");
 
     if (!receiver) {
       return res.json({
@@ -574,6 +577,7 @@ export const validateReceiver = async (req, res) => {
         name: receiver.name,
         email: maskEmail(receiver.email),
         profilePicture: receiver.profilePicture,
+        accountNumber: receiver.accountNumber,
       },
       canReceiveTransfers: true,
       message: "Receiver is valid",
@@ -931,11 +935,11 @@ export const checkFeasibility = async (req, res) => {
       suggestions: canTransfer
         ? insights.suggestions
         : [
-            senderBalance < transferAmount ? "Add funds to your account" : null,
-            "Try a smaller amount",
-            "Check your daily/monthly limits",
-            ...insights.suggestions,
-          ].filter(Boolean),
+          senderBalance < transferAmount ? "Add funds to your account" : null,
+          "Try a smaller amount",
+          "Check your daily/monthly limits",
+          ...insights.suggestions,
+        ].filter(Boolean),
     });
   } catch (error) {
     console.error("Check feasibility error:", error);
@@ -1646,7 +1650,7 @@ export const reverseTransfer = async (req, res) => {
 const calculateUserBalance = async (userId) => {
   // Get balance from wallet instead of calculating from transactions
   const wallet = await Wallet.findOne({ user: userId });
-  
+
   if (!wallet) {
     // If wallet doesn't exist, create one with 0 balance
     const newWallet = await Wallet.create({
@@ -1657,7 +1661,7 @@ const calculateUserBalance = async (userId) => {
     });
     return newWallet.balance;
   }
-  
+
   return wallet.availableBalance || wallet.balance;
 };
 

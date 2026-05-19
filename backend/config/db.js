@@ -64,6 +64,38 @@ const connectDB = async () => {
 
     console.log("✅ MongoDB connected");
 
+    // Seed account numbers for any existing users that do not have one
+    try {
+      console.log("🔍 Checking database for users without account numbers...");
+      const usersWithoutAccount = await User.find({
+        $or: [
+          { accountNumber: { $exists: false } },
+          { accountNumber: null },
+          { accountNumber: "" }
+        ]
+      });
+      console.log(`🔍 Query returned ${usersWithoutAccount.length} users lacking an account number.`);
+      if (usersWithoutAccount.length > 0) {
+        console.log(`Found ${usersWithoutAccount.length} users without account number. Generating...`);
+        for (const u of usersWithoutAccount) {
+          let isUnique = false;
+          let accNum = "";
+          while (!isUnique) {
+            accNum = "SFT-" + Math.floor(100000 + Math.random() * 900000);
+            const existing = await User.findOne({ accountNumber: accNum });
+            if (!existing) {
+              isUnique = true;
+            }
+          }
+          u.accountNumber = accNum;
+          await u.save();
+        }
+        console.log("Successfully updated account numbers for existing users.");
+      }
+    } catch (migrationErr) {
+      console.error("Failed to migrate existing users with account numbers:", migrationErr.message);
+    }
+
     /* 
     // 🔒 Production hardening check (AFTER connection)
     // Commented out temporarily to prevent startup hangs during index creation

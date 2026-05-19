@@ -221,9 +221,30 @@ const userSchema = new mongoose.Schema(
       ],
       default: [],
     },
+    accountNumber: {
+      type: String,
+      unique: true,
+      sparse: true,
+    },
   },
   { timestamps: true }
 );
+
+// Pre-save hook to generate unique account number
+userSchema.pre("save", async function () {
+  if (!this.accountNumber) {
+    let isUnique = false;
+    let accNum = "";
+    while (!isUnique) {
+      accNum = "SFT-" + Math.floor(100000 + Math.random() * 900000);
+      const existing = await this.constructor.findOne({ accountNumber: accNum });
+      if (!existing) {
+        isUnique = true;
+      }
+    }
+    this.accountNumber = accNum;
+  }
+});
 
 // Add index on createdAt to optimize admin dashboard sorting
 userSchema.index({ createdAt: -1 });
