@@ -42,5 +42,5 @@ These scripts match the `scripts` section in the repository root `package.json`.
 - Frontend pages & components: [frontend/src](frontend/src).
 - ML code: [ml-service/app.py](ml-service/app.py) and related scripts.
 
-If you want me to include more operational details (example `.env` variables, default ports, or CI steps) I can add them once you confirm which values should be published here.
+
 
