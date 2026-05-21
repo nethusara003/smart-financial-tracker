@@ -1064,11 +1064,13 @@ export const initiateTransfer = async (req, res) => {
         userId: sender._id,
         userName: sender.name,
         userEmail: sender.email,
+        accountNumber: sender.accountNumber || null,
       },
       receiver: {
         userId: receiver._id,
         userName: receiver.name,
         userEmail: receiver.email,
+        accountNumber: receiver.accountNumber || null,
       },
       amount: transferAmount,
       currency: sender.currency || "USD",

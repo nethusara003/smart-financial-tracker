@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useCurrency } from "../context/CurrencyContext";
 import { InlineEditor, useToast } from "../components/ui";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 import TransferStatusBadge from "../components/transfer/TransferStatusBadge";
 import GuestRestricted from "../components/GuestRestricted";
 import { useCancelTransfer, useReverseTransfer, useTransferDetails } from "../hooks/useTransfers";
@@ -97,38 +99,88 @@ const TransferDetails = ({ auth }) => {
   };
 
   const handleDownloadReceipt = () => {
-    // Simple receipt download (could be enhanced with PDF generation)
-    const receipt = `
-TRANSFER RECEIPT
-================
+    try {
+      const doc = new jsPDF();
+      const pageWidth = doc.internal.pageSize.getWidth();
+      
+      // Header
+      doc.setFontSize(22);
+      doc.setTextColor(33, 37, 41);
+      doc.text("TRANSFER RECEIPT", pageWidth / 2, 20, { align: "center" });
+      
+      doc.setFontSize(10);
+      doc.setTextColor(108, 117, 125);
+      doc.text("Smart Financial Tracker", pageWidth / 2, 28, { align: "center" });
 
-Transfer ID: ${transfer._id}
-Date: ${new Date(transfer.createdAt).toLocaleString()}
-Status: ${transfer.status}
+      doc.setDrawColor(222, 226, 230);
+      doc.line(14, 35, pageWidth - 14, 35);
 
-From: ${transfer.sender.userName} (${transfer.sender.userEmail})
-To: ${transfer.receiver.userName} (${transfer.receiver.userEmail})
+      // Meta info
+      doc.setFontSize(10);
+      doc.setTextColor(73, 80, 87);
+      doc.text(`Receipt ID: ${transfer._id}`, 14, 45);
+      doc.text(`Date: ${new Date(transfer.createdAt).toLocaleString()}`, 14, 52);
+      doc.text(`Status: ${transfer.status.toUpperCase()}`, 14, 59);
 
-Amount: ${formatCurrency(transfer.amount)}
-Fee: ${formatCurrency(transfer.fee)}
-Total: ${formatCurrency(transfer.amount + transfer.fee)}
+      // Main Table
+      const tableData = [
+        [{ content: 'SENDER DETAILS', colSpan: 2, styles: { fillColor: [248, 249, 250], fontStyle: 'bold' } }],
+        ['Name', transfer.sender.userName],
+        ['Email', transfer.sender.userEmail],
+        ['Account No.', transfer.sender.accountNumber || 'N/A'],
+        [{ content: 'RECEIVER DETAILS', colSpan: 2, styles: { fillColor: [248, 249, 250], fontStyle: 'bold' } }],
+        ['Name', transfer.receiver.userName],
+        ['Email', transfer.receiver.userEmail],
+        ['Account No.', transfer.receiver.accountNumber || 'N/A'],
+        [{ content: 'TRANSACTION DETAILS', colSpan: 2, styles: { fillColor: [248, 249, 250], fontStyle: 'bold' } }],
+        ['Transfer Amount', formatCurrency(transfer.amount)],
+        ['Platform Fee', formatCurrency(transfer.fee)],
+        ['Total Net Amount', formatCurrency(transfer.amount + transfer.fee)]
+      ];
 
-${transfer.description ? `Note: ${transfer.description}` : ""}
+      if (transfer.description) {
+        tableData.push(['Note', transfer.description]);
+      }
+      
+      if (transfer.senderTransactionId) {
+        const sTrxId = typeof transfer.senderTransactionId === 'object' ? 
+          (transfer.senderTransactionId._id || transfer.senderTransactionId.id) : 
+          transfer.senderTransactionId;
+        tableData.push(['Sender Trx ID', String(sTrxId)]);
+      }
+      
+      if (transfer.receiverTransactionId) {
+        const rTrxId = typeof transfer.receiverTransactionId === 'object' ? 
+          (transfer.receiverTransactionId._id || transfer.receiverTransactionId.id) : 
+          transfer.receiverTransactionId;
+        tableData.push(['Receiver Trx ID', String(rTrxId)]);
+      }
 
-Transaction ID (Sender): ${transfer.senderTransactionId || "N/A"}
-Transaction ID (Receiver): ${transfer.receiverTransactionId || "N/A"}
+      autoTable(doc, {
+        startY: 68,
+        head: [],
+        body: tableData,
+        theme: 'grid',
+        styles: { fontSize: 10, cellPadding: 6 },
+        columnStyles: {
+          0: { fontStyle: 'bold', cellWidth: 50, textColor: [73, 80, 87] },
+          1: { textColor: [33, 37, 41] }
+        },
+        alternateRowStyles: { fillColor: [255, 255, 255] }
+      });
 
-================
-Smart Financial Tracker
-    `.trim();
+      // Footer
+      const finalY = doc.lastAutoTable?.finalY || 150;
+      doc.setFontSize(10);
+      doc.setTextColor(173, 181, 189);
+      doc.text("Thank you for using Smart Financial Tracker", pageWidth / 2, finalY + 20, { align: "center" });
 
-    const blob = new Blob([receipt], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `transfer-receipt-${transfer._id}.txt`;
-    a.click();
-    URL.revokeObjectURL(url);
+      doc.save(`Transfer_Receipt_${transfer._id}.pdf`);
+      toast.success("Receipt downloaded successfully!");
+    } catch (error) {
+      console.error("Error generating PDF:", error);
+      toast.error("Failed to generate receipt. Please try again.");
+    }
   };
 
   // Block guest users

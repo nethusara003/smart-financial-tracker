@@ -42,6 +42,20 @@ export const createBill = async (req, res) => {
       notes: notes || ''
     });
 
+    // Check if we need to send an immediate reminder email
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const due = new Date(dueDate);
+    due.setHours(0, 0, 0, 0);
+    const daysUntilDue = Math.ceil((due.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+    const reminderSchedule = [7, 3, 1];
+
+    if (reminderSchedule.includes(daysUntilDue)) {
+      await sendBillReminder(bill.userId, bill.name, bill.amount, bill.dueDate, daysUntilDue);
+      bill.lastReminderSent = today;
+      await bill.save();
+    }
+
     // Create in-app notification
     await Notification.create({
       userId,
@@ -81,8 +95,27 @@ export const updateBill = async (req, res) => {
       }
     });
 
+    // Check if the due date got updated and needs an immediate reminder
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const lastReminder = bill.lastReminderSent ? new Date(bill.lastReminderSent) : null;
+    const alreadySentToday = lastReminder && lastReminder.toDateString() === today.toDateString();
+
     Object.assign(bill, updates);
     await bill.save();
+
+    if (updates.dueDate && !alreadySentToday) {
+      const due = new Date(updates.dueDate);
+      due.setHours(0, 0, 0, 0);
+      const daysUntilDue = Math.ceil((due.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+      const reminderSchedule = [7, 3, 1];
+
+      if (reminderSchedule.includes(daysUntilDue)) {
+        await sendBillReminder(bill.userId, bill.name, bill.amount, bill.dueDate, daysUntilDue);
+        bill.lastReminderSent = today;
+        await bill.save();
+      }
+    }
 
     res.json({ bill });
   } catch (error) {
@@ -123,6 +156,10 @@ export const markBillAsPaid = async (req, res) => {
       return res.status(404).json({ message: "Bill not found" });
     }
 
+    if (bill.isPaid) {
+      return res.status(400).json({ message: "Bill is already marked as paid" });
+    }
+
     bill.isPaid = true;
     bill.paidDate = new Date();
 
@@ -154,32 +191,39 @@ export const markBillAsPaid = async (req, res) => {
       });
     }
 
-    // If recurring, calculate next due date and reset payment status
+    // If recurring, clone the bill for the next cycle
     if (bill.recurring) {
-      const current = new Date(bill.dueDate);
+      const nextDueDate = new Date(bill.dueDate);
       
       switch (bill.frequency) {
         case 'weekly':
-          current.setDate(current.getDate() + 7);
+          nextDueDate.setDate(nextDueDate.getDate() + 7);
           break;
         case 'biweekly':
-          current.setDate(current.getDate() + 14);
+          nextDueDate.setDate(nextDueDate.getDate() + 14);
           break;
         case 'monthly':
-          current.setMonth(current.getMonth() + 1);
+          nextDueDate.setMonth(nextDueDate.getMonth() + 1);
           break;
         case 'quarterly':
-          current.setMonth(current.getMonth() + 3);
+          nextDueDate.setMonth(nextDueDate.getMonth() + 3);
           break;
         case 'yearly':
-          current.setFullYear(current.getFullYear() + 1);
+          nextDueDate.setFullYear(nextDueDate.getFullYear() + 1);
           break;
       }
       
-      bill.dueDate = current;
-      bill.isPaid = false;
-      bill.paidDate = null;
-      bill.lastReminderSent = null;
+      const newBillData = bill.toObject();
+      delete newBillData._id;
+      delete newBillData.createdAt;
+      delete newBillData.updatedAt;
+      
+      newBillData.dueDate = nextDueDate;
+      newBillData.isPaid = false;
+      newBillData.paidDate = null;
+      newBillData.lastReminderSent = null;
+      
+      await Bill.create(newBillData);
     }
 
     await bill.save();
@@ -231,11 +275,12 @@ export const sendBillReminders = async () => {
 
       const daysUntilDue = Math.ceil((dueDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
 
-      // Send reminder if within reminder days and not already sent today
+      // Send reminder if within 7, 3, or 1 days of due date, and not already sent today
       const lastReminder = bill.lastReminderSent ? new Date(bill.lastReminderSent) : null;
       const alreadySentToday = lastReminder && lastReminder.toDateString() === today.toDateString();
+      const reminderSchedule = [7, 3, 1];
 
-      if (daysUntilDue >= 0 && daysUntilDue <= bill.reminderDays && !alreadySentToday) {
+      if (reminderSchedule.includes(daysUntilDue) && !alreadySentToday) {
         // Send email notification
         await sendBillReminder(bill.userId, bill.name, bill.amount, bill.dueDate, daysUntilDue);
 

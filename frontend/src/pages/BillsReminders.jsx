@@ -662,10 +662,10 @@ const BillsReminders = ({ auth }) => {
                                 { key: "edit", label: "Edit Bill", onClick: () => handleEditBill(bill), disabled: Boolean(bill.loanId) },
                                 {
                                   key: "delete",
-                                  label: bill.loanId ? "Managed by Loan" : "Delete Bill",
-                                  onClick: bill.loanId ? undefined : () => handleDeleteBill(bill._id || bill.id),
+                                  label: "Delete Bill",
+                                  onClick: () => handleDeleteBill(bill._id || bill.id),
                                   variant: "danger",
-                                  disabled: Boolean(bill.loanId),
+                                  disabled: false,
                                 },
                               ]}
                               icon={<MoreVertical className="h-4 w-4 text-slate-400" />}

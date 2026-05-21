@@ -16,6 +16,10 @@ const TransferSchema = new mongoose.Schema({
     userEmail: {
       type: String,
       required: true
+    },
+    accountNumber: {
+      type: String,
+      default: null
     }
   },
   
@@ -33,6 +37,10 @@ const TransferSchema = new mongoose.Schema({
     userEmail: {
       type: String,
       required: true
+    },
+    accountNumber: {
+      type: String,
+      default: null
     }
   },
   
