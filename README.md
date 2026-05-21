@@ -2,65 +2,45 @@
 
 [![CI Pipeline](https://github.com/nethusara003/smart-financial-tracker/actions/workflows/ci.yml/badge.svg)](https://github.com/nethusara003/smart-financial-tracker/actions/workflows/ci.yml)
 
-**A comprehensive financial management platform built with modern technology stack**
+Smart Financial Tracker (SFT) is a full-stack personal finance application maintained in this repository. The project contains a frontend web client, a Node.js API backend, and an ML service used for forecasting.
 
-SFT is a professional-grade personal finance tracking application that helps users manage their income, expenses, budgets, and financial goals with advanced analytics and secure data management.
+## What is in this repository (verified)
+- Frontend: a React application built with Vite (see [frontend/](frontend)).
+- Backend: a Node.js + Express API with Mongoose models and controllers (see [backend/](backend)).
+- ML service: Python Flask-based service and scripts (see [ml-service/](ml-service)).
+- End-to-end tests using Playwright are included under `tests/e2e` and Playwright configuration and reports are present.
 
-A full-stack personal finance management system built using the MERN stack.
+## Key scripts (root `package.json`)
+- `npm run install-all` — install dependencies for `backend` and `frontend`.
+- `npm run dev` — starts both backend and frontend concurrently (developer mode).
+- `npm run dev:frontend` — start only the frontend dev server.
+- `npm run dev:backend` — start only the backend dev server.
+- `npm run test:e2e` — run Playwright end-to-end tests.
+- `npm run docker:up` / `npm run docker:down` / `npm run docker:build` — docker-compose convenience scripts.
 
-## Features
-- User authentication (JWT)
-- Add, edit, delete income and expense transactions
-- Daily & weekly financial comparisons
-- Interactive charts (Income vs Expense)
-- Budget tracking with insights
+These scripts match the `scripts` section in the repository root `package.json`.
 
-## Tech Stack
-- Frontend: React, Vite, Recharts
-- Backend: Node.js, Express.js
-- Database: MongoDB
-- Authentication: JWT
+## Quick start (local)
+1. Install both projects' dependencies:
 
-## Project Structure
-
-The project is organized into several key modules:
-
-- `frontend/`: React + Vite web application.
-- `backend/`: Node.js + Express.js API server.
-- `ml-service/`: Python Flask service for financial forecasting and ML features.
-- `docs/`: Comprehensive project documentation and reports.
-  - `docs/reports/`: Academic reports and abstracts.
-  - `docs/guides/`: Technical implementation guides and manuals.
-  - `docs/archive/`: Legacy documentation and notes.
-- `scripts/`: Utility scripts for development, testing, and deployment.
-- `tests/`: End-to-end test suite using Playwright.
-
-## Documentation Index
-
-Detailed documentation for various features can be found in the `docs/` directory:
-
-- [System Architecture](docs/guides/ARCHITECTURE.md)
-- [Deployment Guide](docs/guides/DEPLOYMENT_CONFIGURATION_GUIDE.md)
-- [ML Service Documentation](docs/guides/STAGE5_ADVANCED_FEATURES_IMPLEMENTATION_GUIDE.md)
-- [Testing Guide](docs/guides/P2P_TRANSFER_TESTING_GUIDE_FRONTEND.md)
-
-## Getting Started
-
-1. **Install Dependencies:**
-   ```bash
    npm run install-all
-   ```
 
-2. **Setup Environment Variables:**
-   Copy `.env.example` in both `frontend` and `backend` directories to `.env` and fill in the required values.
+2. Copy environment files and configure credentials:
 
-3. **Run Locally:**
-   ```bash
+   - Create `.env` in both `backend/` and `frontend/` from the provided examples and set `MONGO_URI`, API keys, and other required variables.
+
+3. Start both servers locally:
+
    npm run dev
-   ```
 
-4. **Run E2E Tests:**
-   ```bash
+4. Run end-to-end tests (optional):
+
    npm run test:e2e
-   ```
+
+## Where to look next
+- Backend API code: [backend/controllers](backend/controllers) and [backend/models](backend/models).
+- Frontend pages & components: [frontend/src](frontend/src).
+- ML code: [ml-service/app.py](ml-service/app.py) and related scripts.
+
+If you want me to include more operational details (example `.env` variables, default ports, or CI steps) I can add them once you confirm which values should be published here.
 
