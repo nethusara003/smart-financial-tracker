@@ -1,4 +1,5 @@
 import { useState } from "react";
+import SystemPageHeader from "../components/layout/SystemPageHeader";
 
 import { InlineEditor, useToast } from "../components/ui";
 import {
@@ -301,33 +302,24 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-light-bg-primary via-light-surface-primary to-light-bg-accent dark:from-dark-bg-primary dark:via-dark-bg-secondary dark:to-dark-bg-tertiary p-6">
-      <div className="max-w-7xl mx-auto space-y-6">
-        
+    <div className="space-y-6 animate-fade-in">
+
         {/* Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-700 dark:to-indigo-700 rounded-2xl p-8 shadow-premium dark:shadow-glow-blue border border-white/20">
-          <div className="flex items-center justify-between">
-            <div>
-              <div className="flex items-center gap-3 mb-2">
-                <div className="bg-white/20 backdrop-blur-sm p-3 rounded-xl">
-                  <Shield className="w-8 h-8 text-white" />
-                </div>
-                <div>
-                  <h1 className="text-3xl font-bold text-white">Admin Dashboard</h1>
-                  <p className="text-blue-100 mt-1">System overview & user management</p>
-                </div>
-              </div>
-            </div>
+        <SystemPageHeader
+          tagline="ADMINISTRATION"
+          title="Admin Dashboard"
+          subtitle="System overview & user management"
+          actions={
             <button
               onClick={refreshData}
               disabled={isRefreshing}
-              className="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-all backdrop-blur-sm border border-white/20 disabled:opacity-50"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 bg-white/[0.04] text-white text-sm font-semibold hover:bg-white/[0.08] transition-all disabled:opacity-50"
             >
               <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin' : ''}`} />
               Refresh
             </button>
-          </div>
-        </div>
+          }
+        />
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -851,7 +843,6 @@ const AdminDashboard = () => {
           )}
         </InlineEditor>
 
-      </div>
     </div>
   );
 };

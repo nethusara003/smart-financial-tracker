@@ -1,6 +1,6 @@
 import { useState } from "react";
+import SystemPageHeader from "../components/layout/SystemPageHeader";
 import {
-  Shield,
   Bell,
   CheckCircle,
   XCircle,
@@ -140,31 +140,23 @@ const AdminNotificationWall = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-light-bg-primary via-light-surface-primary to-light-bg-accent dark:from-dark-bg-primary dark:via-dark-bg-secondary dark:to-dark-bg-tertiary p-6">
-      <div className="max-w-4xl mx-auto space-y-6">
+    <div className="space-y-6 animate-fade-in">
 
         {/* Header */}
-        <div className="bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-700 dark:to-purple-700 rounded-2xl p-8 shadow-premium dark:shadow-glow-blue border border-white/20">
-          <div className="flex items-center gap-4">
-            <div className="bg-white/20 backdrop-blur-sm p-3 rounded-xl">
-              <Shield className="w-8 h-8 text-white" />
-            </div>
-            <div>
-              <h1 className="text-3xl font-bold text-white">Admin Notification Wall</h1>
-              <p className="text-indigo-100 mt-1">
-                Promotion workflow activity — visible to admins & super admins only
-              </p>
-            </div>
-          </div>
+        <SystemPageHeader
+          tagline="ADMINISTRATION"
+          title="Admin Notification Wall"
+          subtitle="Promotion workflow activity — visible to admins & super admins only"
+        >
           {unreadCount > 0 && (
-            <div className="mt-4 inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
               <Bell className="w-4 h-4 text-white" />
               <span className="text-sm font-medium text-white">
                 {unreadCount} unread notification{unreadCount !== 1 ? "s" : ""}
               </span>
             </div>
           )}
-        </div>
+        </SystemPageHeader>
 
         {/* Filter Tabs */}
         <div className="flex gap-2">
@@ -321,7 +313,6 @@ const AdminNotificationWall = () => {
             {filter !== "all" ? ` (${filter})` : ""}
           </p>
         )}
-      </div>
     </div>
   );
 };
