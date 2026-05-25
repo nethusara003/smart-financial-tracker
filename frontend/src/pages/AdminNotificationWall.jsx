@@ -147,32 +147,32 @@ const AdminNotificationWall = () => {
           tagline="ADMINISTRATION"
           title="Admin Notification Wall"
           subtitle="Promotion workflow activity — visible to admins & super admins only"
-        >
+          className="!py-5"
+        />
+
+        {/* Filter Tabs + Unread Badge */}
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex gap-2">
+            {FILTERS.map(({ key, label }) => (
+              <button
+                key={key}
+                onClick={() => setFilter(key)}
+                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all border ${
+                  filter === key
+                    ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800"
+                    : "bg-light-surface-secondary dark:bg-dark-surface-primary text-light-text-tertiary dark:text-dark-text-tertiary border-light-border-default dark:border-dark-border-strong hover:bg-light-surface-tertiary dark:hover:bg-dark-surface-secondary"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
           {unreadCount > 0 && (
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
-              <Bell className="w-4 h-4 text-white" />
-              <span className="text-sm font-medium text-white">
-                {unreadCount} unread notification{unreadCount !== 1 ? "s" : ""}
-              </span>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-light-surface-secondary dark:bg-dark-surface-primary text-light-text-secondary dark:text-dark-text-secondary rounded-lg border border-light-border-default dark:border-dark-border-strong text-xs font-medium">
+              <Bell className="w-3.5 h-3.5 text-blue-500 dark:text-blue-400" />
+              {unreadCount} unread
             </div>
           )}
-        </SystemPageHeader>
-
-        {/* Filter Tabs */}
-        <div className="flex gap-2">
-          {FILTERS.map(({ key, label }) => (
-            <button
-              key={key}
-              onClick={() => setFilter(key)}
-              className={`px-4 py-2 text-sm font-medium rounded-lg transition-all border ${
-                filter === key
-                  ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800"
-                  : "bg-light-surface-secondary dark:bg-dark-surface-primary text-light-text-tertiary dark:text-dark-text-tertiary border-light-border-default dark:border-dark-border-strong hover:bg-light-surface-tertiary dark:hover:bg-dark-surface-secondary"
-              }`}
-            >
-              {label}
-            </button>
-          ))}
         </div>
 
         {/* Notifications Feed */}

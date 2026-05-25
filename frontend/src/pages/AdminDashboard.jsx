@@ -42,14 +42,14 @@ import { getAuth } from "../utils/auth";
 const StatCard = ({ icon, label, value, iconColor, bgColor }) => {
   const Icon = icon;
   return (
-  <div className="bg-light-surface-secondary dark:bg-dark-surface-primary rounded-xl border border-light-border-default dark:border-dark-border-strong p-6 shadow-card dark:shadow-card-dark hover:shadow-elevated dark:hover:shadow-elevated-dark transition-all">
+  <div className="bg-light-surface-secondary dark:bg-dark-surface-primary rounded-xl border border-light-border-default dark:border-dark-border-strong p-4 shadow-card dark:shadow-card-dark hover:shadow-elevated dark:hover:shadow-elevated-dark transition-all">
     <div className="flex items-center justify-between">
       <div>
-        <p className="text-sm text-light-text-tertiary dark:text-dark-text-tertiary mb-1">{label}</p>
-        <p className="text-3xl font-bold text-light-text-primary dark:text-dark-text-primary">{value}</p>
+        <p className="text-xs text-light-text-tertiary dark:text-dark-text-tertiary mb-1">{label}</p>
+        <p className="text-xl font-bold text-light-text-primary dark:text-dark-text-primary">{value}</p>
       </div>
-      <div className={`${bgColor} p-3 rounded-xl`}>
-        <Icon className={`w-6 h-6 ${iconColor}`} />
+      <div className={`${bgColor} p-2 rounded-lg`}>
+        <Icon className={`w-4 h-4 ${iconColor}`} />
       </div>
     </div>
   </div>
@@ -59,19 +59,19 @@ const StatCard = ({ icon, label, value, iconColor, bgColor }) => {
 const AnalyticsCard = ({ icon, label, value, trend, trendUp }) => {
   const Icon = icon;
   return (
-  <div className="bg-light-surface-secondary dark:bg-dark-surface-primary rounded-xl border border-light-border-default dark:border-dark-border-strong p-6 shadow-card dark:shadow-card-dark">
-    <div className="flex items-center gap-3 mb-3">
-      <div className="bg-light-surface-primary dark:bg-dark-surface-elevated p-2 rounded-lg">
-        <Icon className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+  <div className="bg-light-surface-secondary dark:bg-dark-surface-primary rounded-xl border border-light-border-default dark:border-dark-border-strong p-4 shadow-card dark:shadow-card-dark">
+    <div className="flex items-center gap-2 mb-2">
+      <div className="bg-light-surface-primary dark:bg-dark-surface-elevated p-1.5 rounded-lg">
+        <Icon className="w-4 h-4 text-blue-600 dark:text-blue-400" />
       </div>
-      <p className="text-sm text-light-text-tertiary dark:text-dark-text-tertiary">{label}</p>
+      <p className="text-xs text-light-text-tertiary dark:text-dark-text-tertiary">{label}</p>
     </div>
     <div className="flex items-end justify-between">
-      <p className="text-2xl font-bold text-light-text-primary dark:text-dark-text-primary">{value}</p>
-      <div className={`flex items-center gap-1 text-sm font-medium ${
+      <p className="text-lg font-bold text-light-text-primary dark:text-dark-text-primary">{value}</p>
+      <div className={`flex items-center gap-1 text-xs font-medium ${
         trendUp ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400"
       }`}>
-        {trendUp ? <ArrowUpRight className="w-4 h-4" /> : <ArrowDownRight className="w-4 h-4" />}
+        {trendUp ? <ArrowUpRight className="w-3.5 h-3.5" /> : <ArrowDownRight className="w-3.5 h-3.5" />}
         {trend}
       </div>
     </div>
@@ -309,6 +309,7 @@ const AdminDashboard = () => {
           tagline="ADMINISTRATION"
           title="Admin Dashboard"
           subtitle="System overview & user management"
+          className="!py-5"
           actions={
             <button
               onClick={refreshData}
