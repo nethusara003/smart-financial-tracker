@@ -117,7 +117,7 @@ export default function Settings({ auth }) {
       } else {
         toast.error("Failed to trigger weekly report.");
       }
-    } catch (error) {
+    } catch {
       toast.error("Error triggering report.");
     } finally {
       setIsTriggering(false);
