@@ -44,7 +44,7 @@ async function evaluate() {
     ]);
 
     if (topUsers.length > 0 && topUsers[0].count > 0) {
-      const targetUserId = "69752d0eba47ec8404640d88";
+      const targetUserId = String(topUsers[0]._id);
       console.log(`\nEvaluating User ID: ${targetUserId} (Has ${topUsers[0].count} transactions)`);
 
       // 2. FORECASTING ERROR VALUES

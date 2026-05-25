@@ -5,7 +5,7 @@ import { useCurrency, CURRENCIES } from "../context/CurrencyContext";
 import { useUser } from "../context/UserContext";
 import GuestRestricted from "../components/GuestRestricted";
 import { InlineEditor, useToast } from "../components/ui";
-import { clearAuthStorage } from "../utils/authStorage";
+import { clearAuthStorage, getStoredToken } from "../utils/authStorage";
 import {
   useSettingsProfile,
   useUpdateProfileSettings,
@@ -98,6 +98,31 @@ export default function Settings({ auth }) {
   const { currentCurrency, changeCurrency } = useCurrency();
   const { updateUser } = useUser();
   const [searchParams] = useSearchParams();
+  const [isTriggering, setIsTriggering] = useState(false);
+
+  const handleTriggerWeeklyReport = async () => {
+    setIsTriggering(true);
+    try {
+      const baseUrl = import.meta.env.VITE_API_URL || '/api';
+      const url = baseUrl.endsWith('/') ? `${baseUrl}users/trigger-weekly-report` : `${baseUrl}/users/trigger-weekly-report`;
+      
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${getStoredToken()}`,
+        },
+      });
+      if (response.ok) {
+        toast.success("Weekly report generated and sent!");
+      } else {
+        toast.error("Failed to trigger weekly report.");
+      }
+    } catch (error) {
+      toast.error("Error triggering report.");
+    } finally {
+      setIsTriggering(false);
+    }
+  };
   const tabParam = searchParams.get('tab');
   
   // Use derived state instead of useState + useEffect
@@ -692,6 +717,13 @@ export default function Settings({ auth }) {
                       <div>
                         <h4 className="font-semibold text-light-text-primary dark:text-dark-text-primary">Weekly Reports</h4>
                         <p className="text-sm text-light-text-secondary dark:text-dark-text-secondary">Receive weekly financial summaries</p>
+                        <button 
+                          onClick={handleTriggerWeeklyReport}
+                          disabled={isTriggering || !notificationSettings.weeklyReports}
+                          className="mt-2 px-3 py-1 bg-blue-100 hover:bg-blue-200 text-blue-700 dark:bg-blue-900/30 dark:hover:bg-blue-800/50 dark:text-blue-400 text-xs font-semibold rounded transition-colors disabled:opacity-50"
+                        >
+                          {isTriggering ? "Sending..." : "Send Test Report Now"}
+                        </button>
                       </div>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">

@@ -3,6 +3,7 @@ import { useLocalStorage } from "../hooks/useLocalStorage";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import GuestRestricted from "../components/GuestRestricted";
+import CompactDateModal from "../components/CompactDateModal";
 import { useTransactions } from "../hooks/useTransactions";
 import { 
   FileDown, 
@@ -23,6 +24,9 @@ import {
   getPresetDateBounds,
   getRangeBounds,
   getDateRangeLabel,
+  parseDateInputValue,
+  toStartOfDay,
+  toEndOfDay,
 } from "../utils/dateRangeFilter";
 import SystemPageHeader from "../components/layout/SystemPageHeader";
 
@@ -32,7 +36,9 @@ const Reports = ({ auth }) => {
   });
   const defaultCustomRange = useMemo(() => getPresetDateBounds("week"), []);
   const [timePeriod, setTimePeriod] = useLocalStorage("sft_reports_timePeriod", "thisMonth");
-  const [customDateRange] = useState(defaultCustomRange);
+  const [customDateRange, setCustomDateRange] = useState(defaultCustomRange);
+  const [customRangeDraft, setCustomRangeDraft] = useState(defaultCustomRange);
+  const [showCustomRangePanel, setShowCustomRangePanel] = useState(false);
   const [showExportMenu, setShowExportMenu] = useState(false);
   const [currency] = useState(() => localStorage.getItem("currency") || "LKR");
 
@@ -45,6 +51,36 @@ const Reports = ({ auth }) => {
 
   const handleTimePeriodChange = (nextPeriod) => {
     setTimePeriod(nextPeriod);
+    if (nextPeriod === "custom") {
+      setCustomRangeDraft(customDateRange);
+      setShowCustomRangePanel(true);
+      return;
+    }
+    setShowCustomRangePanel(false);
+  };
+
+  const handleCustomDateDraftChange = (field, value) => {
+    const parsed = parseDateInputValue(value, field === "endDate");
+    if (!parsed) return;
+    setCustomRangeDraft((prev) => ({ ...prev, [field]: parsed }));
+  };
+
+  const handleApplyCustomRange = () => {
+    const start = toStartOfDay(customRangeDraft.startDate);
+    const end = toEndOfDay(customRangeDraft.endDate);
+    if (start > end) return;
+    setCustomDateRange({ startDate: start, endDate: end });
+    setTimePeriod("custom");
+    setShowCustomRangePanel(false);
+  };
+
+  const handleCancelCustomRange = () => {
+    setCustomRangeDraft(customDateRange);
+    setShowCustomRangePanel(false);
+  };
+
+  const handleQuickCustomPreset = (presetValue) => {
+    setCustomRangeDraft(getPresetDateBounds(presetValue));
   };
 
   const { startDate, endDate } = useMemo(() => {
@@ -56,7 +92,12 @@ const Reports = ({ auth }) => {
   const filteredTransactions = useMemo(() => {
     return transactions.filter((t) => {
       const transDate = new Date(t.date);
-      return transDate >= startDate && transDate <= endDate;
+      const isDateValid = transDate >= startDate && transDate <= endDate;
+      
+      const category = String(t?.category || "").toLowerCase();
+      const isWalletOnly = t?.scope === "wallet" || category.startsWith("wallet_transfer") || t?.isTransfer;
+      
+      return isDateValid && !isWalletOnly;
     });
   }, [transactions, startDate, endDate]);
 
@@ -622,6 +663,27 @@ const Reports = ({ auth }) => {
                   <option value="custom">Custom Range</option>
                 </select>
               </div>
+
+              {showCustomRangePanel && (
+                <div className="absolute top-16 right-4 z-[60]">
+                  <CompactDateModal
+                    draft={customRangeDraft}
+                    onDraftChange={handleCustomDateDraftChange}
+                    onApply={handleApplyCustomRange}
+                    onCancel={handleCancelCustomRange}
+                    onQuickPreset={handleQuickCustomPreset}
+                  />
+                </div>
+              )}
+              {timePeriod === "custom" && !showCustomRangePanel && (
+                <button
+                  onClick={() => setShowCustomRangePanel((prev) => !prev)}
+                  className="flex items-center justify-center p-1 rounded bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/20 text-blue-300 transition-all cursor-pointer"
+                  title="Edit custom date range"
+                >
+                  <span className="text-[9px] font-bold px-1">Edit</span>
+                </button>
+              )}
             </div>
 
             <div className="relative">

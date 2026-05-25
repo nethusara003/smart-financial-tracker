@@ -192,31 +192,36 @@ const AnalyticsHub = ({ auth }) => {
     const now = new Date();
     const { startDate: customStart, endDate: customEnd } = getRangeBounds("custom", customDateRange);
     
+    const validTransactions = transactions.filter(t => {
+      const category = String(t?.category || "").toLowerCase();
+      return !(t?.scope === "wallet" || category.startsWith("wallet_transfer") || t?.isTransfer);
+    });
+
     if (timeScope === "week") {
       const weekAgo = new Date(now);
       weekAgo.setDate(now.getDate() - 7);
-      return transactions.filter(t => new Date(t.date) >= weekAgo);
+      return validTransactions.filter(t => new Date(t.date) >= weekAgo);
     } else if (timeScope === "month") {
-      return transactions.filter(t => {
+      return validTransactions.filter(t => {
         const d = new Date(t.date);
         return d.getMonth() === thisMonth && d.getFullYear() === thisYear;
       });
     } else if (timeScope === "year") {
-      return transactions.filter(t => new Date(t.date).getFullYear() === thisYear);
+      return validTransactions.filter(t => new Date(t.date).getFullYear() === thisYear);
     } else if (timeScope === "all") {
       const start = new Date(now);
       start.setDate(now.getDate() - 365);
-      return transactions.filter((t) => {
+      return validTransactions.filter((t) => {
         const txDate = new Date(t.date);
         return !Number.isNaN(txDate.getTime()) && txDate >= start && txDate <= now;
       });
     } else if (timeScope === "custom") {
-      return transactions.filter((t) => {
+      return validTransactions.filter((t) => {
         const txDate = new Date(t.date);
         return !Number.isNaN(txDate.getTime()) && txDate >= customStart && txDate <= customEnd;
       });
     } else {
-      return transactions;
+      return validTransactions;
     }
   }, [transactions, timeScope, thisMonth, thisYear, customDateRange]);
 

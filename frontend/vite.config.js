@@ -15,21 +15,26 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react()],
-    server: enableApiProxy
-      ? {
-          proxy: {
-            "/api": {
-              target: proxyTarget,
-              changeOrigin: true,
-              secure: true,
-              configure(proxy) {
-                proxy.on("proxyReq", (proxyReq) => {
-                  proxyReq.removeHeader("origin");
-                });
+    server: {
+      headers: {
+        "Cross-Origin-Opener-Policy": "same-origin-allow-popups",
+      },
+      ...(enableApiProxy
+        ? {
+            proxy: {
+              "/api": {
+                target: proxyTarget,
+                changeOrigin: true,
+                secure: true,
+                configure(proxy) {
+                  proxy.on("proxyReq", (proxyReq) => {
+                    proxyReq.removeHeader("origin");
+                  });
+                },
               },
             },
-          },
-        }
-      : undefined,
+          }
+        : {}),
+    },
   };
 });

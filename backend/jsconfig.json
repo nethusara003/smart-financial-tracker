@@ -1,8 +1,10 @@
+
 {
   "compilerOptions": {
     "module": "NodeNext",
     "target": "ES2020",
     "moduleResolution": "nodenext",
+    "skipLibCheck": true,
     "checkJs": true,
     "strict": false,
     "noImplicitAny": false,
@@ -14,7 +16,6 @@
     "**/*.js"
   ],
   "exclude": [
-    "node_modules",
     "routes/testRoutes.js",
     "models/TransferLimit.js",
     "controllers/transferController.js",

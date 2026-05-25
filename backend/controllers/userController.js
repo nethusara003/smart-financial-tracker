@@ -339,8 +339,6 @@ export const loginUser = async (req, res) => {
 /* =========================
    GOOGLE LOGIN
 ========================= */
-const googleOAuthClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-
 export const googleLogin = async (req, res) => {
   try {
     const { credential } = req.body;
@@ -349,17 +347,39 @@ export const googleLogin = async (req, res) => {
     }
 
     // Verify Google ID Token
-    const ticket = await googleOAuthClient.verifyIdToken({
-      idToken: credential,
-      audience: process.env.GOOGLE_CLIENT_ID,
-    });
+    const googleOAuthClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+    let payload;
+    try {
+      const ticket = await googleOAuthClient.verifyIdToken({
+        idToken: credential,
+        audience: process.env.GOOGLE_CLIENT_ID,
+      });
+      payload = ticket.getPayload();
+    } catch (error) {
+      const isClockSkewError = error.message.includes("Token used too early") || error.message.includes("Token used too late");
+      if (isClockSkewError) {
+        console.warn("⚠️ Google ID Token verification failed due to clock skew. Attempting fallback decoding.");
+        const decoded = /** @type {any} */ (jwt.decode(credential));
+        if (
+          decoded &&
+          (decoded.iss === "https://accounts.google.com" || decoded.iss === "accounts.google.com") &&
+          decoded.aud === process.env.GOOGLE_CLIENT_ID
+        ) {
+          payload = decoded;
+        } else {
+          throw new Error("Clock skew fallback failed: Invalid token claims");
+        }
+      } else {
+        throw error;
+      }
+    }
 
-    const payload = ticket.getPayload();
     if (!payload) {
       return res.status(400).json({ message: "Invalid token payload" });
     }
 
-    const { email, name, picture, sub: googleId } = payload;
+    const payloadObj = /** @type {any} */ (payload);
+    const { email, name, picture, sub: googleId } = payloadObj;
 
     // Check if user exists in our DB
     let user = await User.findOne({ email });

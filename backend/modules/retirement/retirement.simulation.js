@@ -81,8 +81,15 @@ export function runMonteCarloSimulation({
       const yearlyIncome = baseIncome * incomeFactor;
       const yearlyExpenses = baseExpense * expenseFactor;
 
+      // Mirror the cap from the deterministic engine: predicted expenses can
+      // never produce a net contribution worse than -(monthlySavings * 12),
+      // preventing ML outliers from causing unbounded-negative outcomes.
+      const incomeExpenseDelta = Math.max(
+        -(safeMonthlySavings * 12),
+        yearlyIncome - yearlyExpenses
+      );
       const sampledReturnRate = Math.max(-0.95, randomNormal(meanReturn, returnStdDev));
-      savings += safeMonthlySavings * 12 + (yearlyIncome - yearlyExpenses);
+      savings += safeMonthlySavings * 12 + incomeExpenseDelta;
       savings *= 1 + sampledReturnRate;
 
       if (!Number.isFinite(savings)) {

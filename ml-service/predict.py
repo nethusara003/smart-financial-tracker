@@ -6,6 +6,7 @@ from typing import Dict, List
 import joblib
 import numpy as np
 import pandas as pd
+from bson import ObjectId
 from dotenv import load_dotenv
 from pymongo import MongoClient
 
@@ -24,9 +25,24 @@ def resolve_db_name(mongo_uri: str) -> str:
     return (tail.split("?")[0] if tail else "") or "smart_financial_tracker"
 
 
+# Cache client and models globally
+_mongo_client = None
+_expense_model = None
+_income_model = None
+_models_loaded = False
+
+
+def get_mongo_client():
+    global _mongo_client
+    if _mongo_client is None:
+        mongo_uri = os.getenv("MONGO_URI") or os.getenv("MONGODB_URI") or "mongodb://127.0.0.1:27017/smart_financial_tracker"
+        _mongo_client = MongoClient(mongo_uri)
+    return _mongo_client
+
+
 def connect_transactions_collection():
     mongo_uri = os.getenv("MONGO_URI") or os.getenv("MONGODB_URI") or "mongodb://127.0.0.1:27017/smart_financial_tracker"
-    client = MongoClient(mongo_uri)
+    client = get_mongo_client()
     db_name = resolve_db_name(mongo_uri)
     return client[db_name]["transactions"]
 
@@ -39,11 +55,35 @@ def load_model(path: str):
     return bundle.get("pipeline") if isinstance(bundle, dict) else bundle
 
 
+def load_all_models():
+    global _expense_model, _income_model, _models_loaded
+    if not _models_loaded:
+        _expense_model = load_model(MODEL_EXPENSE_PATH)
+        _income_model = load_model(MODEL_INCOME_PATH)
+        if _expense_model is not None:
+            try:
+                _expense_model.named_steps["model"].n_jobs = 1
+            except Exception:
+                pass
+        if _income_model is not None:
+            try:
+                _income_model.named_steps["model"].n_jobs = 1
+            except Exception:
+                pass
+        _models_loaded = True
+    return _expense_model, _income_model
+
+
 def fetch_user_monthly_category_totals(user_id: str, transaction_type: str) -> pd.DataFrame:
     collection = connect_transactions_collection()
 
+    try:
+        db_user_id = ObjectId(user_id) if len(user_id) == 24 else user_id
+    except Exception:
+        db_user_id = user_id
+
     query = {
-        "user": user_id,
+        "user": db_user_id,
         "type": transaction_type,
     }
 
@@ -146,31 +186,74 @@ def forecast_with_model(
     predictions = []
     now = datetime.utcnow()
 
-    for month_index in range(1, months_ahead + 1):
-        future_date = datetime(now.year + (now.month + month_index - 1) // 12, ((now.month + month_index - 1) % 12) + 1, 1)
-        rows = []
+    try:
+        # Extract preprocessor steps to bypass Pipeline overhead inside loop
+        preprocessor = model.named_steps["preprocessor"]
+        ohe = preprocessor.named_transformers_["cat"]
+        rf = model.named_steps["model"]
 
-        for category in by_category.keys():
-            rows.append(
-                {
-                    "month": future_date.month,
-                    "year": future_date.year,
-                    "category": category,
-                    "userId": user_id,
-                    "previous_value": rolling_previous.get(category, 0.0),
-                }
-            )
+        categories = list(by_category.keys())
+        n_categories = len(categories)
 
-        feature_frame = pd.DataFrame(rows)
-        category_predictions = model.predict(feature_frame)
+        # Pre-transform static categorical columns
+        cat_df = pd.DataFrame({"category": categories, "userId": [user_id] * n_categories})
+        cat_encoded = ohe.transform(cat_df).toarray()
 
-        total = 0.0
-        for idx, category in enumerate(by_category.keys()):
-            value = max(0.0, float(category_predictions[idx]))
-            rolling_previous[category] = value
-            total += value
+        # Allocate array for num_features (month, year, previous_value)
+        num_features = np.empty((n_categories, 3))
 
-        predictions.append(round(total, 2))
+        prev = [rolling_previous[cat] for cat in categories]
+
+        for month_index in range(1, months_ahead + 1):
+            future_date = datetime(now.year + (now.month + month_index - 1) // 12, ((now.month + month_index - 1) % 12) + 1, 1)
+
+            num_features[:, 0] = future_date.month
+            num_features[:, 1] = future_date.year
+            num_features[:, 2] = prev
+
+            x_input = np.hstack((cat_encoded, num_features))
+            category_predictions = rf.predict(x_input)
+
+            total = 0.0
+            for idx, category in enumerate(categories):
+                value = max(0.0, float(category_predictions[idx]))
+                rolling_previous[category] = value
+                total += value
+                prev[idx] = value
+
+            predictions.append(round(total, 2))
+
+    except Exception as e:
+        # Fallback to standard path if anything goes wrong
+        rolling_previous = {
+            category: values[-1] if values else 0.0 for category, values in by_category.items()
+        }
+        predictions = []
+        for month_index in range(1, months_ahead + 1):
+            future_date = datetime(now.year + (now.month + month_index - 1) // 12, ((now.month + month_index - 1) % 12) + 1, 1)
+            rows = []
+
+            for category in by_category.keys():
+                rows.append(
+                    {
+                        "month": future_date.month,
+                        "year": future_date.year,
+                        "category": category,
+                        "userId": user_id,
+                        "previous_value": rolling_previous.get(category, 0.0),
+                    }
+                )
+
+            feature_frame = pd.DataFrame(rows)
+            category_predictions = model.predict(feature_frame)
+
+            total = 0.0
+            for idx, category in enumerate(by_category.keys()):
+                value = max(0.0, float(category_predictions[idx]))
+                rolling_previous[category] = value
+                total += value
+
+            predictions.append(round(total, 2))
 
     return predictions
 
@@ -178,8 +261,7 @@ def forecast_with_model(
 def predict_future(user_id: str, months_ahead: int) -> Dict[str, List[float]]:
     safe_months = max(1, int(months_ahead))
 
-    expense_model = load_model(MODEL_EXPENSE_PATH)
-    income_model = load_model(MODEL_INCOME_PATH)
+    expense_model, income_model = load_all_models()
 
     monthly_expenses = fetch_user_monthly_category_totals(user_id, "expense")
     monthly_income = fetch_user_monthly_category_totals(user_id, "income")

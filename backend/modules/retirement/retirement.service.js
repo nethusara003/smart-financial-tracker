@@ -292,7 +292,15 @@ export function calculateRetirement({
 
     const income = rawIncome * Math.pow(1 + safeSalaryGrowth, yearIndex);
     const expenses = rawExpenses * Math.pow(1 + safeInflation, yearIndex);
-    const annualContribution = safeMonthlySavings * 12 + (income - expenses);
+    // Cap the net income/expense delta so that ML-predicted outliers in a
+    // user's transaction history cannot produce unboundedly negative
+    // contributions. If expenses exceed income the delta is negative but
+    // should not exceed the monthly savings buffer in the negative direction.
+    const incomeExpenseDelta = Math.max(
+      -(safeMonthlySavings * 12),
+      income - expenses
+    );
+    const annualContribution = safeMonthlySavings * 12 + incomeExpenseDelta;
 
     savings += annualContribution;
     savings *= 1 + safeReturnRate;
@@ -354,15 +362,66 @@ const buildPlanInput = async (input, userId) => {
 
 async function runDeterministicPipeline(userId, payload) {
   const input = await buildPlanInput(payload || {}, userId);
-  const monthsAhead = input.years * 12;
+  
+  // Cap ML predictions to 12 months to prevent massive inference latency.
+  // The base year will be extrapolated using salaryGrowth and inflation.
+  const monthsAhead = Math.min(input.years * 12, 12);
 
+  // Fetch ML predictions (may fall back to heuristic)
   const predictions = await getPredictions({
     userId,
     monthsAhead,
   });
 
-  const yearlyIncome = monthlyToYearlySeries(predictions.predictedIncome, input.years);
-  const yearlyExpenses = monthlyToYearlySeries(predictions.predictedExpenses, input.years);
+  // --- Debugging & validation: ensure predictions are numeric arrays ---
+  try {
+    // Normalize monthly predictions: ensure numbers and non-negative
+    const normalizeArray = (arr) => {
+      if (!Array.isArray(arr)) return [];
+      return arr.map((v) => {
+        const n = Number(v);
+        if (!Number.isFinite(n) || Number.isNaN(n)) return 0;
+        return Math.max(0, n);
+      });
+    };
+
+    predictions.predictedIncome = normalizeArray(predictions.predictedIncome);
+    predictions.predictedExpenses = normalizeArray(predictions.predictedExpenses);
+
+    // Log brief snapshot for debugging when outputs are unexpected
+    const samplePred = (arr, n = 6) => arr.slice(0, n).join(", ");
+    console.debug("[retirement] input summary:", {
+      userId: String(userId),
+      years: input.years,
+      currentSavings: input.currentSavings,
+      monthlySavings: input.monthlySavings,
+      targetAmount: input.targetAmount,
+    });
+
+    console.debug("[retirement] predictions (first values):", {
+      incomeSample: samplePred(predictions.predictedIncome, 6),
+      expenseSample: samplePred(predictions.predictedExpenses, 6),
+      source: predictions.source || "unknown",
+      fallbackUsed: Boolean(predictions.fallbackUsed),
+    });
+
+    // Detect and warn about unusually large numbers which may indicate unit/sign issues
+    const maxIncome = Math.max(0, ...(predictions.predictedIncome.length ? predictions.predictedIncome : [0]));
+    const maxExpense = Math.max(0, ...(predictions.predictedExpenses.length ? predictions.predictedExpenses : [0]));
+    if (maxIncome > 1e9 || maxExpense > 1e9) {
+      console.warn("[retirement] detected very large predicted values; check transaction units/scale", {
+        maxIncome,
+        maxExpense,
+      });
+    }
+  } catch (e) {
+    console.error("[retirement] prediction normalization error:", e);
+  }
+
+  // Generate a single baseline year. The calculateRetirement function will 
+  // automatically reuse this base year and apply compounding growth rates.
+  const yearlyIncome = monthlyToYearlySeries(predictions.predictedIncome, 1);
+  const yearlyExpenses = monthlyToYearlySeries(predictions.predictedExpenses, 1);
 
   const deterministic = calculateRetirement({
     currentSavings: input.currentSavings,

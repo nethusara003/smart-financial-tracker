@@ -237,7 +237,7 @@ userSchema.pre("save", async function () {
     let accNum = "";
     while (!isUnique) {
       accNum = "SFT-" + Math.floor(100000 + Math.random() * 900000);
-      const existing = await this.constructor.findOne({ accountNumber: accNum });
+      const existing = await mongoose.model("User").findOne({ accountNumber: accNum });
       if (!existing) {
         isUnique = true;
       }

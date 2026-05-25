@@ -243,16 +243,16 @@ describe('Goal Model Tests', () => {
     expect(goal.updatedAt.getTime()).toBeGreaterThan(originalUpdatedAt.getTime());
   });
 
-  it('should accept optional deadline', async () => {
+  it('should accept optional status', async () => {
     const goal = await Goal.create({
       user: testUser._id,
-      name: 'No Deadline Goal',
+      name: 'No Status Goal',
       targetAmount: 1000,
       category: 'savings',
       targetDate: new Date('2025-12-31'),
     });
 
-    expect(goal.deadline).toBeUndefined();
+    expect(goal.status).toBe('active');
   });
 
   it('should accept optional category', async () => {

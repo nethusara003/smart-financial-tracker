@@ -51,4 +51,12 @@ def predict():
 
 
 if __name__ == "__main__":
+    try:
+        from predict import load_all_models, get_mongo_client
+        load_all_models()
+        get_mongo_client().admin.command("ping")
+        print("Pre-warming complete: Models loaded and MongoDB connection established.")
+    except Exception as exc:
+        print(f"Pre-warming warning: {exc}")
+
     app.run(host="0.0.0.0", port=5055)

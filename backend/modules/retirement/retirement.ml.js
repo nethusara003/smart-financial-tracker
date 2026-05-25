@@ -6,7 +6,7 @@ const ML_SERVICE_URL = (process.env.RETIREMENT_ML_SERVICE_URL || "http://127.0.0
   /\/+$/,
   ""
 );
-const ML_SERVICE_TIMEOUT_MS = Number.parseInt(process.env.RETIREMENT_ML_TIMEOUT_MS || "1200", 10);
+const ML_SERVICE_TIMEOUT_MS = Number.parseInt(process.env.RETIREMENT_ML_TIMEOUT_MS || "25000", 10);
 const RETIREMENT_HISTORY_MONTHS = Number.parseInt(
   process.env.RETIREMENT_HISTORY_MONTHS || "24",
   10

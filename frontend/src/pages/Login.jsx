@@ -50,10 +50,15 @@ function Login({ setAuth }) {
     const initGoogle = () => {
       try {
         if (typeof window !== "undefined" && window.google) {
-          window.google.accounts.id.initialize({
-            client_id: googleClientId,
-            callback: handleGoogleLoginResponse,
-          });
+          window._googleCallback = handleGoogleLoginResponse;
+
+          if (!window.__google_initialized) {
+            window.google.accounts.id.initialize({
+              client_id: googleClientId,
+              callback: (res) => window._googleCallback?.(res),
+            });
+            window.__google_initialized = true;
+          }
 
           const buttonDiv = document.getElementById("google-signin-button");
           if (buttonDiv) {
